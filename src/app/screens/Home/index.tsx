@@ -12,6 +12,27 @@ export const Home = (props: {componentId: string}) => {
   const onNavigateToHolidaysList = () => {
     var SitumPlugin = NativeModules.SitumPlugin;
     SitumPlugin.setApiKey('EMAIL', 'KEY');
+    SitumPlugin.setUserPass('EMAIL', 'Password');
+    SitumPlugin.setCacheMaxAge(100);
+    SitumPlugin.fetchBuildingInfo({});
+    SitumPlugin.fetchBuildings();
+    SitumPlugin.fetchGeofencesFromBuilding({});
+    SitumPlugin.fetchFloorsFromBuilding({});
+    SitumPlugin.fetchIndoorPOIsFromBuilding({});
+    SitumPlugin.fetchEventsFromBuilding({});
+    SitumPlugin.fetchPoiCategories({});
+    SitumPlugin.fetchPoiCategoryIconNormal({});
+    SitumPlugin.fetchPoiCategoryIconSelected({});
+    SitumPlugin.fetchMapFromFloor({});
+    SitumPlugin.startPositioning("call back id");
+    SitumPlugin.stopPositioning("call back id");
+    SitumPlugin.requestDirections("call back id");
+    SitumPlugin.requestNavigationUpdates("call back id");
+    SitumPlugin.removeNavigationUpdates();
+    SitumPlugin.updateNavigationWithLocation({});
+    SitumPlugin.requestRealTimeUpdates({});
+    SitumPlugin.removeRealTimeUpdates();
+    SitumPlugin.invalidateCache();
   };
 
   useEffect(() => {
