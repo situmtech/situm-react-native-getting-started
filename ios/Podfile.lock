@@ -297,6 +297,9 @@ PODS:
     - React
     - React-RCTImage
     - React-RCTText
+  - ReactNativeSitumPlugin (0.0.1):
+    - React
+    - SitumSDK (= 2.37.0)
   - SitumSDK (2.37.0):
     - Protobuf (~> 3.7)
   - Yoga (1.14.0)
@@ -351,6 +354,7 @@ DEPENDENCIES:
   - ReactCommon/callinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeNavigation (from `../node_modules/react-native-navigation/ReactNativeNavigation.podspec`)
+  - ReactNativeSitumPlugin (from `../node_modules/react-native-situm-plugin/ReactNativeSitumPlugin.podspec`)
   - SitumSDK (= 2.37.0)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -422,6 +426,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   ReactNativeNavigation:
     :podspec: "../node_modules/react-native-navigation/ReactNativeNavigation.podspec"
+  ReactNativeSitumPlugin:
+    :path: "../node_modules/react-native-situm-plugin/ReactNativeSitumPlugin.podspec"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -463,10 +469,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   ReactNativeNavigation: e0d1a123d25212f0b2a10a5248e30bb3c94692d4
+  ReactNativeSitumPlugin: 740190e80b1ea577c95cd92a8884c865d88691a6
   SitumSDK: 09600aec40255539356196499e076dd232f67336
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 3863062d7e44efae2858fdb6e3a2fab4302cc669
+PODFILE CHECKSUM: 7d79e132cb2206282f416367b3d63ba75777d865
 
 COCOAPODS: 1.9.1
