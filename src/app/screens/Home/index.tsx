@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {Navigation} from 'react-native-navigation';
 
 import { NavigationMap, getNavigationList } from '../navigation';
 
-import {StyleSheet} from 'react-native';
-
 import {NativeModules} from 'react-native';
+
+import styles from './styles';
 
 export const Home = (props: {componentId: string}) => {
   const onNavigateToHolidaysList = () => {
@@ -35,39 +35,30 @@ export const Home = (props: {componentId: string}) => {
     SitumPlugin.invalidateCache();
   };
 
+
+  const _onItemPress = (key: string) => {
+    Navigation.push(props.componentId, {
+      component: NavigationMap[key],
+    });
+  }
+  
   useEffect(() => {
     Navigation.mergeOptions(props.componentId, {...NavigationMap.Home.options});
   }, [props.componentId]);
 
+ 
   return (
     <View style={styles.container}>
         <FlatList
           data={getNavigationList()}
           renderItem={({item}) => (
-            <View
-            style={{
-              padding: 10,
-              borderBottomColor: '#eee',
-              borderBottomWidth: 1,
-            }}>
-              <Text style={styles.item}>{item.value}</Text>
-              </View>
+            <TouchableOpacity onPress={() => _onItemPress(item.key)}>
+              <Text style={styles.text}>{item.value}</Text>
+              <View style={styles.divider} />
+            </TouchableOpacity>
             )}
-
-          
         />
       </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-   flex: 1,
-   paddingTop: 22
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
-  },
-})

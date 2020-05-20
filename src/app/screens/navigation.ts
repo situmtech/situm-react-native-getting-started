@@ -1,5 +1,19 @@
 import {Navigation} from 'react-native-navigation';
 import {Home} from './Home';
+import { IndoorPositioning } from './IndoorPositioning/index';
+import { IndoorOutdoorPositioning } from './IndoorOutdoorPositioning/index';
+import { BuildingsOverMap } from './BuildingsOverMap/index';
+import { PositionOverMap } from './PositionOverMap/index';
+import { PoiOverMap } from './PoiOverMap/index';
+import { RouteOverMap } from './RouteOverMap/index';
+import { RealtimeDevicesOverMap } from './RealtimeDevicesOverMap/index';
+import { PoiFiltering } from './PoiFiltering/index';
+import { EventsOfBuilding } from './EventsOfBuilding/index';
+import { DestinationInstructions } from './DestinationInstructions/index';
+import { AnimatePosition } from './AnimatePosition/index';
+import { UserInsideEvent } from './UserInsideEvent/index';
+import { PointInsideGeofence } from './PointInsideGeofence/index';
+import { UpdateLocation } from './UpdateLocation/index';
 
 export const NavigationMap = {
   Home: {
@@ -15,7 +29,7 @@ export const NavigationMap = {
   },
   IndoorPositioning: {
     name: 'IndoorPositioning',
-    component: Home,
+    component: IndoorPositioning,
     options: {
       topBar: {
         title: {
@@ -26,7 +40,7 @@ export const NavigationMap = {
   },
   IndoorOutdoorPositioning: {
     name: 'IndoorOutdoorPositioning',
-    component: Home,
+    component: IndoorOutdoorPositioning,
     options: {
       topBar: {
         title: {
@@ -36,8 +50,8 @@ export const NavigationMap = {
     },
   },
   BuildingsOverMap: {
-    name: 'BuildingsOnMap',
-    component: Home,
+    name: 'BuildingsOverMap',
+    component: BuildingsOverMap,
     options: {
       topBar: {
         title: {
@@ -47,8 +61,8 @@ export const NavigationMap = {
     },
   },
   PositionOverMap: {
-    name: 'PositionOnMap',
-    component: Home,
+    name: 'PositionOverMap',
+    component: PositionOverMap,
     options: {
       topBar: {
         title: {
@@ -59,7 +73,7 @@ export const NavigationMap = {
   },
   PoiOverMap: {
     name: 'PoiOverMap',
-    component: Home,
+    component: PoiOverMap,
     options: {
       topBar: {
         title: {
@@ -70,7 +84,7 @@ export const NavigationMap = {
   },
   RouteOverMap: {
     name: 'RouteOverMap',
-    component: Home,
+    component: RouteOverMap,
     options: {
       topBar: {
         title: {
@@ -81,7 +95,7 @@ export const NavigationMap = {
   },
   RealtimeDevicesOverMap: {
     name: 'RealtimeDevicesOverMap',
-    component: Home,
+    component: RealtimeDevicesOverMap,
     options: {
       topBar: {
         title: {
@@ -92,7 +106,7 @@ export const NavigationMap = {
   },
   PoiFiltering: {
     name: 'PoiFiltering',
-    component: Home,
+    component: PoiFiltering,
     options: {
       topBar: {
         title: {
@@ -103,7 +117,7 @@ export const NavigationMap = {
   },
   EventsOfBuilding: {
     name: 'EventsOfBuilding',
-    component: Home,
+    component: EventsOfBuilding,
     options: {
       topBar: {
         title: {
@@ -114,7 +128,7 @@ export const NavigationMap = {
   },
   DestinationInstructions: {
     name: 'DestinationInstructions',
-    component: Home,
+    component: DestinationInstructions,
     options: {
       topBar: {
         title: {
@@ -125,7 +139,7 @@ export const NavigationMap = {
   },
   AnimatePosition: {
     name: 'AnimatePosition',
-    component: Home,
+    component: AnimatePosition,
     options: {
       topBar: {
         title: {
@@ -136,7 +150,7 @@ export const NavigationMap = {
   },
   UserInsideEvent: {
     name: 'UserInsideEvent',
-    component: Home,
+    component: UserInsideEvent,
     options: {
       topBar: {
         title: {
@@ -147,7 +161,7 @@ export const NavigationMap = {
   },
   PointInsideGeofence: {
     name: 'PointInsideGeofence',
-    component: Home,
+    component: PointInsideGeofence,
     options: {
       topBar: {
         title: {
@@ -158,7 +172,7 @@ export const NavigationMap = {
   },
   UpdateLocation: {
     name: 'UpdateLocation',
-    component: Home,
+    component: UpdateLocation,
     options: {
       topBar: {
         title: {
@@ -179,8 +193,12 @@ export function registerScreens() {
 export function getNavigationList(){
   const navigations = []
   for (const key in NavigationMap){
+
+    if(key == NavigationMap.Home.name)
+      continue;
+
     console.log(NavigationMap[key])
-      navigations.push({key: key, value: NavigationMap[key].options.topBar.title.text})
+      navigations.push({key: key, value: NavigationMap[key].options.topBar.title.text});
   }
   return navigations;
 }
