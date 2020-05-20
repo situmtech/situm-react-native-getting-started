@@ -5090,9 +5090,11 @@ react-native-navigation@^6.6.0:
     react-lifecycles-compat "2.0.0"
     tslib "1.9.3"
 
-"react-native-situm-plugin@link:../situm-react-native-plugin":
-  version "0.0.0"
-  uid ""
+"react-native-situm-plugin@file:../situm-react-native-plugin":
+  version "0.0.1"
+  dependencies:
+    react "16.11.0"
+    react-native "0.62.2"
 
 react-native@0.62.2:
   version "0.62.2"

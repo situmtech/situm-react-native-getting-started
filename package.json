@@ -6,7 +6,7 @@
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-navigation": "^6.6.0",
-    "react-native-situm-plugin": "link:../situm-react-native-plugin"
+    "react-native-situm-plugin": "file:../situm-react-native-plugin"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -14,7 +14,7 @@
     "@react-native-community/eslint-config": "^1.0.0",
     "@types/jest": "^24.0.24",
     "@types/react-native": "^0.62.0",
-    "@types/react-test-renderer": "16.9.2", 
+    "@types/react-test-renderer": "16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
     "babel-jest": "^24.9.0",
