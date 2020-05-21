@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { Navigation } from "react-native-navigation";
-import { Situm } from "react-native-situm-plugin"
 
 import { NavigationMap, getNavigationList } from "../navigation";
 
 import styles from "./styles";
 
 export const Home = (props: { componentId: string }) => {
-  const _onItemPress = (key: string) => {
-    Situm.setApiKey("Email", "Key");
-    
+  const _onItemPress = (key: string) => {  
     Navigation.push(props.componentId, {
       component: NavigationMap[key],
     });
