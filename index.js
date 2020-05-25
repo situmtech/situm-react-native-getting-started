@@ -3,6 +3,7 @@ import { NavigationMap, registerScreens } from "./src/app/screens/navigation";
 import { initSitumSdk } from "./src/app/situm";
 
 
+
 registerScreens();
 initSitumSdk();
 

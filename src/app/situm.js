@@ -1,6 +1,13 @@
 
-import Situm from 'react-native-situm-plugin';
+import SitumPlugin from 'react-native-situm-plugin';
+import { SITUM_EMAIL, SITUM_API_KEY, SITUM_PASS } from './config';
 
 export function initSitumSdk() {
-    // Situm.setApiKey("Email", "Password");
+    SitumPlugin.initSitumSDK();
+    SitumPlugin.setApiKey(SITUM_EMAIL,SITUM_API_KEY, (response) =>{
+        console.log("Authenticated Succesfully: " + response.success);
+    });
+    SitumPlugin.setCacheMaxAge(1, (response) =>{ // an hour
+        console.log("Cache Age: " + response.success);
+    }); 
 }
