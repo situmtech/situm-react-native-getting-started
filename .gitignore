@@ -58,4 +58,6 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
-.env
+/src/app/config.js
+
+situm_conf*
