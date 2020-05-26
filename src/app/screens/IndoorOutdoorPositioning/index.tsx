@@ -8,11 +8,11 @@ import SitumPlugin from "react-native-situm-plugin";
 import styles from "./styles";
 import ResponseText from "../../components/ResponseText";
 
-export const IndoorOutdoorPositioning = (props: { componentId: string, subscriptionId: number }) => {
+let subscriptionId = -1;
+export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
   const [response, setResponse] = useState<String>();
   const [status, setStatus] = useState<String>();
-  const [isDirectionDisable, setIsDirectionDisable] = useState<Boolean>(false);
-  const [subscriptionId, setSubscriptionId] = useState<Number>(-1);
+  const [isDirectionEnable, setIsDirectionEnable] = useState<Boolean>(false);
 
   const locationOptions = {
     useWife: true,
@@ -20,11 +20,14 @@ export const IndoorOutdoorPositioning = (props: { componentId: string, subscript
     useForegroundService: true,
   };
 
-  
+  useEffect(() => {
+    return () => {
+      stopPositioning();
+    };
+  }, [props.componentId]);
 
-  const toggleSwitch = () => {
-    setIsDirectionDisable((previousState) => !previousState);
-    if (!isDirectionDisable) {
+  const toggleSwitch = (check: boolean) => {
+    if (check) {
       SitumPlugin.startPositioning(
         (location: any) => {
           setResponse(JSON.stringify(location, null, 3));
@@ -38,13 +41,15 @@ export const IndoorOutdoorPositioning = (props: { componentId: string, subscript
         },
         locationOptions
       ).then((id: number) => {
-        setSubscriptionId(id);
+        subscriptionId = id;
       });
     } else {
       stopPositioning();
       setStatus("");
       setResponse("");
     }
+
+    setIsDirectionEnable(check);
   };
 
   const stopPositioning = () => {
@@ -53,22 +58,14 @@ export const IndoorOutdoorPositioning = (props: { componentId: string, subscript
     });
   };
 
-  useEffect(() => {
-    Navigation.mergeOptions(props.componentId, {
-      ...NavigationMap.IndoorOutdoorPositioning.options,
-    });
-    return () => {
-      stopPositioning();
-    };
-  }, [props.componentId]);
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
         <View style={styles.switchContainer}>
           <Text>
-            {isDirectionDisable ? "Location Started:   " : "Location Stopped: "}
+            {isDirectionEnable ? "Location Started:   " : "Location Stopped: "}
           </Text>
-          <Switch onValueChange={toggleSwitch} value={isDirectionDisable} />
+          <Switch onValueChange={toggleSwitch} value={isDirectionEnable} />
         </View>
         <ResponseText label="Status" value={status} />
         <ResponseText label="Location" value={response} />
