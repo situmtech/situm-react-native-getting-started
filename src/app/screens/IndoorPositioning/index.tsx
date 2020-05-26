@@ -18,6 +18,7 @@ import SitumPlugin from "react-native-situm-plugin";
 import styles from "./styles";
 import ResponseText from "../../components/ResponseText";
 
+let subscriptionId = -1;
 export const IndoorPositioning = (props: {
   componentId: string;
   building: string;
@@ -29,7 +30,6 @@ export const IndoorPositioning = (props: {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [step, setStep] = useState<String>();
   const [mapImage, setMapImage] = useState<String>();
-  const [subscriptionId, setSubscriptionId] = useState<Number>(-1);
 
   const locationOptions = {
     buildingIdentifier: building.buildingIdentifier,
@@ -87,30 +87,30 @@ export const IndoorPositioning = (props: {
     );
   };
 
-  const toggleSwitch = () => {
-    setIsDirectionEnable((previousState) => !previousState);
-
-    if (!isDirectionEnable) {
-      setSubscriptionId(
-        SitumPlugin.startPositioning(
-          (location: any) => {
-            setResponse(JSON.stringify(location, null, 3));
-          },
-          (status: any) => {
-            setStatus(JSON.stringify(status, null, 3));
-          },
-          (error: string) => {
-            setStatus(error);
-            stopPositioning();
-          },
-          locationOptions
-        )
-      );
+  const toggleSwitch = (check: boolean) => {
+    if (check) {
+      SitumPlugin.startPositioning(
+        (location: any) => {
+          setResponse(JSON.stringify(location, null, 3));
+        },
+        (status: any) => {
+          setStatus(JSON.stringify(status, null, 3));
+        },
+        (error: string) => {
+          setStatus(error);
+          stopPositioning();
+        },
+        locationOptions
+      ).then((id: number) => {
+        subscriptionId = id;
+      });
     } else {
       stopPositioning();
       setStatus("");
       setResponse("");
     }
+
+    setIsDirectionEnable(check);
   };
 
   const stopPositioning = () => {

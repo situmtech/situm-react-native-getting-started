@@ -8,6 +8,7 @@ import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
 
+let subscriptionId = -1;
 export const PositionOverMap = (props: { componentId: string }) => {
   const [location, setLocation] = useState<any>();
   const [mapView, setMapView] = useState<MapView | null>(null);
@@ -24,8 +25,6 @@ export const PositionOverMap = (props: { componentId: string }) => {
     useBle: true,
     useForegroundService: true,
   };
-
-  let subscriptionId = -1;
 
   const startPositioning = () => {
     setIsLoading(true);
