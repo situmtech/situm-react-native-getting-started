@@ -108,12 +108,16 @@ export const NavigationMap: any = {
   RouteOverMap: {
     name: "RouteOverMap",
     component: RouteOverMap,
+    showBuildings: true,
     options: {
       topBar: {
         title: {
           text: "Draw route between two points over map",
         },
       },
+    },
+    passProps: {
+      building: {},
     },
   },
   RealtimeDevicesOverMap: {

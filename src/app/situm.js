@@ -7,7 +7,7 @@ export function initSitumSdk() {
     SitumPlugin.setApiKey(SITUM_EMAIL,SITUM_API_KEY, (response) =>{
         console.log("Authenticated Succesfully: " + response.success);
     });
-    SitumPlugin.setCacheMaxAge(1, (response) =>{ // an hour
+    SitumPlugin.setCacheMaxAge(1*60*60, (response) =>{ // an hour
         console.log("Cache Age: " + response.success);
     }); 
 }
