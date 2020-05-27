@@ -22,9 +22,7 @@ export const Home = (props: { componentId: string }) => {
     });
   };
 
-  const test = () => {
-   
-  };
+  
   useEffect(() => {
     Navigation.mergeOptions(props.componentId, {
       ...NavigationMap.Home.options,
@@ -33,10 +31,6 @@ export const Home = (props: { componentId: string }) => {
 
   return (
     <View style={styles.container}>
-      <Button
-          title="Press me"
-          onPress={() => test()}
-        />
       <FlatList
         data={getNavigationList()}
         renderItem={({ item }) => (
