@@ -79,7 +79,6 @@ target 'SitumRNGettingStarted' do
   pod 'ReactNativeNavigation', :podspec => '../node_modules/react-native-navigation/ReactNativeNavigation.podspec'
   pod 'ReactNativeSitumPlugin', :path => '../node_modules/react-native-situm-plugin/ReactNativeSitumPlugin.podspec'
   
-   pod 'SitumSDK', '2.37.0'
   
   target 'SitumRNGettingStartedTests' do
     inherit! :complete
