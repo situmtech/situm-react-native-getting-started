@@ -5,9 +5,10 @@ import { SITUM_EMAIL, SITUM_API_KEY, SITUM_PASS } from './config';
 export function initSitumSdk() {
     SitumPlugin.initSitumSDK();
     SitumPlugin.setApiKey(SITUM_EMAIL,SITUM_API_KEY, (response) =>{
+        console.log(JSON.stringify(response))
         console.log("Authenticated Succesfully: " + response.success);
     });
-    SitumPlugin.setCacheMaxAge(1*60*60, (response) =>{ // an hour
+    SitumPlugin.setCacheMaxAge(1, (response) =>{ // an hour
         console.log("Cache Age: " + response.success);
     }); 
 }

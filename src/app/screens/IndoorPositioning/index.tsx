@@ -57,6 +57,7 @@ export const IndoorPositioning = (props: {
     SitumPlugin.fetchFloorsFromBuilding(
       building,
       (floors: any) => {
+        console.log(floors)
         setIsLoading(false);
         if (floors.length > 0) {
           getMapFromFloor(floors[0]);
