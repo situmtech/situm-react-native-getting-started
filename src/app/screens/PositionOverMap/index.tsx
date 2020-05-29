@@ -28,7 +28,7 @@ export const PositionOverMap = (props: { componentId: string }) => {
 
   const startPositioning = () => {
     setIsLoading(true);
-    SitumPlugin.startPositioning(
+    subscriptionId = SitumPlugin.startPositioning(
       (location: any) => {
         setIsLoading(false);
         setLocation(location);
@@ -49,9 +49,7 @@ export const PositionOverMap = (props: { componentId: string }) => {
         stopPositioning();
       },
       locationOptions
-    ).then((id) => {
-      subscriptionId = id;
-    });
+    );
   };
 
   const stopPositioning = () => {
@@ -64,6 +62,7 @@ export const PositionOverMap = (props: { componentId: string }) => {
     Navigation.mergeOptions(props.componentId, {
       ...NavigationMap.PositionOverMap.options,
     });
+    SitumPlugin.requestAuthorization();
     startPositioning();
     return () => {
       stopPositioning();

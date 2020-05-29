@@ -20,15 +20,9 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
     useForegroundService: true,
   };
 
-  useEffect(() => {
-    return () => {
-      stopPositioning();
-    };
-  }, [props.componentId]);
-
   const toggleSwitch = (check: boolean) => {
     if (check) {
-      SitumPlugin.startPositioning(
+      subscriptionId = SitumPlugin.startPositioning(
         (location: any) => {
           setResponse(JSON.stringify(location, null, 3));
         },
@@ -40,9 +34,7 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
           stopPositioning();
         },
         locationOptions
-      ).then((id: number) => {
-        subscriptionId = id;
-      });
+      );
     } else {
       stopPositioning();
       setStatus("");
@@ -57,6 +49,13 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
       setResponse(success);
     });
   };
+
+  useEffect(() => {
+    SitumPlugin.requestAuthorization();
+    return () => {
+      stopPositioning();
+    };
+  }, [props.componentId]);
 
   return (
     <ScrollView>
