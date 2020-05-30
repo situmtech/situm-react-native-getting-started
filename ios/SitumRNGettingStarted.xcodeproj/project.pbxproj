@@ -19,6 +19,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* SitumRNGettingStartedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SitumRNGettingStartedTests.m */; };
 		739E38CE9F10B32564AB90B3 /* libPods-SitumRNGettingStarted-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C37B6A429AFC288665E3FA77 /* libPods-SitumRNGettingStarted-tvOSTests.a */; };
+		7E167DC0248237C70095340B /* conf.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7E167DBF248237C70095340B /* conf.plist */; };
 		84EA91D47704A73D4948AC46 /* libPods-SitumRNGettingStarted-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 604769269FFD90E3876DF058 /* libPods-SitumRNGettingStarted-tvOS.a */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		5814C5868286AD0AD464B64A /* libPods-SitumRNGettingStarted-SitumRNGettingStartedTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SitumRNGettingStarted-SitumRNGettingStartedTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		604769269FFD90E3876DF058 /* libPods-SitumRNGettingStarted-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SitumRNGettingStarted-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64C7D544A7682176CD5C3285 /* Pods-SitumRNGettingStarted-SitumRNGettingStartedTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SitumRNGettingStarted-SitumRNGettingStartedTests.release.xcconfig"; path = "Target Support Files/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests.release.xcconfig"; sourceTree = "<group>"; };
+		7E167DBF248237C70095340B /* conf.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = conf.plist; sourceTree = "<group>"; };
 		A0E6730373A1A2556E909B02 /* libPods-SitumRNGettingStarted.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SitumRNGettingStarted.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBC63835296BE6B2EC9AB2D8 /* Pods-SitumRNGettingStarted.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SitumRNGettingStarted.release.xcconfig"; path = "Target Support Files/Pods-SitumRNGettingStarted/Pods-SitumRNGettingStarted.release.xcconfig"; sourceTree = "<group>"; };
 		C37B6A429AFC288665E3FA77 /* libPods-SitumRNGettingStarted-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SitumRNGettingStarted-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				7E167DBF248237C70095340B /* conf.plist */,
 			);
 			name = SitumRNGettingStarted;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				C40412636EF88A1704C645A6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -229,6 +233,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				6720C8A6CCD23DE45E4304E2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -291,6 +296,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = BA5A9A5N99;
 						LastSwiftMigration = 1120;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -338,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				7E167DC0248237C70095340B /* conf.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +439,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6720C8A6CCD23DE45E4304E2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SitumRNGettingStarted/Pods-SitumRNGettingStarted-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SitumRNGettingStarted/Pods-SitumRNGettingStarted-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		871D78DDA211E382EBD36E6E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -474,6 +499,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C40412636EF88A1704C645A6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -629,6 +672,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BA5A9A5N99;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -665,6 +709,7 @@
 					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
 					"$(SRCROOT)/../node_modules/react-native-navigation/lib/ios",
 					"$(SRCROOT)/../node_modules/react-native-situm-plugin/ios",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios",
 				);
 				INFOPLIST_FILE = SitumRNGettingStarted/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -688,6 +733,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BA5A9A5N99;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -719,6 +765,7 @@
 					"\"$(PODS_ROOT)/Headers/Private/React-Core\"",
 					"$(SRCROOT)/../node_modules/react-native-navigation/lib/ios",
 					"$(SRCROOT)/../node_modules/react-native-situm-plugin/ios",
+					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios",
 				);
 				INFOPLIST_FILE = SitumRNGettingStarted/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
