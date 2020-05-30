@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import { Navigation } from "react-native-navigation";
 import { Home } from "./Home";
 import { IndoorPositioning } from "./IndoorPositioning/index";
@@ -67,6 +68,7 @@ export const NavigationMap: any = {
         },
       },
     },
+    onlyAndroid: true, 
   },
   BuildingsOverMap: {
     name: "BuildingsOverMap",
@@ -221,6 +223,7 @@ export function getNavigationList() {
   const navigations = [];
   for (const key in NavigationMap) {
     if (ignore.includes(key)) continue;
+    if(Platform.OS === 'ios' && NavigationMap[key].onlyAndroid) continue;
 
     console.log(NavigationMap[key]);
     navigations.push({

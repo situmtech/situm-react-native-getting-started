@@ -59,5 +59,6 @@ buck-out/
 /ios/Pods/
 
 /src/app/config.js
+/ios/conf.plist
 
 situm_conf*
