@@ -136,12 +136,16 @@ export const NavigationMap: any = {
   PointInsideGeofence: {
     name: "PointInsideGeofence",
     component: PointInsideGeofence,
+    showBuildings: true,
     options: {
       topBar: {
         title: {
           text: "Show if point is inside a geofence",
         },
       },
+    },
+    passProps: {
+      building: {},
     },
   }
 };

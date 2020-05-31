@@ -18,7 +18,7 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
     buildingIdentifier: "",
     coordinate: { latitude: 0, longitude: 0 },
   });
-  const [mapRegion, setMapRegion] = useState<any>({
+  const [mapRegion] = useState<any>({
     latitude: building.center.latitude,
     longitude: building.center.longitude,
     latitudeDelta: 0.003,
