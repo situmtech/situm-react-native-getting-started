@@ -28,7 +28,7 @@ export const PoiOverMap = (props: {componentId: string}) => {
   const getPoiCategoryIconNormal = (category) => {
     // setIsLoading(true);
     // setStep("fetchBuildingInfo");
-    SitumPlugin.fetchPoiCategoryIconSelected(
+    SitumPlugin.fetchPoiCategoryIconNormal(
       category,
       (icon: any) => {
         console.log(icon)
