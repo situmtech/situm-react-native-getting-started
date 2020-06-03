@@ -10,7 +10,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
-import com.situm.plugin.SitumPackage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -29,6 +28,7 @@ public class MainApplication extends NavigationApplication implements ReactAppli
                 @Override
                 protected List<ReactPackage> getPackages() {
                     List<ReactPackage> packages = new PackageList(this).getPackages();
+                    // packages.add(new SitumPackage());
                     return packages;
                 }
 
