@@ -57,6 +57,7 @@ export const IndoorPositioning = (props: {
     SitumPlugin.fetchFloorsFromBuilding(
       building,
       (floors: any) => {
+        console.log(floors)
         setIsLoading(false);
         if (floors.length > 0) {
           getMapFromFloor(floors[0]);
@@ -89,7 +90,7 @@ export const IndoorPositioning = (props: {
 
   const toggleSwitch = (check: boolean) => {
     if (check) {
-      SitumPlugin.startPositioning(
+      subscriptionId = SitumPlugin.startPositioning(
         (location: any) => {
           setResponse(JSON.stringify(location, null, 3));
         },
@@ -101,9 +102,7 @@ export const IndoorPositioning = (props: {
           stopPositioning();
         },
         locationOptions
-      ).then((id: number) => {
-        subscriptionId = id;
-      });
+      )
     } else {
       stopPositioning();
       setStatus("");
@@ -123,6 +122,7 @@ export const IndoorPositioning = (props: {
     Navigation.mergeOptions(props.componentId, {
       ...NavigationMap.IndoorPositioning.options,
     });
+    SitumPlugin.requestAuthorization();
     getFloorsFromBuilding();
     return () => {
       stopPositioning();

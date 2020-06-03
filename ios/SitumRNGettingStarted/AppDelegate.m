@@ -12,8 +12,11 @@
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
+@import GoogleMaps;
+
 
 static void InitializeFlipper(UIApplication *application) {
+  
   FlipperClient *client = [FlipperClient sharedClient];
   SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
   [client addPlugin:[[FlipperKitLayoutPlugin alloc] initWithRootNode:application withDescriptorMapper:layoutDescriptorMapper]];
@@ -28,6 +31,11 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
+  NSDictionary *confDictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"conf" ofType:@"plist"]];
+  NSString *googleApiKey = [confDictionary valueForKey:@"GoogleMapsAPIKey"];
+  
+  [GMSServices provideAPIKey:googleApiKey];
 #if DEBUG
   InitializeFlipper(application);
 #endif
