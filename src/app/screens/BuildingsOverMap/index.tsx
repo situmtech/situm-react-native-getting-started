@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator } from "react-native";
 
-import MapView, { Overlay } from "react-native-maps";
+import MapView, { Overlay, PROVIDER_GOOGLE } from "react-native-maps";
 import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
@@ -75,7 +75,11 @@ export const BuildingsOverMap = (props: {
   }, [props.componentId]);
   return (
     <View style={styles.container}>
-      <MapView style={{ width: "100%", height: "100%" }} region={mapRegion}>
+      <MapView
+        style={{ width: "100%", height: "100%" }}
+        region={mapRegion}
+        provider={PROVIDER_GOOGLE}
+      >
         {mapImage != undefined && (
           <Overlay image={mapImage} bounds={bounds} zIndex={1000} />
         )}
