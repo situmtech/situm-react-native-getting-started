@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { Navigation } from "react-native-navigation";
 
-import MapView, { Overlay, Marker, Polyline } from "react-native-maps";
+import MapView, { Overlay, Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
 import { NavigationMap } from "../navigation";
 import SitumPlugin from "react-native-situm-plugin";
 
@@ -109,6 +109,7 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
         style={{ width: "100%", height: "100%" }}
         region={mapRegion}
         onPress={(event) => updateRoutePoints(event.nativeEvent.coordinate)}
+        provider={PROVIDER_GOOGLE}
       >
          {polylineLatlng.length > 0 && (
           <Polyline

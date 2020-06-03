@@ -40,6 +40,7 @@ export const BuildingList = (props: { componentId: string; next: string }) => {
         console.log(JSON.stringify(buildings));
       },
       (error: any) => {
+        console.log(error)
         setError(error);
         setIsLoading(false);
       }

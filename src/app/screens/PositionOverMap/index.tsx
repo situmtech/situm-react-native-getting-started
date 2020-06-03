@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, Platform } from "react-native";
 import { Navigation } from "react-native-navigation";
 
 import { NavigationMap } from "../navigation";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
@@ -27,9 +27,11 @@ export const PositionOverMap = (props: { componentId: string }) => {
   };
 
   const startPositioning = () => {
+    if (Platform.OS === "ios") return;
+
     setIsLoading(true);
-    SitumPlugin.startPositioning(
-      (location: any) => {
+    subscriptionId = SitumPlugin.startPositioning(
+      (location) => {
         setIsLoading(false);
         setLocation(location);
         setMapRegion({
@@ -39,22 +41,22 @@ export const PositionOverMap = (props: { componentId: string }) => {
           longitudeDelta: 0.1,
         });
       },
-      (status: any) => {
+      (status) => {
         setIsLoading(false);
         console.log(status);
       },
-      (error: string) => {
+      (error) => {
         setIsLoading(false);
         console.log(error);
         stopPositioning();
       },
       locationOptions
-    ).then((id) => {
-      subscriptionId = id;
-    });
+    );
   };
 
   const stopPositioning = () => {
+    if (Platform.OS === "ios") return;
+
     SitumPlugin.stopPositioning(subscriptionId, (success: any) => {
       console.log(success);
     });
@@ -64,6 +66,7 @@ export const PositionOverMap = (props: { componentId: string }) => {
     Navigation.mergeOptions(props.componentId, {
       ...NavigationMap.PositionOverMap.options,
     });
+    SitumPlugin.requestAuthorization();
     startPositioning();
     return () => {
       stopPositioning();
@@ -72,7 +75,13 @@ export const PositionOverMap = (props: { componentId: string }) => {
 
   return (
     <View style={styles.container}>
-      <MapView style={{ width: "100%", height: "100%" }} region={mapRegion}>
+      <MapView
+        style={{ width: "100%", height: "100%" }}
+        region={mapRegion}
+        showsUserLocation={Platform.OS === "ios"}
+        showsMyLocationButton={Platform.OS === "ios"}
+        provider={PROVIDER_GOOGLE}
+      >
         {location != undefined && <Marker coordinate={location.coordinate} />}
       </MapView>
 

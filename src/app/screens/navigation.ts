@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import { Navigation } from "react-native-navigation";
 import { Home } from "./Home";
 import { IndoorPositioning } from "./IndoorPositioning/index";
@@ -67,6 +68,7 @@ export const NavigationMap: any = {
         },
       },
     },
+    onlyAndroid: true, 
   },
   BuildingsOverMap: {
     name: "BuildingsOverMap",
@@ -120,28 +122,6 @@ export const NavigationMap: any = {
       building: {},
     },
   },
-  RealtimeDevicesOverMap: {
-    name: "RealtimeDevicesOverMap",
-    component: RealtimeDevicesOverMap,
-    options: {
-      topBar: {
-        title: {
-          text: "Draw realtime devices over map",
-        },
-      },
-    },
-  },
-  PoiFiltering: {
-    name: "PoiFiltering",
-    component: PoiFiltering,
-    options: {
-      topBar: {
-        title: {
-          text: "Key-Value POIs filtering",
-        },
-      },
-    },
-  },
   EventsOfBuilding: {
     name: "EventsOfBuilding",
     component: EventsOfBuilding,
@@ -149,39 +129,6 @@ export const NavigationMap: any = {
       topBar: {
         title: {
           text: "Show all the events of a buildings",
-        },
-      },
-    },
-  },
-  DestinationInstructions: {
-    name: "DestinationInstructions",
-    component: DestinationInstructions,
-    options: {
-      topBar: {
-        title: {
-          text: "Instructions while going to a destination",
-        },
-      },
-    },
-  },
-  AnimatePosition: {
-    name: "AnimatePosition",
-    component: AnimatePosition,
-    options: {
-      topBar: {
-        title: {
-          text: "Animate the position while walking",
-        },
-      },
-    },
-  },
-  UserInsideEvent: {
-    name: "UserInsideEvent",
-    component: UserInsideEvent,
-    options: {
-      topBar: {
-        title: {
-          text: "Show if user is inside an event",
         },
       },
     },
@@ -196,18 +143,7 @@ export const NavigationMap: any = {
         },
       },
     },
-  },
-  UpdateLocation: {
-    name: "UpdateLocation",
-    component: UpdateLocation,
-    options: {
-      topBar: {
-        title: {
-          text: "Update location parameters on the fly",
-        },
-      },
-    },
-  },
+  }
 };
 
 export function registerScreens() {
@@ -221,6 +157,7 @@ export function getNavigationList() {
   const navigations = [];
   for (const key in NavigationMap) {
     if (ignore.includes(key)) continue;
+    if(Platform.OS === 'ios' && NavigationMap[key].onlyAndroid) continue;
 
     console.log(NavigationMap[key]);
     navigations.push({
