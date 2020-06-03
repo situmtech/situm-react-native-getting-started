@@ -79,6 +79,8 @@ target 'SitumRNGettingStarted' do
   pod 'ReactNativeNavigation', :podspec => '../node_modules/react-native-navigation/ReactNativeNavigation.podspec'
   pod 'ReactNativeSitumPlugin', :path => '../node_modules/react-native-situm-plugin/ReactNativeSitumPlugin.podspec'
   
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
   
   target 'SitumRNGettingStartedTests' do
     inherit! :complete
