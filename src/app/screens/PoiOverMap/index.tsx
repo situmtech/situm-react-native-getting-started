@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, Image } from "react-native";
-import { Navigation } from "react-native-navigation";
+import { View, ActivityIndicator, Image } from "react-native";
 
-import { NavigationMap } from "../navigation";
 import SitumPlugin from "react-native-situm-plugin";
 import styles from "./styles";
-import { NativeModules } from "react-native";
 import MapView, {
   PROVIDER_GOOGLE,
   Overlay,
-  Polygon,
   Marker,
 } from "react-native-maps";
-import { ComponentEventsObserver } from "react-native-navigation/lib/dist/events/ComponentEventsObserver";
 
 export const PoiOverMap = (props: { componentId: string; building: any }) => {
   const [building] = useState<any>(props.building);

@@ -123,12 +123,16 @@ export const NavigationMap: any = {
   EventsOfBuilding: {
     name: "EventsOfBuilding",
     component: EventsOfBuilding,
+    showBuildings: true,
     options: {
       topBar: {
         title: {
           text: "Show all the events of a buildings",
         },
       },
+    },
+    passProps: {
+      building: {},
     },
   },
   PointInsideGeofence: {
