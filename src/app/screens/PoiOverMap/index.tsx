@@ -1,55 +1,129 @@
-import React, {useEffect} from 'react';
-import {View, Text} from 'react-native';
-import {Navigation} from 'react-native-navigation';
+import React, { useEffect, useState } from "react";
+import { View, Text, ActivityIndicator, Image } from "react-native";
+import { Navigation } from "react-native-navigation";
 
-import {NavigationMap} from '../navigation';
+import { NavigationMap } from "../navigation";
 import SitumPlugin from "react-native-situm-plugin";
-import styles from './styles';
+import styles from "./styles";
+import { NativeModules } from "react-native";
+import MapView, {
+  PROVIDER_GOOGLE,
+  Overlay,
+  Polygon,
+  Marker,
+} from "react-native-maps";
+import { ComponentEventsObserver } from "react-native-navigation/lib/dist/events/ComponentEventsObserver";
 
-export const PoiOverMap = (props: {componentId: string}) => {
-  const getPoiCategories = () => {
-    // setIsLoading(true);
-    // setStep("fetchBuildingInfo");
-    SitumPlugin.fetchPoiCategories(
-      (categories: any) => {
-        console.log(categories)
-        getPoiCategoryIconNormal(categories[0]);
-        // setBuilding(buildingInfo);
-        // setIsLoading(false);
+export const PoiOverMap = (props: { componentId: string; building: any }) => {
+  const [building] = useState<any>(props.building);
+  const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [mapImage, setMapImage] = useState<String>();
+  const [bounds, setBounds] = useState<any>();
+  const [poiAndIconArray, setPoiAndIconArray] = useState<any>([]);
+  const [mapRegion] = useState<any>({
+    latitude: building.center.latitude,
+    longitude: building.center.longitude,
+    latitudeDelta: 0.005,
+    longitudeDelta: 0.005,
+  });
+
+  let poiIconsArray = [];
+
+  const getFloorsFromBuilding = () => {
+    setIsLoading(true);
+    SitumPlugin.fetchFloorsFromBuilding(
+      building,
+      (floors: any) => {
+        setIsLoading(false);
+
+        if (floors.length > 0) {
+          setBounds([
+            [
+              building.bounds.northEast.latitude,
+              building.bounds.southWest.longitude,
+            ],
+            [
+              building.bounds.southWest.latitude,
+              building.bounds.northEast.longitude,
+            ],
+          ]);
+          setMapImage(floors[0].mapUrl);
+          getPOIsFromBuilding();
+        } else {
+          console.log("No floors found!");
+        }
       },
       (error: string) => {
-        console.log(error)
-        // setStatus("fetchBuildingInfo: " + error);
-        // setIsLoading(false);
+        console.log(error);
+        setIsLoading(false);
       }
     );
   };
 
-  const getPoiCategoryIconNormal = (category) => {
-    // setIsLoading(true);
-    // setStep("fetchBuildingInfo");
-    SitumPlugin.fetchPoiCategoryIconNormal(
-      category,
-      (icon: any) => {
-        console.log(icon)
-        // setBuilding(buildingInfo);
-        // setIsLoading(false);
+  const getPOIsFromBuilding = () => {
+    setIsLoading(true);
+    SitumPlugin.fetchIndoorPOIsFromBuilding(
+      building,
+      (pois: any) => {
+        setIsLoading(false);
+        setPoiAndIconArray([]);
+        for (let poi of pois) {
+          getIconForPOI(poi);
+        }
       },
       (error: string) => {
-        console.log(error)
-        // setStatus("fetchBuildingInfo: " + error);
-        // setIsLoading(false);
+        console.log(error);
+        setIsLoading(false);
       }
     );
   };
+
+  const getIconForPOI = (poi) => {
+    SitumPlugin.fetchPoiCategoryIconNormal(poi.category, (icon) => {
+      poiIconsArray = [
+        ...poiIconsArray,
+        { poi: poi, icon: "data:image/png;base64," + icon.data },
+      ];
+
+      setPoiAndIconArray(poiIconsArray);
+    });
+  };
+
   useEffect(() => {
-    getPoiCategories();
+    getFloorsFromBuilding();
   }, [props.componentId]);
+
   return (
     <View style={styles.container}>
-      <Text >TODO</Text>
+      <MapView
+        style={{ width: "100%", height: "100%" }}
+        region={mapRegion}
+        provider={PROVIDER_GOOGLE}
+      >
+        {mapImage != undefined && (
+          <Overlay image={mapImage} bounds={bounds} zIndex={1000} />
+        )}
+
+        {poiAndIconArray[0] != null &&
+          poiAndIconArray.map((poiAndIcon) => (
+            <Marker
+              key={poiAndIcon.poi.identifier}
+              coordinate={poiAndIcon.poi.coordinate}
+              title={poiAndIcon.poi.poiName}
+            >
+              <Image
+                source={{ uri: poiAndIcon.icon }}
+                style={{ width: 40, height: 40 }}
+              />
+            </Marker>
+          ))}
+      </MapView>
+
+      {isLoading && (
+        <View style={{ position: "absolute" }}>
+          <ActivityIndicator size="large" color="#000000" />
+        </View>
+      )}
     </View>
   );
-
 };
-

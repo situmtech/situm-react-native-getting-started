@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, NativeModules } from "react-native";
 import { Navigation } from "react-native-navigation";
 
 import { NavigationMap } from "../navigation";
@@ -62,6 +62,7 @@ export const PointInsideGeofence = (props: {
     SitumPlugin.fetchGeofencesFromBuilding(
       building,
       (geofences: any) => {
+        console.log(JSON.stringify(geofences));
         setIsLoading(false);
         if (geofences.length > 0) {
           let points = [];
@@ -80,7 +81,18 @@ export const PointInsideGeofence = (props: {
     );
   };
 
+  const onMapPress = (coordinate) => {
+    console.log(coordinate);
 
+    NativeModules.RNCSitumPlugin.checkIfPointInsideGeofence(
+      {
+        coordinate: coordinate,
+      },
+      (response) => {
+        console.log(response);
+      }
+    );
+  };
 
   useEffect(() => {
     getFloorsFromBuilding();
@@ -91,6 +103,7 @@ export const PointInsideGeofence = (props: {
         style={{ width: "100%", height: "100%" }}
         region={mapRegion}
         provider={PROVIDER_GOOGLE}
+        onPress={(event) => onMapPress(event.nativeEvent.coordinate)}
       >
         {mapImage != undefined && (
           <Overlay image={mapImage} bounds={bounds} zIndex={1000} />

@@ -93,12 +93,16 @@ export const NavigationMap: any = {
   PoiOverMap: {
     name: "PoiOverMap",
     component: PoiOverMap,
+    showBuildings: true,
     options: {
       topBar: {
         title: {
           text: "Draw POIs over map",
         },
       },
+    },
+    passProps: {
+      building: {},
     },
   },
   RouteOverMap: {
