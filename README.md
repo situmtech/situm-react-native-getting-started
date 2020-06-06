@@ -108,6 +108,11 @@ or you can set the user and password with:
 SitumPlugin.setUserPass(SITUM_EMAIL,SITUM_PASS, (response) =>{})
 ```
 
+NOTE: In this project you can do this by setting the properties on the config.js file, like so:
+
+export const SITUM_EMAIL='EMAIL_GOES_HERE'
+export const SITUM_API_KEY='SITUM_API_KEY_GOES_HERE'
+export const SITUM_PASS='SITUM_USER_PASS_GOES_HERE'
 
 ### <a name="mapsapikey"></a> Step 3: Setup Google Maps
 
