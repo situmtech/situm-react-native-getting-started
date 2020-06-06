@@ -1,22 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator, NativeModules } from "react-native";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  NativeModules,
+  Alert,
+  Platform,
+  SafeAreaView,
+} from "react-native";
 import { Navigation } from "react-native-navigation";
 
 import { NavigationMap } from "../navigation";
-import MapView, { Overlay, PROVIDER_GOOGLE, Polygon } from "react-native-maps";
+import MapView, {
+  Overlay,
+  PROVIDER_GOOGLE,
+  Polygon,
+  Marker,
+} from "react-native-maps";
 import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
 
+let subscriptionId = -1;
 export const PointInsideGeofence = (props: {
   componentId: string;
   building: any;
 }) => {
-  const [building, setBuilding] = useState<any>(props.building);
+  const [building] = useState<any>(props.building);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [floor, setFloor] = useState<any>();
   const [mapImage, setMapImage] = useState<String>();
   const [bounds, setBounds] = useState<any>();
+  const [isUserInGeofence, setUserinGeofence] = useState<Boolean>(false);
+  const [currentLocation, setCurrentLocation] = useState<any>();
   const [polygonPoints, setPolygonPoints] = useState<any>();
   const [mapRegion] = useState<any>({
     latitude: building.center.latitude,
@@ -24,6 +40,12 @@ export const PointInsideGeofence = (props: {
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
+
+  const locationOptions = {
+    useWife: true,
+    useBle: true,
+    useForegroundService: true,
+  };
 
   const getFloorsFromBuilding = () => {
     setIsLoading(true);
@@ -70,6 +92,8 @@ export const PointInsideGeofence = (props: {
             points.push(polygon.coordinate);
           }
           setPolygonPoints(points);
+
+          startPositioning();
         } else {
           console.log("No geofences found!");
         }
@@ -81,30 +105,79 @@ export const PointInsideGeofence = (props: {
     );
   };
 
+  const startPositioning = () => {
+    if (Platform.OS === "ios") return;
+
+    subscriptionId = SitumPlugin.startPositioning(
+      (location) => {
+        setCurrentLocation(location.coordinate);
+
+        SitumPlugin.checkIfPointInsideGeofence(
+          {
+            coordinate: location.coordinate,
+          },
+          (response) => {
+            setUserinGeofence(response.isInsideGeofence);
+          }
+        );
+      },
+      (status) => {
+        console.log(status);
+      },
+      (error) => {
+        console.log(error);
+        stopPositioning();
+      },
+      locationOptions
+    );
+  };
+
+  const stopPositioning = () => {
+    if (Platform.OS === "ios") return;
+
+    SitumPlugin.stopPositioning(subscriptionId, (success: any) => {
+      console.log(success);
+    });
+  };
+
   const onMapPress = (coordinate) => {
     console.log(coordinate);
 
-    NativeModules.RNCSitumPlugin.checkIfPointInsideGeofence(
+    SitumPlugin.checkIfPointInsideGeofence(
       {
         coordinate: coordinate,
       },
       (response) => {
-        console.log(response);
+        alert(JSON.stringify(response, null, 3));
       }
     );
   };
 
   useEffect(() => {
     getFloorsFromBuilding();
+    SitumPlugin.requestAuthorization();
+    return () => {
+      stopPositioning();
+    };
   }, [props.componentId]);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.headerText}>
+        {isUserInGeofence
+          ? "Current position INSIDE geofence"
+          : "Current position OUTSIDE geofence"}{" "}
+        {"\nClick anywhere on the map"}
+      </Text>
       <MapView
-        style={{ width: "100%", height: "100%" }}
+        style={styles.mapview}
         region={mapRegion}
         provider={PROVIDER_GOOGLE}
         onPress={(event) => onMapPress(event.nativeEvent.coordinate)}
       >
+        {currentLocation != undefined && (
+          <Marker coordinate={currentLocation} />
+        )}
+
         {mapImage != undefined && (
           <Overlay image={mapImage} bounds={bounds} zIndex={1000} />
         )}
@@ -121,10 +194,10 @@ export const PointInsideGeofence = (props: {
       </MapView>
 
       {isLoading && (
-        <View style={{ position: "absolute" }}>
+        <View style={styles.loader}>
           <ActivityIndicator size="large" color="#000000" />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
