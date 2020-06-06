@@ -1,5 +1,7 @@
 Situm React Native Plugin Sample app
 =======================
+
+[![npm](https://img.shields.io/npm/v/react-native-situm-plugin)](https://www.npmjs.com/package/react-native-situm-plugin)  ![Supports Android, iOS and web](https://img.shields.io/badge/platforms-react%20native%20%7C%20android%20%7C%20ios-lightgrey.svg)
   
 # Table of contents
 
