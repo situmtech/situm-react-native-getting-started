@@ -325,6 +325,7 @@ PODS:
     - React-RCTImage
     - React-RCTText
   - ReactNativeSitumPlugin (0.0.1):
+    - GoogleMaps (= 3.5.0)
     - React
     - SitumSDK (= 2.44.0)
   - SitumSDK (2.44.0):
@@ -507,7 +508,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   ReactNativeNavigation: 34b7ba2fa6691876f5c86eb773b51dcbefb8051c
-  ReactNativeSitumPlugin: 88060ce4feac030d0c4a1fef32a45a96c4b12ea6
+  ReactNativeSitumPlugin: d28911b57243de4ec2922deb3fc799ec61859cb4
   SitumSDK: 77eb0ddb94c974bc632681d604cf496b18a1ddbf
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
