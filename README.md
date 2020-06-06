@@ -12,20 +12,14 @@ Situm React Native Plugin Sample app
 
 #### Samples
 
-1. [Positioning](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/IndoorPositioning/index.tsx):Download the buildings in your account and how to start the positioning in a building.
+1. [Positioning](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/IndoorPositioning/index.tsx): Download the buildings in your account and how to start the positioning in a building.
 2. [Indoor-Outdoor](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/IndoorOutdoorPositioning/index.tsx): Use the indoor-outdoor positioning.
 3. [Draw building](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/BuildingsOverMap/index.tsx): Draw the floorplan of a building over a map.
 4. [Draw position](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/PositionOverMap/index.tsx): Draw the position you obtain from the SDK in the map.
 5. [Draw pois](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/PositionOverMap/index.tsx): Draw the pois of a building over the map
 6. [Draw route](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/PoiOverMap/index.tsx): Draw a route between to points over the map
-7. [Show realtime](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/RealtimeDevicesOverMap/index.tsx): Draw the users that are position inside a building over a map.
-8. [Building events](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/EventsOfBuilding/index.tsx): Get the events of a building.
-9. [User inside event](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/UserInsideEvent/index.tsx): Calculate if the user is inside a event.
-10. [Poi filtering](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/PoiFiltering/index.tsx): Filter the pois with a especific key-value.
-11. [Guide instructions](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/DestinationInstructions/index.tsx): Give indications when you are going to a point.
-12. [Animate position](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/AnimatePosition/index.tsx): Animate the position and the camera.
-13. [Point inside geofence](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/PointInsideGeofence/index.tsx): Draw geofences and calculate if a point is inside them.
-14. [Update location parameters](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/UpdateLocation/index.tsx): Update the parameters of the location on the fly.
+7. [Building events](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/EventsOfBuilding/index.tsx): Get the events of a building.
+8. [Point inside geofence](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/PointInsideGeofence/index.tsx): Draw geofences and calculate if a point is inside them.
 
 
 ### Introduction <a name="introduction"></a>
@@ -77,14 +71,12 @@ After that, you must configure Situm SDK in your project. *This has been already
 * Add the SDK to your project directly using your favorite package manager. 
 
 ```shell
-yarn add https://github.com/situmtech/situm-react-native-plugin.git
+yarn add react-native-situm-plugin
 
 #OR
 
-npm install --save https://github.com/situmtech/situm-react-native-plugin.git
+npm install --save react-native-situm-plugin
 ```
-
-Note: As of now the SDK is available only on Github. When updating the SDK, make sure to delete the existing one from `node_modules/react-native-situm-plugin`. 
 
 * You must initialize the SDK before using any of its features:
 
@@ -92,7 +84,7 @@ Note: As of now the SDK is available only on Github. When updating the SDK, make
 ```js
 import SitumPlugin from 'react-native-situm-plugin';
 
-	SitumPlugin.initSitumSDK();
+SitumPlugin.initSitumSDK();
 
 ```
 
@@ -112,9 +104,11 @@ SitumPlugin.setUserPass(SITUM_EMAIL,SITUM_PASS, (response) =>{})
 
 NOTE: In this project you can do this by setting the properties on the config.js file, like so:
 
+```js
 export const SITUM_EMAIL='EMAIL_GOES_HERE'
 export const SITUM_API_KEY='SITUM_API_KEY_GOES_HERE'
 export const SITUM_PASS='SITUM_USER_PASS_GOES_HERE'
+```
 
 ### <a name="mapsapikey"></a> Step 3: Setup Google Maps
 
@@ -141,6 +135,15 @@ use same key for both platforms.
     [GMSServices provideAPIKey:@"HERE_GOES_GOOGLE_MAPS_API_KEY"];
 }
 ```
+
+Note: In this project, you will find `ios/conf.plist`, there you can sent API key as follows: 
+
+```xml
+<dict>
+    <key>GoogleMapsAPIKey</key>
+    <string>MAP_API_KEY_GOES_HERE</string>
+</dict>
+```
 * **Android**
 
     Go to `AndroidManifest.xml` file and add Google Maps API key as a `meta-data`. 
@@ -149,6 +152,14 @@ use same key for both platforms.
 <meta-data
     android:name="com.google.android.geo.API_KEY"
     android:value="HERE_GOES_GOOGLE_MAPS_API_KEY" />
+```
+
+Note: In this project, you will find `res/values/situm_conf.xml`, there you can sent API key as follows: 
+
+```xml
+<resources>
+    <string name="google_maps_api">MAPS_API_KEY_GOES_HERE</string>
+</resources>
 ```
 
 ### Run Android Version <a name="run-android-version"></a>
