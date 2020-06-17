@@ -326,8 +326,8 @@ PODS:
     - React-RCTText
   - ReactNativeSitumPlugin (0.0.1):
     - React
-    - SitumSDK (= 2.44.0)
-  - SitumSDK (2.44.0):
+    - SitumSDK (= 2.45.0)
+  - SitumSDK (2.45.0):
     - Protobuf (~> 3.7.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -507,8 +507,8 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   ReactNativeNavigation: 34b7ba2fa6691876f5c86eb773b51dcbefb8051c
-  ReactNativeSitumPlugin: 88060ce4feac030d0c4a1fef32a45a96c4b12ea6
-  SitumSDK: 77eb0ddb94c974bc632681d604cf496b18a1ddbf
+  ReactNativeSitumPlugin: 19884c5c94c43e6c098882c7b2cf8cd2a7eb41ed
+  SitumSDK: 563deebe06893c4efeffdc725683ad16cf75fedf
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
