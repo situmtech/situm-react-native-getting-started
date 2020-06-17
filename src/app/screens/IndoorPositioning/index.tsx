@@ -114,7 +114,7 @@ export const IndoorPositioning = (props: {
 
   const stopPositioning = () => {
     SitumPlugin.stopPositioning(subscriptionId, (success: any) => {
-      setResponse(success);
+      // setStatus(JSON.stringify(success, null, 3));
     });
   };
 

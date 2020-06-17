@@ -11,4 +11,6 @@ export function initSitumSdk() {
     SitumPlugin.setCacheMaxAge(1, (response) =>{ // an hour
         console.log("Cache Age: " + response.success);
     }); 
+
+
 }
