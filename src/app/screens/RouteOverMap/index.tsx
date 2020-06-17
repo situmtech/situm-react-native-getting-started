@@ -60,6 +60,7 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
     SitumPlugin.requestDirections(
       [building, ...points],
       (route: any) => {
+        console.log(route);
         setIsLoading(false);
         let latlngs = [];
         for (let segment of route.segments) {
@@ -117,7 +118,7 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
             coordinates={polylineLatlng}
             strokeColor="#F00"
             fillColor="rgba(255,0,0,0.5)"
-            strokeWidth={1}
+            strokeWidth={3}
           />
         )}
 
