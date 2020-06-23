@@ -1,4 +1,4 @@
-package com.situm.sample;
+package com.situm.rn.sample;
 
 import com.reactnativenavigation.NavigationActivity;
 

@@ -7,14 +7,8 @@ import { BuildingsOverMap } from "./BuildingsOverMap/index";
 import { PositionOverMap } from "./PositionOverMap/index";
 import { PoiOverMap } from "./PoiOverMap/index";
 import { RouteOverMap } from "./RouteOverMap/index";
-import { RealtimeDevicesOverMap } from "./RealtimeDevicesOverMap/index";
-import { PoiFiltering } from "./PoiFiltering/index";
 import { EventsOfBuilding } from "./EventsOfBuilding/index";
-import { DestinationInstructions } from "./DestinationInstructions/index";
-import { AnimatePosition } from "./AnimatePosition/index";
-import { UserInsideEvent } from "./UserInsideEvent/index";
 import { PointInsideGeofence } from "./PointInsideGeofence/index";
-import { UpdateLocation } from "./UpdateLocation/index";
 import { BuildingList } from "./BuildingList/index";
 
 export const NavigationMap: any = {
@@ -136,12 +130,16 @@ export const NavigationMap: any = {
   PointInsideGeofence: {
     name: "PointInsideGeofence",
     component: PointInsideGeofence,
+    showBuildings: true,
     options: {
       topBar: {
         title: {
           text: "Show if point is inside a geofence",
         },
       },
+    },
+    passProps: {
+      building: {},
     },
   }
 };
