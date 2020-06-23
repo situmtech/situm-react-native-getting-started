@@ -46,7 +46,7 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
 
   const stopPositioning = () => {
     SitumPlugin.stopPositioning(subscriptionId, (success: any) => {
-      setResponse(success);
+      // setResponse(success);
     });
   };
 

@@ -81,7 +81,12 @@ export const BuildingsOverMap = (props: {
         provider={PROVIDER_GOOGLE}
       >
         {mapImage != undefined && (
-          <Overlay image={mapImage} bounds={bounds} zIndex={1000} />
+          <Overlay
+            image={mapImage}
+            bounds={bounds}
+            zIndex={1000}
+            bearing={building.rotationDegrees}
+          />
         )}
       </MapView>
 
