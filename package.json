@@ -7,7 +7,7 @@
     "react-native": "0.62.2",
     "react-native-maps": "ArnoldoJr/react-native-maps#add-overlay-rotation-support",
     "react-native-navigation": "^6.6.0",
-    "react-native-situm-plugin": "file:../situm-react-native-plugin"
+    "react-native-situm-plugin": "0.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
