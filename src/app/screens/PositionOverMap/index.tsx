@@ -7,6 +7,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
+// import { ic_direction } from '../../../assets/assets';
 
 let subscriptionId = -1;
 export const PositionOverMap = (props: { componentId: string }) => {
@@ -37,8 +38,8 @@ export const PositionOverMap = (props: { componentId: string }) => {
         setMapRegion({
           latitude: location.coordinate.latitude,
           longitude: location.coordinate.longitude,
-          latitudeDelta: 0.1,
-          longitudeDelta: 0.1,
+          latitudeDelta: 0.002,
+          longitudeDelta: 0.002,
         });
       },
       (status) => {
@@ -82,7 +83,13 @@ export const PositionOverMap = (props: { componentId: string }) => {
         showsMyLocationButton={Platform.OS === "ios"}
         provider={PROVIDER_GOOGLE}
       >
-        {location != undefined && <Marker coordinate={location.coordinate} />}
+        {location != undefined && (
+          <Marker
+            rotation = {location.bearing.degrees}
+            coordinate={location.coordinate}
+            image={require("../../../assets/ic_direction.png")}
+          />
+        )}
       </MapView>
 
       {isLoading && (
@@ -93,3 +100,4 @@ export const PositionOverMap = (props: { componentId: string }) => {
     </View>
   );
 };
+
