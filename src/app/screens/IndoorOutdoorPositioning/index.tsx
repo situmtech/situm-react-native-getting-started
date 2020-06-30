@@ -15,9 +15,7 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
   const [isDirectionEnable, setIsDirectionEnable] = useState<Boolean>(false);
 
   const locationOptions = {
-    useWife: true,
-    useBle: true,
-    useForegroundService: true,
+    useGlobalLocation:true
   };
 
   const toggleSwitch = (check: boolean) => {
