@@ -95,6 +95,7 @@ export const PointInsideGeofence = (props: {
         {mapImage != undefined && (
           <Overlay 
             image={mapImage} 
+            bounds={bounds}
             location={[mapRegion.latitude, mapRegion.longitude]} 
             zIndex={1000}
             bearing={building.rotation * 180 / Math.PI}
