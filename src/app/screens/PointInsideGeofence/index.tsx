@@ -93,7 +93,16 @@ export const PointInsideGeofence = (props: {
         provider={PROVIDER_GOOGLE}
       >
         {mapImage != undefined && (
-          <Overlay image={mapImage} bounds={bounds} zIndex={1000} />
+          <Overlay 
+            image={mapImage} 
+            bounds={bounds}
+            location={[mapRegion.latitude, mapRegion.longitude]} 
+            zIndex={1000}
+            bearing={building.rotation * 180 / Math.PI}
+            anchor={[0.5, 0.5]}
+            width={building.dimensions.width}
+            height={building.dimensions.height}
+          />
         )}
 
         {polygonPoints != undefined && (

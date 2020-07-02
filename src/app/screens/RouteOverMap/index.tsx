@@ -123,8 +123,17 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
         )}
 
         {mapImage != null && (
-          <Overlay image={mapImage} bounds={bounds}/>
-        )}
+          <Overlay
+          image={mapImage}
+          bounds={bounds}
+          zIndex={1000}
+          location={[mapRegion.latitude,mapRegion.longitude]}
+          bearing={building.rotation * 180 / Math.PI}
+          anchor={[0.5,0.5]}
+          width={building.dimensions.width}
+          height={building.dimensions.height}
+        />
+      )}
 
         {points[0] != null &&
           points.map((point, index) => (
