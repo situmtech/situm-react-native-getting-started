@@ -82,6 +82,9 @@ export const BuildingsOverMap = (props: {
         {mapImage != undefined && (
           <Overlay
             image={mapImage}
+            bounds={bounds}
+            zIndex={1000}
+            bearing={building.rotationDegrees}
             location={[mapRegion.latitude,mapRegion.longitude]}
             bearing={building.rotation * 180 / Math.PI}
             anchor={[0.5,0.5]}
