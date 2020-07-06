@@ -59,13 +59,13 @@ export const PointInsideGeofence = (props: {
 
   const getGeofenceFromBuilding = () => {
     setIsLoading(true);
-    SitumPlugin.fetchGeofencesFromBuilding(
+    SitumPlugin.fetchBuildingInfo(
       building,
-      (geofences: any) => {
+      (building: any) => {
         setIsLoading(false);
-        if (geofences.length > 0) {
+        if (building.geofences.length > 0) {
           let points = [];
-          for (let polygon of geofences[0].polygonPoints) {
+          for (let polygon of building.geofences[0].polygonPoints) {
             points.push(polygon.coordinate);
           }
           setPolygonPoints(points);
