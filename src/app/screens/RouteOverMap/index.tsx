@@ -37,8 +37,9 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
   const [polylineLatlng, setPolylineLatlng] = useState<any[]>([]);
 
   const locationOptions = {
-    useGlobalLocation: true,
-    interval: 5000,
+    buildingIdentifier: building.buildingIdentifier,
+    useWifi: true,
+    useBle: true
   };
 
   const getFloorsFromBuilding = () => {
