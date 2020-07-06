@@ -60,5 +60,6 @@ buck-out/
 
 /src/app/config.js
 /ios/conf.plist
+/ios/Podfile.lock
 
 situm_conf*

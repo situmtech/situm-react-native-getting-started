@@ -2,17 +2,26 @@ import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { Navigation } from "react-native-navigation";
 
-import MapView, { Overlay, Marker, Polyline, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, {
+  Overlay,
+  Marker,
+  Polyline,
+  PROVIDER_GOOGLE,
+} from "react-native-maps";
 import { NavigationMap } from "../navigation";
 import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
+import { ComponentEventsObserver } from "react-native-navigation/lib/dist/events/ComponentEventsObserver";
 
+let subscriptionId = -1;
 export const RouteOverMap = (props: { componentId: string; building: any }) => {
+  const [location, setLocation] = useState<any>();
   const [building, setBuilding] = useState<any>(props.building);
   const [mapImage, setMapImage] = useState<String | null>(null);
   const [bounds, setBounds] = useState<any>();
   const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [navigationResponse, setNavigationResponse] = useState<String>();
   const [floor, setFloor] = useState<any>({
     floorIdentifier: "",
     buildingIdentifier: "",
@@ -26,6 +35,12 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
   });
   const [points, setPoints] = useState<any[]>([]);
   const [polylineLatlng, setPolylineLatlng] = useState<any[]>([]);
+
+  const locationOptions = {
+    buildingIdentifier: building.buildingIdentifier,
+    useWifi: true,
+    useBle: true
+  };
 
   const getFloorsFromBuilding = () => {
     SitumPlugin.fetchFloorsFromBuilding(
@@ -60,7 +75,6 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
     SitumPlugin.requestDirections(
       [building, ...points],
       (route: any) => {
-        console.log(route);
         setIsLoading(false);
         let latlngs = [];
         for (let segment of route.segments) {
@@ -72,6 +86,9 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
           }
         }
         setPolylineLatlng(latlngs);
+
+        requestNavigationUpdates();
+        startPositioning();
       },
       (error: string) => {
         setIsLoading(false);
@@ -87,11 +104,61 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
       coordinate: latlng,
     };
     if (points.length == 2) {
-      setPolylineLatlng([])
+      stopPositioning();
+
+      setPolylineLatlng([]);
       setPoints([point]);
     } else {
       setPoints([...points, point]);
     }
+  };
+
+  const startPositioning = () => {
+    subscriptionId = SitumPlugin.startPositioning(
+      (loc: any) => {
+        console.log(loc);
+        if (loc != null && loc != undefined) {
+          setLocation(loc);
+          SitumPlugin.updateNavigationWithLocation(loc, (res) => {});
+        }
+      },
+      (status: any) => {
+        // setStatus(JSON.stringify(status, null, 3));
+      },
+      (error: string) => {
+        // setStatus(error);
+        // stopPositioning();
+      },
+      locationOptions
+    );
+  };
+
+  const stopPositioning = () => {
+    SitumPlugin.stopPositioning(subscriptionId, (success: any) => {
+      // setResponse(success);
+    });
+  };
+
+  const requestNavigationUpdates = () => {
+    SitumPlugin.requestNavigationUpdates(
+      (navigation: any) => {
+        if (
+          navigation.currentIndication != undefined ||
+          navigation.currentIndication != null
+        )
+          setNavigationResponse(JSON.stringify(navigation.currentIndication));
+        else {
+          setNavigationResponse(JSON.stringify(navigation));
+        }
+      },
+      (error: string) => {
+        //returns error string
+      },
+      {
+        distanceToGoalThreshold: 3,
+        outsideRouteThreshold: 50,
+      }
+    );
   };
 
   useEffect(() => {
@@ -102,17 +169,35 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
 
   useEffect(() => {
     getFloorsFromBuilding();
+
+    return () => {
+      SitumPlugin.removeNavigationUpdates();
+      stopPositioning();
+    };
   }, [props.componentId]);
 
   return (
     <View style={styles.container}>
+      {navigationResponse != undefined && (
+        <Text>
+          {navigationResponse}
+        </Text>
+      )}
       <MapView
-        style={{ width: "100%", height: "100%" }}
+        style={{width:'100%', height: '80%'}}
         region={mapRegion}
         onPress={(event) => updateRoutePoints(event.nativeEvent.coordinate)}
         provider={PROVIDER_GOOGLE}
       >
-         {polylineLatlng.length > 0 && (
+        {location != undefined && (
+          <Marker
+            rotation={location.bearing.degrees}
+            coordinate={location.coordinate}
+            image={require("../../../assets/ic_direction.png")}
+          />
+        )}
+
+        {polylineLatlng.length > 0 && (
           <Polyline
             key="editingPolyline"
             coordinates={polylineLatlng}
@@ -139,7 +224,6 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
           points.map((point, index) => (
             <Marker key={index} coordinate={point.coordinate} />
           ))}
-
       </MapView>
       {isLoading && (
         <View style={{ position: "absolute" }}>
