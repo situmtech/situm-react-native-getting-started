@@ -202,6 +202,7 @@ export const RouteOverMap = (props: { componentId: string; building: any }) => {
             key="editingPolyline"
             coordinates={polylineLatlng}
             strokeColor="#F00"
+            zIndex={1001}
             fillColor="rgba(255,0,0,0.5)"
             strokeWidth={3}
           />
