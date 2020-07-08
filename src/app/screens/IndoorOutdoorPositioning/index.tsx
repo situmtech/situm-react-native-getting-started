@@ -15,9 +15,12 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
   const [isDirectionEnable, setIsDirectionEnable] = useState<Boolean>(false);
 
   const locationOptions = {
-    useWife: true,
-    useBle: true,
-    useForegroundService: true,
+    useGlobalLocation:true,
+    outdoorLocationOptions: {
+      buildingDetector: "kSITBLE", // options: kSITBLE, kSITGpsProximity; default: kSITGpsProximity
+      // minimumOutdoorLocationAccuracy: 10
+    }
+
   };
 
   const toggleSwitch = (check: boolean) => {
