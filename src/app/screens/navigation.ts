@@ -62,7 +62,6 @@ export const NavigationMap: any = {
         },
       },
     },
-    onlyAndroid: true, 
   },
   BuildingsOverMap: {
     name: "BuildingsOverMap",
@@ -163,7 +162,6 @@ export function getNavigationList() {
   const navigations = [];
   for (const key in NavigationMap) {
     if (ignore.includes(key)) continue;
-    if(Platform.OS === 'ios' && NavigationMap[key].onlyAndroid) continue;
 
     console.log(NavigationMap[key]);
     navigations.push({

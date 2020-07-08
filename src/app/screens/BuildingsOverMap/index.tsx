@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator } from "react-native";
 
-import MapView, { Overlay, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Overlay, PROVIDER_GOOGLE, MAP_TYPES } from "react-native-maps";
 import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
@@ -42,7 +42,6 @@ export const BuildingsOverMap = (props: {
             ],
           ]);
           setMapImage(floors[0].mapUrl);
-          // getMapFromFloor(floors[0]);
         } else {
           console.log("No floors found!");
         }
@@ -86,6 +85,11 @@ export const BuildingsOverMap = (props: {
             bounds={bounds}
             zIndex={1000}
             bearing={building.rotationDegrees}
+            location={[mapRegion.latitude,mapRegion.longitude]}
+            bearing={building.rotation * 180 / Math.PI}
+            anchor={[0.5,0.5]}
+            width={building.dimensions.width}
+            height={building.dimensions.height}
           />
         )}
       </MapView>

@@ -81,14 +81,13 @@ export const PointInsideGeofence = (props: {
 
   const getGeofenceFromBuilding = () => {
     setIsLoading(true);
-    SitumPlugin.fetchGeofencesFromBuilding(
+    SitumPlugin.fetchBuildingInfo(
       building,
-      (geofences: any) => {
-        console.log(JSON.stringify(geofences));
+      (building: any) => {
         setIsLoading(false);
-        if (geofences.length > 0) {
+        if (building.geofences.length > 0) {
           let points = [];
-          for (let polygon of geofences[0].polygonPoints) {
+          for (let polygon of building.geofences[0].polygonPoints) {
             points.push(polygon.coordinate);
           }
           setPolygonPoints(points);
@@ -179,7 +178,16 @@ export const PointInsideGeofence = (props: {
         )}
 
         {mapImage != undefined && (
-          <Overlay image={mapImage} bounds={bounds} zIndex={1000} />
+          <Overlay 
+            image={mapImage} 
+            bounds={bounds}
+            location={[mapRegion.latitude, mapRegion.longitude]} 
+            zIndex={1000}
+            bearing={building.rotation * 180 / Math.PI}
+            anchor={[0.5, 0.5]}
+            width={building.dimensions.width}
+            height={building.dimensions.height}
+          />
         )}
 
         {polygonPoints != undefined && (
