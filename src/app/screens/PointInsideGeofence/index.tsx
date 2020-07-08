@@ -22,6 +22,7 @@ import SitumPlugin from "react-native-situm-plugin";
 import styles from "./styles";
 
 let subscriptionId = -1;
+let pointsForGeofence ={name: "", points:[]}
 export const PointInsideGeofence = (props: {
   componentId: string;
   building: any;
@@ -42,9 +43,7 @@ export const PointInsideGeofence = (props: {
   });
 
   const locationOptions = {
-    useWife: true,
-    useBle: true,
-    useForegroundService: true,
+    useGlobalLocation: true,
   };
 
   const getFloorsFromBuilding = () => {
@@ -87,10 +86,19 @@ export const PointInsideGeofence = (props: {
         setIsLoading(false);
         if (building.geofences.length > 0) {
           let points = [];
+          let geofencePoints = [];
           for (let polygon of building.geofences[0].polygonPoints) {
             points.push(polygon.coordinate);
+            geofencePoints.push([
+              polygon.coordinate.latitude,
+              polygon.coordinate.longitude,
+            ]);
           }
           setPolygonPoints(points);
+          pointsForGeofence={
+            name: building.geofences[0].name,
+            points: geofencePoints,
+          };
 
           startPositioning();
         } else {
@@ -105,19 +113,13 @@ export const PointInsideGeofence = (props: {
   };
 
   const startPositioning = () => {
-    if (Platform.OS === "ios") return;
 
     subscriptionId = SitumPlugin.startPositioning(
       (location) => {
         setCurrentLocation(location.coordinate);
 
-        SitumPlugin.checkIfPointInsideGeofence(
-          {
-            coordinate: location.coordinate,
-          },
-          (response) => {
-            setUserinGeofence(response.isInsideGeofence);
-          }
+        setUserinGeofence(
+          inside(location.coordinate, pointsForGeofence.points)
         );
       },
       (status) => {
@@ -140,16 +142,32 @@ export const PointInsideGeofence = (props: {
   };
 
   const onMapPress = (coordinate) => {
-    console.log(coordinate);
+    const isInside = inside(coordinate, pointsForGeofence.points);
+    if (isInside) {
+      alert("Point inside geofence: " + pointsForGeofence.name);
+    }
+  };
 
-    SitumPlugin.checkIfPointInsideGeofence(
-      {
-        coordinate: coordinate,
-      },
-      (response) => {
-        alert(JSON.stringify(response, null, 3));
-      }
-    );
+  const inside = (point, vs) => {
+    // ray-casting algorithm based on
+    // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+    console.log(vs);
+    var x = point.latitude,
+      y = point.longitude;
+
+    var inside = false;
+    for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+      var xi = vs[i][0],
+        yi = vs[i][1];
+      var xj = vs[j][0],
+        yj = vs[j][1];
+
+      var intersect =
+        yi > y != yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+      if (intersect) inside = !inside;
+    }
+
+    return inside;
   };
 
   useEffect(() => {
@@ -178,12 +196,12 @@ export const PointInsideGeofence = (props: {
         )}
 
         {mapImage != undefined && (
-          <Overlay 
-            image={mapImage} 
+          <Overlay
+            image={mapImage}
             bounds={bounds}
-            location={[mapRegion.latitude, mapRegion.longitude]} 
+            location={[mapRegion.latitude, mapRegion.longitude]}
             zIndex={1000}
-            bearing={building.rotation * 180 / Math.PI}
+            bearing={(building.rotation * 180) / Math.PI}
             anchor={[0.5, 0.5]}
             width={building.dimensions.width}
             height={building.dimensions.height}
