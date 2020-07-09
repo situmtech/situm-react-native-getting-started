@@ -3,11 +3,7 @@ import { View, ActivityIndicator, Image } from "react-native";
 
 import SitumPlugin from "react-native-situm-plugin";
 import styles from "./styles";
-import MapView, {
-  PROVIDER_GOOGLE,
-  Overlay,
-  Marker,
-} from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Overlay, Marker } from "react-native-maps";
 
 export const PoiOverMap = (props: { componentId: string; building: any }) => {
   const [building] = useState<any>(props.building);
@@ -96,7 +92,16 @@ export const PoiOverMap = (props: { componentId: string; building: any }) => {
         provider={PROVIDER_GOOGLE}
       >
         {mapImage != undefined && (
-          <Overlay image={mapImage} bounds={bounds} zIndex={1000} />
+          <Overlay
+            image={mapImage}
+            bounds={bounds}
+            zIndex={1000}
+            location={[mapRegion.latitude, mapRegion.longitude]}
+            bearing={(building.rotation * 180) / Math.PI}
+            anchor={[0.5, 0.5]}
+            width={building.dimensions.width}
+            height={building.dimensions.height}
+          />
         )}
 
         {poiAndIconArray[0] != null &&

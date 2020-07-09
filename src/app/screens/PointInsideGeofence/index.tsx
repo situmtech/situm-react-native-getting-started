@@ -22,7 +22,7 @@ import SitumPlugin from "react-native-situm-plugin";
 import styles from "./styles";
 
 let subscriptionId = -1;
-let pointsForGeofence ={name: "", points:[]}
+let pointsForGeofences: { name: any; points: any[][] }[] = [];
 export const PointInsideGeofence = (props: {
   componentId: string;
   building: any;
@@ -32,7 +32,7 @@ export const PointInsideGeofence = (props: {
   const [floor, setFloor] = useState<any>();
   const [mapImage, setMapImage] = useState<String>();
   const [bounds, setBounds] = useState<any>();
-  const [isUserInGeofence, setUserinGeofence] = useState<Boolean>(false);
+  const [userInGeofence, setUserInGeofence] = useState<any>({});
   const [currentLocation, setCurrentLocation] = useState<any>();
   const [polygonPoints, setPolygonPoints] = useState<any>();
   const [mapRegion] = useState<any>({
@@ -43,7 +43,11 @@ export const PointInsideGeofence = (props: {
   });
 
   const locationOptions = {
+    useWife: true,
     useGlobalLocation: true,
+    useBle: true,
+    useForegroundService: true,
+    interval: 7000,
   };
 
   const getFloorsFromBuilding = () => {
@@ -85,21 +89,29 @@ export const PointInsideGeofence = (props: {
       (building: any) => {
         setIsLoading(false);
         if (building.geofences.length > 0) {
-          let points = [];
+          let allPolygonPoints = [];
           let geofencePoints = [];
-          for (let polygon of building.geofences[0].polygonPoints) {
-            points.push(polygon.coordinate);
-            geofencePoints.push([
-              polygon.coordinate.latitude,
-              polygon.coordinate.longitude,
-            ]);
-          }
-          setPolygonPoints(points);
-          pointsForGeofence={
-            name: building.geofences[0].name,
-            points: geofencePoints,
-          };
+          pointsForGeofences = [];
 
+          for (let geofence of building.geofences) {
+            let points = [];
+            let geofencePoints = [];
+            for (let polygon of geofence.polygonPoints) {
+              points.push(polygon.coordinate);
+              geofencePoints.push([
+                polygon.coordinate.latitude,
+                polygon.coordinate.longitude,
+              ]);
+            }
+
+            allPolygonPoints.push(points);
+            pointsForGeofences.push({
+              name: geofence.name,
+              points: geofencePoints,
+            });
+          }
+
+          setPolygonPoints(allPolygonPoints);
           startPositioning();
         } else {
           console.log("No geofences found!");
@@ -113,14 +125,16 @@ export const PointInsideGeofence = (props: {
   };
 
   const startPositioning = () => {
-
     subscriptionId = SitumPlugin.startPositioning(
       (location) => {
         setCurrentLocation(location.coordinate);
 
-        setUserinGeofence(
-          inside(location.coordinate, pointsForGeofence.points)
-        );
+        for (let geofence of pointsForGeofences) {
+          if (inside(location.coordinate, geofence.points)) {
+            setUserInGeofence({ isInside: true, name: geofence.name });
+            break;
+          }
+        }
       },
       (status) => {
         console.log(status);
@@ -142,16 +156,18 @@ export const PointInsideGeofence = (props: {
   };
 
   const onMapPress = (coordinate) => {
-    const isInside = inside(coordinate, pointsForGeofence.points);
-    if (isInside) {
-      alert("Point inside geofence: " + pointsForGeofence.name);
+    for (let geofence of pointsForGeofences) {
+      console.log(JSON.stringify(geofence));
+      if (inside(coordinate, geofence.points)) {
+        alert("Point inside geofence: " + geofence.name);
+        break;
+      }
     }
   };
 
   const inside = (point, vs) => {
     // ray-casting algorithm based on
     // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
-    console.log(vs);
     var x = point.latitude,
       y = point.longitude;
 
@@ -170,6 +186,20 @@ export const PointInsideGeofence = (props: {
     return inside;
   };
 
+  const randomColor = () => {
+    const color =
+      "rgba(" +
+      Math.round(Math.random() * 255) +
+      "," +
+      Math.round(Math.random() * 255) +
+      "," +
+      Math.round(Math.random() * 255) +
+      "," +
+      0.5 +
+      ")";
+    return color;
+  };
+
   useEffect(() => {
     getFloorsFromBuilding();
     SitumPlugin.requestAuthorization();
@@ -180,8 +210,8 @@ export const PointInsideGeofence = (props: {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.headerText}>
-        {isUserInGeofence
-          ? "Current position INSIDE geofence"
+        {userInGeofence.isInside
+          ? "Current position INSIDE geofence: " + userInGeofence.name
           : "Current position OUTSIDE geofence"}{" "}
         {"\nClick anywhere on the map"}
       </Text>
@@ -208,15 +238,17 @@ export const PointInsideGeofence = (props: {
           />
         )}
 
-        {polygonPoints != undefined && (
-          <Polygon
-            coordinates={polygonPoints}
-            strokeColor="#F00"
-            fillColor="rgba(255,0,0,0.5)"
-            strokeWidth={1}
-            zIndex={1000}
-          />
-        )}
+        {polygonPoints != undefined &&
+          polygonPoints.map((points, index) => (
+            <Polygon
+              key={index}
+              coordinates={points}
+              strokeColor="#F00"
+              fillColor={randomColor()}
+              strokeWidth={1}
+              zIndex={1000}
+            />
+          ))}
       </MapView>
 
       {isLoading && (

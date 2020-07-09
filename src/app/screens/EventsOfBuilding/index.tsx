@@ -1,12 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {View, Image, ActivityIndicator} from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, Image, ActivityIndicator } from "react-native";
 
 import SitumPlugin from "react-native-situm-plugin";
 
-import styles from './styles';
-import MapView, { PROVIDER_GOOGLE, Overlay, Marker } from 'react-native-maps';
+import styles from "./styles";
+import MapView, { PROVIDER_GOOGLE, Overlay, Marker } from "react-native-maps";
 
-export const EventsOfBuilding = (props: {componentId: string; building: any }) => {
+export const EventsOfBuilding = (props: {
+  componentId: string;
+  building: any;
+}) => {
   const [building] = useState<any>(props.building);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [mapImage, setMapImage] = useState<String>();
@@ -18,7 +21,6 @@ export const EventsOfBuilding = (props: {componentId: string; building: any }) =
     latitudeDelta: 0.005,
     longitudeDelta: 0.005,
   });
-
 
   const getFloorsFromBuilding = () => {
     setIsLoading(true);
@@ -58,7 +60,6 @@ export const EventsOfBuilding = (props: {componentId: string; building: any }) =
       (events: any) => {
         setIsLoading(false);
         setEvents(events);
-    
       },
       (error: string) => {
         console.log(error);
@@ -79,7 +80,16 @@ export const EventsOfBuilding = (props: {componentId: string; building: any }) =
         provider={PROVIDER_GOOGLE}
       >
         {mapImage != undefined && (
-          <Overlay image={mapImage} bounds={bounds} zIndex={1000} />
+          <Overlay
+            image={mapImage}
+            bounds={bounds}
+            zIndex={1000}
+            location={[mapRegion.latitude, mapRegion.longitude]}
+            bearing={(building.rotation * 180) / Math.PI}
+            anchor={[0.5, 0.5]}
+            width={building.dimensions.width}
+            height={building.dimensions.height}
+          />
         )}
 
         {events[0] != null &&
@@ -88,9 +98,7 @@ export const EventsOfBuilding = (props: {componentId: string; building: any }) =
               key={event.identifier}
               coordinate={event.trigger.center.coordinate}
               title={event.name}
-            >
-              
-            </Marker>
+            ></Marker>
           ))}
       </MapView>
 
