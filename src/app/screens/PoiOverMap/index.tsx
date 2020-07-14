@@ -84,6 +84,26 @@ export const PoiOverMap = (props: { componentId: string; building: any }) => {
     getFloorsFromBuilding();
   }, [props.componentId]);
 
+  const getPoiCategoryIconNormal = (category) => {
+    // setIsLoading(true);
+    // setStep("fetchBuildingInfo");
+    SitumPlugin.fetchPoiCategoryIconNormal(
+      category,
+      (icon: any) => {
+        console.log(icon)
+        // setBuilding(buildingInfo);
+        // setIsLoading(false);
+      },
+      (error: string) => {
+        console.log(error)
+        // setStatus("fetchBuildingInfo: " + error);
+        // setIsLoading(false);
+      }
+    );
+  };
+  useEffect(() => {
+    getPoiCategories();
+  }, [props.componentId]);
   return (
     <View style={styles.container}>
       <MapView
