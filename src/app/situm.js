@@ -8,10 +8,10 @@ export function initSitumSdk() {
         console.log(JSON.stringify(response))
         console.log("Authenticated Succesfully: " + response.success);
     });
-    SitumPlugin.setCacheMaxAge(1, (response) =>{ // an hour
+    SitumPlugin.setCacheMaxAge(1, (response) =>{ 
         console.log("Cache Age: " + response.success);
     }); 
-    SitumPlugin.sdkVersions(response =>{ // an hour
+    SitumPlugin.sdkVersions(response =>{ 
         console.log("VERSIONS: " + JSON.stringify(response));
     }); 
 

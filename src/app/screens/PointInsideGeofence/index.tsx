@@ -23,6 +23,7 @@ import styles from "./styles";
 
 let subscriptionId = -1;
 let pointsForGeofences: { name: any; points: any[][] }[] = [];
+let randomColors = [];
 export const PointInsideGeofence = (props: {
   componentId: string;
   building: any;
@@ -47,7 +48,6 @@ export const PointInsideGeofence = (props: {
     useGlobalLocation: true,
     useBle: true,
     useForegroundService: true,
-    interval: 7000,
   };
 
   const getFloorsFromBuilding = () => {
@@ -84,18 +84,20 @@ export const PointInsideGeofence = (props: {
 
   const getGeofenceFromBuilding = () => {
     setIsLoading(true);
-    SitumPlugin.fetchBuildingInfo(
+    SitumPlugin.fetchGeofencesFromBuilding(
       building,
-      (building: any) => {
+      (geofences: any) => {
         setIsLoading(false);
-        if (building.geofences.length > 0) {
+        if (geofences.length > 0) {
+          generateRandomColors(geofences.length);
+
           let allPolygonPoints = [];
-          let geofencePoints = [];
           pointsForGeofences = [];
 
-          for (let geofence of building.geofences) {
+          for (let geofence of geofences) {
             let points = [];
             let geofencePoints = [];
+
             for (let polygon of geofence.polygonPoints) {
               points.push(polygon.coordinate);
               geofencePoints.push([
@@ -127,14 +129,18 @@ export const PointInsideGeofence = (props: {
   const startPositioning = () => {
     subscriptionId = SitumPlugin.startPositioning(
       (location) => {
-        setCurrentLocation(location.coordinate);
+        setCurrentLocation(location);
 
+        let userInside = { isInside: false, name: "" };
         for (let geofence of pointsForGeofences) {
           if (inside(location.coordinate, geofence.points)) {
-            setUserInGeofence({ isInside: true, name: geofence.name });
+            userInside = { isInside: true, name: geofence.name };
             break;
           }
         }
+
+        setUserInGeofence(userInside);
+
       },
       (status) => {
         console.log(status);
@@ -186,6 +192,14 @@ export const PointInsideGeofence = (props: {
     return inside;
   };
 
+  const generateRandomColors = (num) => {
+    if (randomColors.length > 0) return;
+
+    for (var i = 0; i < num; i++) {
+      randomColors.push(randomColor());
+    }
+  };
+
   const randomColor = () => {
     const color =
       "rgba(" +
@@ -217,12 +231,16 @@ export const PointInsideGeofence = (props: {
       </Text>
       <MapView
         style={styles.mapview}
-        region={mapRegion}
+        initialRegion={mapRegion}
         provider={PROVIDER_GOOGLE}
         onPress={(event) => onMapPress(event.nativeEvent.coordinate)}
       >
         {currentLocation != undefined && (
-          <Marker coordinate={currentLocation} />
+          <Marker
+            coordinate={currentLocation.coordinate}
+            rotation={currentLocation.bearing.degrees}
+            image={require("../../../assets/ic_direction.png")}
+          />
         )}
 
         {mapImage != undefined && (
@@ -244,7 +262,7 @@ export const PointInsideGeofence = (props: {
               key={index}
               coordinates={points}
               strokeColor="#F00"
-              fillColor={randomColor()}
+              fillColor={randomColors[index]}
               strokeWidth={1}
               zIndex={1000}
             />
