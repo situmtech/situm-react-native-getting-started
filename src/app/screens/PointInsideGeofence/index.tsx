@@ -1,22 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  NativeModules,
+  Alert,
+  Platform,
+  SafeAreaView,
+} from "react-native";
 import { Navigation } from "react-native-navigation";
 
 import { NavigationMap } from "../navigation";
-import MapView, { Overlay, PROVIDER_GOOGLE, Polygon } from "react-native-maps";
+import MapView, {
+  Overlay,
+  PROVIDER_GOOGLE,
+  Polygon,
+  Marker,
+} from "react-native-maps";
 import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
 
+let subscriptionId = -1;
+let pointsForGeofences: { name: any; points: any[][] }[] = [];
+let randomColors = [];
 export const PointInsideGeofence = (props: {
   componentId: string;
   building: any;
 }) => {
-  const [building, setBuilding] = useState<any>(props.building);
+  const [building] = useState<any>(props.building);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [floor, setFloor] = useState<any>();
   const [mapImage, setMapImage] = useState<String>();
   const [bounds, setBounds] = useState<any>();
+  const [userInGeofence, setUserInGeofence] = useState<any>({});
+  const [currentLocation, setCurrentLocation] = useState<any>();
   const [polygonPoints, setPolygonPoints] = useState<any>();
   const [mapRegion] = useState<any>({
     latitude: building.center.latitude,
@@ -24,6 +42,13 @@ export const PointInsideGeofence = (props: {
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
+
+  const locationOptions = {
+    useWife: true,
+    useGlobalLocation: true,
+    useBle: true,
+    useForegroundService: true,
+  };
 
   const getFloorsFromBuilding = () => {
     setIsLoading(true);
@@ -59,16 +84,37 @@ export const PointInsideGeofence = (props: {
 
   const getGeofenceFromBuilding = () => {
     setIsLoading(true);
-    SitumPlugin.fetchBuildingInfo(
+    SitumPlugin.fetchGeofencesFromBuilding(
       building,
-      (building: any) => {
+      (geofences: any) => {
         setIsLoading(false);
-        if (building.geofences.length > 0) {
-          let points = [];
-          for (let polygon of building.geofences[0].polygonPoints) {
-            points.push(polygon.coordinate);
+        if (geofences.length > 0) {
+          generateRandomColors(geofences.length);
+
+          let allPolygonPoints = [];
+          pointsForGeofences = [];
+
+          for (let geofence of geofences) {
+            let points = [];
+            let geofencePoints = [];
+
+            for (let polygon of geofence.polygonPoints) {
+              points.push(polygon.coordinate);
+              geofencePoints.push([
+                polygon.coordinate.latitude,
+                polygon.coordinate.longitude,
+              ]);
+            }
+
+            allPolygonPoints.push(points);
+            pointsForGeofences.push({
+              name: geofence.name,
+              points: geofencePoints,
+            });
           }
-          setPolygonPoints(points);
+
+          setPolygonPoints(allPolygonPoints);
+          startPositioning();
         } else {
           console.log("No geofences found!");
         }
@@ -80,47 +126,154 @@ export const PointInsideGeofence = (props: {
     );
   };
 
+  const startPositioning = () => {
+    subscriptionId = SitumPlugin.startPositioning(
+      (location) => {
+        setCurrentLocation(location);
 
+        let userInside = { isInside: false, name: "" };
+        for (let geofence of pointsForGeofences) {
+          if (inside(location.coordinate, geofence.points)) {
+            userInside = { isInside: true, name: geofence.name };
+            break;
+          }
+        }
+
+        setUserInGeofence(userInside);
+
+      },
+      (status) => {
+        console.log(status);
+      },
+      (error) => {
+        console.log(error);
+        stopPositioning();
+      },
+      locationOptions
+    );
+  };
+
+  const stopPositioning = () => {
+    // if (Platform.OS === "ios") return;
+
+    SitumPlugin.stopPositioning(subscriptionId, (success: any) => {
+      console.log(success);
+    });
+  };
+
+  const onMapPress = (coordinate) => {
+    for (let geofence of pointsForGeofences) {
+      console.log(JSON.stringify(geofence));
+      if (inside(coordinate, geofence.points)) {
+        alert("Point inside geofence: " + geofence.name);
+        break;
+      }
+    }
+  };
+
+  const inside = (point, vs) => {
+    // ray-casting algorithm based on
+    // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+    var x = point.latitude,
+      y = point.longitude;
+
+    var inside = false;
+    for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+      var xi = vs[i][0],
+        yi = vs[i][1];
+      var xj = vs[j][0],
+        yj = vs[j][1];
+
+      var intersect =
+        yi > y != yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi;
+      if (intersect) inside = !inside;
+    }
+
+    return inside;
+  };
+
+  const generateRandomColors = (num) => {
+    if (randomColors.length > 0) return;
+
+    for (var i = 0; i < num; i++) {
+      randomColors.push(randomColor());
+    }
+  };
+
+  const randomColor = () => {
+    const color =
+      "rgba(" +
+      Math.round(Math.random() * 255) +
+      "," +
+      Math.round(Math.random() * 255) +
+      "," +
+      Math.round(Math.random() * 255) +
+      "," +
+      0.5 +
+      ")";
+    return color;
+  };
 
   useEffect(() => {
     getFloorsFromBuilding();
+    SitumPlugin.requestAuthorization();
+    return () => {
+      stopPositioning();
+    };
   }, [props.componentId]);
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.headerText}>
+        {userInGeofence.isInside
+          ? "Current position INSIDE geofence: " + userInGeofence.name
+          : "Current position OUTSIDE geofence"}{" "}
+        {"\nClick anywhere on the map"}
+      </Text>
       <MapView
-        style={{ width: "100%", height: "100%" }}
-        region={mapRegion}
+        style={styles.mapview}
+        initialRegion={mapRegion}
         provider={PROVIDER_GOOGLE}
+        onPress={(event) => onMapPress(event.nativeEvent.coordinate)}
       >
+        {currentLocation != undefined && (
+          <Marker
+            coordinate={currentLocation.coordinate}
+            rotation={currentLocation.bearing.degrees}
+            image={require("../../../assets/ic_direction.png")}
+          />
+        )}
+
         {mapImage != undefined && (
-          <Overlay 
-            image={mapImage} 
+          <Overlay
+            image={mapImage}
             bounds={bounds}
-            location={[mapRegion.latitude, mapRegion.longitude]} 
+            location={[mapRegion.latitude, mapRegion.longitude]}
             zIndex={1000}
-            bearing={building.rotation * 180 / Math.PI}
+            bearing={(building.rotation * 180) / Math.PI}
             anchor={[0.5, 0.5]}
             width={building.dimensions.width}
             height={building.dimensions.height}
           />
         )}
 
-        {polygonPoints != undefined && (
-          <Polygon
-            coordinates={polygonPoints}
-            strokeColor="#F00"
-            fillColor="rgba(255,0,0,0.5)"
-            strokeWidth={1}
-            zIndex={1000}
-          />
-        )}
+        {polygonPoints != undefined &&
+          polygonPoints.map((points, index) => (
+            <Polygon
+              key={index}
+              coordinates={points}
+              strokeColor="#F00"
+              fillColor={randomColors[index]}
+              strokeWidth={1}
+              zIndex={1000}
+            />
+          ))}
       </MapView>
 
       {isLoading && (
-        <View style={{ position: "absolute" }}>
+        <View style={styles.loader}>
           <ActivityIndicator size="large" color="#000000" />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
