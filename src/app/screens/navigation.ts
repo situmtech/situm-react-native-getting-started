@@ -10,6 +10,7 @@ import { RouteOverMap } from "./RouteOverMap/index";
 import { EventsOfBuilding } from "./EventsOfBuilding/index";
 import { PointInsideGeofence } from "./PointInsideGeofence/index";
 import { BuildingList } from "./BuildingList/index";
+import { Settings } from "./Settings/index";
 
 export const NavigationMap: any = {
   Home: {
@@ -92,12 +93,16 @@ export const NavigationMap: any = {
   PoiOverMap: {
     name: "PoiOverMap",
     component: PoiOverMap,
+    showBuildings: true,
     options: {
       topBar: {
         title: {
           text: "Draw POIs over map",
         },
       },
+    },
+    passProps: {
+      building: {},
     },
   },
   RouteOverMap: {
@@ -118,10 +123,25 @@ export const NavigationMap: any = {
   EventsOfBuilding: {
     name: "EventsOfBuilding",
     component: EventsOfBuilding,
+    showBuildings: true,
     options: {
       topBar: {
         title: {
           text: "Show all the events of a buildings",
+        },
+      },
+    },
+    passProps: {
+      building: {},
+    },
+  },
+  Settings: {
+    name: "Settings",
+    component: Settings,
+    options: {
+      topBar: {
+        title: {
+          text: "Settings",
         },
       },
     },
