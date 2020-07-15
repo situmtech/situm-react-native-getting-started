@@ -84,6 +84,7 @@ export const PoiOverMap = (props: { componentId: string; building: any }) => {
     getFloorsFromBuilding();
   }, [props.componentId]);
 
+  /*
   const getPoiCategoryIconNormal = (category) => {
     // setIsLoading(true);
     // setStep("fetchBuildingInfo");
@@ -104,6 +105,7 @@ export const PoiOverMap = (props: { componentId: string; building: any }) => {
   useEffect(() => {
     getPoiCategories();
   }, [props.componentId]);
+  */
   return (
     <View style={styles.container}>
       <MapView
