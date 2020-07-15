@@ -10,6 +10,7 @@ import { RouteOverMap } from "./RouteOverMap/index";
 import { EventsOfBuilding } from "./EventsOfBuilding/index";
 import { PointInsideGeofence } from "./PointInsideGeofence/index";
 import { BuildingList } from "./BuildingList/index";
+import { Settings } from "./Settings/index";
 
 export const NavigationMap: any = {
   Home: {
@@ -132,6 +133,17 @@ export const NavigationMap: any = {
     },
     passProps: {
       building: {},
+    },
+  },
+  Settings: {
+    name: "Settings",
+    component: Settings,
+    options: {
+      topBar: {
+        title: {
+          text: "Settings",
+        },
+      },
     },
   },
   PointInsideGeofence: {
