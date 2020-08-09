@@ -15,10 +15,14 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
   const [isDirectionEnable, setIsDirectionEnable] = useState<Boolean>(false);
 
   const locationOptions = {
+    useWifi: true,
+    useBle: true,
+    useForegroundService: true,
     useGlobalLocation:true,
     outdoorLocationOptions: {
-      buildingDetector: "kSITBLE", // options: kSITBLE, kSITGpsProximity; default: kSITGpsProximity
+      buildingDetector: "WIFI", // options: kSITBLE, kSITGpsProximity; default: 
       // minimumOutdoorLocationAccuracy: 10
+      averageSnrThreshold: 40
     }
 
   };
