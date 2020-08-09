@@ -92,12 +92,16 @@ export const NavigationMap: any = {
   PoiOverMap: {
     name: "PoiOverMap",
     component: PoiOverMap,
+    showBuildings: true,
     options: {
       topBar: {
         title: {
           text: "Draw POIs over map",
         },
       },
+    },
+    passProps: {
+      building: {},
     },
   },
   RouteOverMap: {
@@ -118,12 +122,16 @@ export const NavigationMap: any = {
   EventsOfBuilding: {
     name: "EventsOfBuilding",
     component: EventsOfBuilding,
+    showBuildings: true,
     options: {
       topBar: {
         title: {
           text: "Show all the events of a buildings",
         },
       },
+    },
+    passProps: {
+      building: {},
     },
   },
   PointInsideGeofence: {
