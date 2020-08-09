@@ -154,7 +154,7 @@ export const PointInsideGeofence = (props: {
   };
 
   const stopPositioning = () => {
-    if (Platform.OS === "ios") return;
+    // if (Platform.OS === "ios") return;
 
     SitumPlugin.stopPositioning(subscriptionId, (success: any) => {
       console.log(success);
