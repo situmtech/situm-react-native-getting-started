@@ -5,9 +5,10 @@
   "dependencies": {
     "react": "16.11.0",
     "react-native": "0.62.2",
-    "react-native-maps": "ArnoldoJr/react-native-maps#add-overlay-rotation-support",
+    "react-native-maps": "react-native-maps/react-native-maps#pull/3214/head",
     "react-native-navigation": "^6.6.0",
-    "react-native-situm-plugin": "file:../situm-react-native-plugin"
+    "react-native-popup-menu": "^0.15.10",
+    "react-native-situm-plugin": "nomanr/situm-react-native-plugin#improve/outdoor-location-options"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

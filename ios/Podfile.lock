@@ -324,10 +324,10 @@ PODS:
     - React
     - React-RCTImage
     - React-RCTText
-  - ReactNativeSitumPlugin (0.0.5):
+  - ReactNativeSitumPlugin (0.0.9):
     - React
-    - SitumSDK (= 2.45.2)
-  - SitumSDK (2.45.2):
+    - SitumSDK (= 2.49.0)
+  - SitumSDK (2.49.0):
     - Protobuf (~> 3.7.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -507,11 +507,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   ReactNativeNavigation: 34b7ba2fa6691876f5c86eb773b51dcbefb8051c
-  ReactNativeSitumPlugin: 60f882ad228cf3e41990ebb5f631ce1a330d826e
-  SitumSDK: 719744de8a67a8b59d902665f2232c3bea3cb8b8
+  ReactNativeSitumPlugin: fc891170af5881bdd9ad57d3ea03348ae8c1547a
+  SitumSDK: 2bbae6f62627cc1c6e877e64ba10d6a99529bc91
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
 PODFILE CHECKSUM: 9f8690675d8667193f46b56b50c3322ab35fd290
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0

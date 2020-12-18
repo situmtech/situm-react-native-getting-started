@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, Switch, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, Switch, ScrollView, TextInput } from "react-native";
 import { Navigation } from "react-native-navigation";
 
 import { NavigationMap } from "../navigation";
@@ -7,24 +7,28 @@ import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
 import ResponseText from "../../components/ResponseText";
+import { Menu, MenuProvider, MenuTrigger, MenuOption, MenuOptions } from "react-native-popup-menu";
 
 let subscriptionId = -1;
 export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
   const [response, setResponse] = useState<String>();
   const [status, setStatus] = useState<String>();
   const [isDirectionEnable, setIsDirectionEnable] = useState<Boolean>(false);
+  const [updateInterval, setUpdateInterval] = useState<number>(5000);
+  const [computeInterval, setComputeInterval] = useState<number>(1000);
+  const [backgroundAccuracy, setBackgroundAccuracy] = useState<string>("MAXIMUM");
 
-  const locationOptions = {
+  let locationOptions = {
     useWifi: true,
     useBle: true,
     useForegroundService: true,
     useGlobalLocation:true,
     outdoorLocationOptions: {
-      buildingDetector: "WIFI", // options: kSITBLE, kSITGpsProximity; default: 
-      // minimumOutdoorLocationAccuracy: 10
-      averageSnrThreshold: 40
+      buildingDetector: "WIFI", 
+      updateInterval: updateInterval, 
+      computeInterval: computeInterval, 
+      backgroundAccuracy: backgroundAccuracy 
     }
-
   };
 
   const toggleSwitch = (check: boolean) => {
@@ -57,6 +61,15 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
     });
   };
 
+ const onUpdateIntervalChange = (newInterval: string) => {
+    setUpdateInterval(+newInterval.replace(/[^0-9]/g, "") )
+  };
+
+  const onComputeIntervalChange = (newInterval: string) => {
+    setComputeInterval(+newInterval.replace(/[^0-9]/g, "") )
+  };
+
+
   useEffect(() => {
     SitumPlugin.requestAuthorization();
     return () => {
@@ -64,17 +77,60 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
     };
   }, [props.componentId]);
 
+  const renderOptions = () => {
+    if(isDirectionEnable) return <></>
+
+    return <View> 
+            <View style={styles.rowContainer}>
+              <Text> {"Update Interval: "} </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="1000"
+                onChangeText={(text)=> onUpdateIntervalChange(text)}
+                value={updateInterval.toString()}
+              />
+            </View>
+
+            <View style={styles.rowContainer}>
+              <Text> {"Compute Interval: "} </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="1000"
+                onChangeText={(text)=> onComputeIntervalChange(text)}
+                value={computeInterval.toString()}
+              />
+            </View>
+
+            <View style={styles.rowContainer}>
+              <Text> {"Background Accuracy: "} </Text>
+              <Menu  onSelect={value => setBackgroundAccuracy(value)}>
+                <MenuTrigger text={backgroundAccuracy}/>
+                <MenuOptions>
+                  <MenuOption value={"MAXIMUM"} text='MAXIMUM' />
+                  <MenuOption value={"HIGH"} text='HIGH' />
+                  <MenuOption value={"MEDIUM"} text='MEDIUM' />
+                  <MenuOption value={"LOW"} text='LOW' />
+                </MenuOptions>
+              </Menu>
+                
+            </View>
+          </View>
+  }
+
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
-        <View style={styles.switchContainer}>
-          <Text>
-            {isDirectionEnable ? "Location Started:   " : "Location Stopped: "}
-          </Text>
-          <Switch onValueChange={toggleSwitch} value={isDirectionEnable} />
-        </View>
-        <ResponseText label="Status" value={status} />
-        <ResponseText label="Location" value={response} />
+        <MenuProvider>
+            {renderOptions()}
+          <View style={styles.switchContainer}>
+            <Text>
+              {isDirectionEnable ? "Location Started:   " : "Location Stopped: "}
+            </Text>
+            <Switch onValueChange={toggleSwitch} value={isDirectionEnable} />
+          </View>
+          <ResponseText label="Status" value={status} />
+          <ResponseText label="Location" value={response} />
+        </MenuProvider>
       </SafeAreaView>
     </ScrollView>
   );
