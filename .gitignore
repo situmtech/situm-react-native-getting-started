@@ -54,6 +54,7 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+*.bundle
 
 # CocoaPods
 /ios/Pods/
@@ -61,5 +62,7 @@ buck-out/
 /src/app/config.js
 /ios/conf.plist
 /ios/Podfile.lock
+
+/android/app/src
 
 situm_conf*
