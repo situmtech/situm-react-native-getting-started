@@ -20,7 +20,7 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
     useForegroundService: true,
     useGlobalLocation:true,
     outdoorLocationOptions: {
-      buildingDetector: "kSITBLE", // options: kSITBLE, kSITGpsProximity; default: 
+      buildingDetector: "WIFI", // options: kSITBLE, kSITGpsProximity; default: 
       // minimumOutdoorLocationAccuracy: 10
       averageSnrThreshold: 40
     }
