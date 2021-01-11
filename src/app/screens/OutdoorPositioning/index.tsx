@@ -16,7 +16,7 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
   const [isDirectionEnable, setIsDirectionEnable] = useState<Boolean>(false);
   const [updateInterval, setUpdateInterval] = useState<number>(5);
   const [computeInterval, setComputeInterval] = useState<number>(1);
-  const [backgroundAccuracy, setBackgroundAccuracy] = useState<string>("MAXIMUM");
+  const [backgroundAccuracy, setBackgroundAccuracy] = useState<string>("HIGH");
   const [buildingDetector, setBuildingDetector] = useState<string>("WIFI");
 
   let locationOptions = {
@@ -121,7 +121,7 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
               <Menu  onSelect={value => setBackgroundAccuracy(value)}>
                 <MenuTrigger text={backgroundAccuracy}/>
                 <MenuOptions>
-                  <MenuOption value={"MAXIMUM"} text='MAXIMUM' />
+                  <MenuOption value={"NAVIGATION"} text='NAVIGATION' />
                   <MenuOption value={"HIGH"} text='HIGH' />
                   <MenuOption value={"MEDIUM"} text='MEDIUM' />
                   <MenuOption value={"LOW"} text='LOW' />
