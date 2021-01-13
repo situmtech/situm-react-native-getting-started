@@ -3,6 +3,7 @@ import { Navigation } from "react-native-navigation";
 import { Home } from "./Home";
 import { IndoorPositioning } from "./IndoorPositioning/index";
 import { IndoorOutdoorPositioning } from "./IndoorOutdoorPositioning/index";
+import { OutdoorPositioning } from "./OutdoorPositioning/index";
 import { BuildingsOverMap } from "./BuildingsOverMap/index";
 import { PositionOverMap } from "./PositionOverMap/index";
 import { PoiOverMap } from "./PoiOverMap/index";
@@ -60,6 +61,17 @@ export const NavigationMap: any = {
       topBar: {
         title: {
           text: "Indoor-outdoor Positioning",
+        },
+      },
+    },
+  },
+  OutdoorPositioning: {
+    name: "OutdoorPositioning",
+    component: OutdoorPositioning,
+    options: {
+      topBar: {
+        title: {
+          text: "Outdoor Positioning",
         },
       },
     },
