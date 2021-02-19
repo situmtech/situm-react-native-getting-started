@@ -13,17 +13,20 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
   const [response, setResponse] = useState<String>();
   const [status, setStatus] = useState<String>();
   const [isDirectionEnable, setIsDirectionEnable] = useState<Boolean>(false);
+  const [useBarometer, setUseBarometer] = useState<Boolean>(false);
 
   const locationOptions = {
     useWifi: true,
     useBle: true,
     useForegroundService: true,
     useGlobalLocation:true,
+    useBarometer: useBarometer,
     outdoorLocationOptions: {
       buildingDetector: "WIFI", // options: kSITBLE, kSITGpsProximity; default: 
       // minimumOutdoorLocationAccuracy: 10
       averageSnrThreshold: 40
-    }
+    },
+    
 
   };
 
@@ -73,6 +76,15 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
           </Text>
           <Switch onValueChange={toggleSwitch} value={isDirectionEnable} />
         </View>
+
+       {!isDirectionEnable ? 
+       <View style={styles.switchContainer}>
+          <Text>
+            {"useBarometer"}
+          </Text>
+          <Switch onValueChange={(toggle)=>setUseBarometer(toggle)} value={useBarometer} />
+        </View> : null }
+
         <ResponseText label="Status" value={status} />
         <ResponseText label="Location" value={response} />
       </SafeAreaView>
