@@ -16,8 +16,13 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
   const [isDirectionEnable, setIsDirectionEnable] = useState<Boolean>(false);
   const [updateInterval, setUpdateInterval] = useState<number>(5);
   const [computeInterval, setComputeInterval] = useState<number>(1);
+  const [minimumLocationAccuracy, setMinimumLocationAccuracy] = useState<number>(1000);
   const [backgroundAccuracy, setBackgroundAccuracy] = useState<string>("MAXIMUM");
   const [buildingDetector, setBuildingDetector] = useState<string>("WIFI");
+  const [enableOutdoorPositions, setEnableOutdoorPositions] = useState<Boolean>(true);
+  const [enableOpenSkyDetector, setEnableOpenSkyDetector] = useState<Boolean>(false);
+  const [scanBasedDetectorAlwaysOn, setScanBasedDetectorAlwaysOn] = useState<Boolean>(false);
+  const [useGeofencesinBuildingSelector, setUseGeofencesinBuildingSelector] = useState<Boolean>(false);
 
   let locationOptions = {
     useWifi: true,
@@ -28,7 +33,12 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
       buildingDetector: buildingDetector, 
       updateInterval: updateInterval*1000, //toMillis
       computeInterval: computeInterval*1000, //toMillis 
-      backgroundAccuracy: backgroundAccuracy 
+      backgroundAccuracy: backgroundAccuracy,
+      useGeofencesinBuildingSelector: useGeofencesinBuildingSelector, 
+      enableOutdoorPositions: enableOutdoorPositions,
+      minimumOutdoorLocationAccuracy: minimumLocationAccuracy,
+      scansBasedDetectorAlwaysOn: scanBasedDetectorAlwaysOn, 
+      enableOpenSkyDetector: enableOpenSkyDetector,
     }
   };
 
@@ -70,6 +80,10 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
     setComputeInterval(+newInterval.replace(/[^0-9]/g, "") )
   };
 
+  const onMinimumLocationAccuracyChange = (newAccuracy: string) => {
+    setMinimumLocationAccuracy(+newAccuracy.replace(/[^0-9]/g, "") )
+  };
+
 
   useEffect(() => {
     SitumPlugin.requestAuthorization();
@@ -103,6 +117,16 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
             </View>
 
             <View style={styles.rowContainer}>
+              <Text> {"Minimum Outdoor Location\n Accuracy (meters): "} </Text>
+              <TextInput
+                style={styles.input}
+                placeholder="1000"
+                onChangeText={(text)=> onMinimumLocationAccuracyChange(text)}
+                value={minimumLocationAccuracy.toString()}
+              />
+            </View>
+
+            <View style={styles.rowContainer}>
               <Text> {"Outdoor Location Building Detector: "} </Text>
               <Menu  onSelect={value => setBuildingDetector(value)}>
                 <MenuTrigger text={buildingDetector}/>
@@ -129,7 +153,38 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
               </Menu>
                 
             </View>
+
+            <View style={styles.switchContainer}>
+              <Text>
+                {"enableOutdoorPositions: "}
+              </Text>
+              <Switch onValueChange={(toggle)=>setEnableOutdoorPositions(toggle)} value={enableOutdoorPositions} />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>
+                {"useGeofencesinBuildingSelector: "}
+              </Text>
+              <Switch onValueChange={(toggle)=>setUseGeofencesinBuildingSelector(toggle)} value={useGeofencesinBuildingSelector} />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>
+                {"enableOpenSkyDetector: "}
+              </Text>
+              <Switch onValueChange={(toggle)=>setEnableOpenSkyDetector(toggle)} value={enableOpenSkyDetector} />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>
+                {"scanBasedDetectorAlwaysOn: "}
+              </Text>
+              <Switch onValueChange={(toggle)=>setScanBasedDetectorAlwaysOn(toggle)} value={scanBasedDetectorAlwaysOn} />
+            </View>
+
           </View>
+
+          
   }
 
   return (
