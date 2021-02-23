@@ -91,6 +91,7 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
           <MenuOption value={"NORMAL"} text='NORMAL' />
           <MenuOption value={"SLOW"} text='SLOW' />
           <MenuOption value={"BATTERY_SAVER"} text='BATTERY_SAVER' />
+          <MenuOption value={"NEVER"} text='NEVER' />
           </MenuOptions>
         </Menu>        
       </View>
