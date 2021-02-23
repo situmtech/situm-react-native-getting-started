@@ -145,7 +145,7 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
               <Menu  onSelect={value => setBackgroundAccuracy(value)}>
                 <MenuTrigger text={backgroundAccuracy}/>
                 <MenuOptions>
-                  <MenuOption value={"MAXIMUM"} text='MAXIMUM' />
+                  <MenuOption value={"NAVIGATION"} text='NAVIGATION' />
                   <MenuOption value={"HIGH"} text='HIGH' />
                   <MenuOption value={"MEDIUM"} text='MEDIUM' />
                   <MenuOption value={"LOW"} text='LOW' />
