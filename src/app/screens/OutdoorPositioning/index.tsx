@@ -14,6 +14,9 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
   const [response, setResponse] = useState<String>();
   const [status, setStatus] = useState<String>();
   const [isDirectionEnable, setIsDirectionEnable] = useState<Boolean>(false);
+  const [useGps, setUseGps] = useState<Boolean>(false);
+  const [useBle, setUseBle] = useState<Boolean>(true);
+  const [useWifi, setUseWifi] = useState<Boolean>(true);
   const [updateInterval, setUpdateInterval] = useState<number>(5);
   const [computeInterval, setComputeInterval] = useState<number>(1);
   const [minimumLocationAccuracy, setMinimumLocationAccuracy] = useState<number>(1000);
@@ -25,8 +28,9 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
   const [useGeofencesinBuildingSelector, setUseGeofencesinBuildingSelector] = useState<Boolean>(false);
 
   let locationOptions = {
-    useWifi: true,
-    useBle: true,
+    useWifi: useWifi,
+    useBle: useBle,
+    useGps: useGps,
     useForegroundService: true,
     useGlobalLocation:true,
     outdoorLocationOptions: {
@@ -154,6 +158,27 @@ export const OutdoorPositioning = (props: { componentId: string }) => {
                 
             </View>
 
+            <View style={styles.switchContainer}>
+              <Text>
+                {"useGps: "}
+              </Text>
+              <Switch onValueChange={(toggle)=>setUseGps(toggle)} value={useGps} />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>
+                {"useBle: "}
+              </Text>
+              <Switch onValueChange={(toggle)=>setUseBle(toggle)} value={useBle} />
+            </View>
+
+            <View style={styles.switchContainer}>
+              <Text>
+                {"useWifi: "}
+              </Text>
+              <Switch onValueChange={(toggle)=>setUseWifi(toggle)} value={useWifi} />
+            </View>
+            
             <View style={styles.switchContainer}>
               <Text>
                 {"enableOutdoorPositions: "}
