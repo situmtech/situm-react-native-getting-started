@@ -17,6 +17,7 @@ import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
 import ResponseText from "../../components/ResponseText";
+import { getLocationOptions } from "../../data/settings";
 
 let subscriptionId = -1;
 export const IndoorPositioning = (props: {
@@ -30,10 +31,7 @@ export const IndoorPositioning = (props: {
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [step, setStep] = useState<String>();
   const [mapImage, setMapImage] = useState<String>();
-
-  const locationOptions = {
-    buildingIdentifier: building.buildingIdentifier,
-  };
+  const [locationOptions, setLocationOptions] = useState<any>()
 
   const getBuildingInfo = () => {
     setIsLoading(true);
@@ -101,7 +99,7 @@ export const IndoorPositioning = (props: {
           setStatus(error);
           stopPositioning();
         },
-        locationOptions
+        {...locationOptions, buildingIdentifier: building.buildingIdentifier}
       )
     } else {
       stopPositioning();
@@ -118,6 +116,12 @@ export const IndoorPositioning = (props: {
     });
   };
 
+  useEffect(() => {
+    getLocationOptions().then((options) => {
+      setLocationOptions(options);
+    });
+  }, [props.componentId]);
+  
   useEffect(() => {
     Navigation.mergeOptions(props.componentId, {
       ...NavigationMap.IndoorPositioning.options,

@@ -12,6 +12,7 @@ import { EventsOfBuilding } from "./EventsOfBuilding/index";
 import { PointInsideGeofence } from "./PointInsideGeofence/index";
 import { BuildingList } from "./BuildingList/index";
 import { Settings } from "./Settings/index";
+import { Component } from 'react';
 
 export const NavigationMap: any = {
   Home: {
@@ -22,6 +23,13 @@ export const NavigationMap: any = {
         title: {
           text: "Home",
         },
+        rightButtons: [
+          {
+            id: "settings",
+            text: "Settings", 
+            allCaps: false
+          }
+        ]
       },
     },
   },
@@ -182,7 +190,7 @@ export function registerScreens() {
 }
 
 export function getNavigationList() {
-  const ignore = [NavigationMap.Home.name, NavigationMap.BuildingList.name];
+  const ignore = [NavigationMap.Home.name, NavigationMap.BuildingList.name, NavigationMap.Settings.name];
   const navigations = [];
   for (const key in NavigationMap) {
     if (ignore.includes(key)) continue;

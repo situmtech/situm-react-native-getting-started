@@ -7,6 +7,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
+import { getLocationOptions } from "../../data/settings";
 // import { ic_direction } from '../../../assets/assets';
 
 let subscriptionId = -1;
@@ -21,15 +22,10 @@ export const PositionOverMap = (props: { componentId: string }) => {
   });
   const [isLoading, setIsLoading] = useState<Boolean>(false);
 
-  const locationOptions = {
-    useWife: true,
-    useBle: true,
-    useForegroundService: true,
-  };
 
-  const startPositioning = () => {
+  const startPositioning = (locationOptions: any) => {
     if (Platform.OS === "ios") return;
-
+    
     setIsLoading(true);
     subscriptionId = SitumPlugin.startPositioning(
       (location) => {
@@ -68,10 +64,15 @@ export const PositionOverMap = (props: { componentId: string }) => {
       ...NavigationMap.PositionOverMap.options,
     });
     SitumPlugin.requestAuthorization();
-    startPositioning();
     return () => {
       stopPositioning();
     };
+  }, [props.componentId]);
+
+  useEffect(() => {
+    getLocationOptions().then((options) => {
+      startPositioning(options);
+    });
   }, [props.componentId]);
 
   return (

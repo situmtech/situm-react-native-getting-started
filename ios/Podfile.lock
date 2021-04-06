@@ -324,10 +324,12 @@ PODS:
     - React
     - React-RCTImage
     - React-RCTText
-  - ReactNativeSitumPlugin (0.0.9):
+  - ReactNativeSitumPlugin (0.0.11):
     - React
-    - SitumSDK (= 2.50.3)
-  - SitumSDK (2.50.3):
+    - SitumSDK (= 2.50.4)
+  - RNCAsyncStorage (1.12.1):
+    - React-Core
+  - SitumSDK (2.50.4):
     - Protobuf (~> 3.7.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -384,6 +386,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeNavigation (from `../node_modules/react-native-navigation/ReactNativeNavigation.podspec`)
   - ReactNativeSitumPlugin (from `../node_modules/react-native-situm-plugin/ReactNativeSitumPlugin.podspec`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -462,6 +465,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native-navigation/ReactNativeNavigation.podspec"
   ReactNativeSitumPlugin:
     :path: "../node_modules/react-native-situm-plugin/ReactNativeSitumPlugin.podspec"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -507,8 +512,9 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   ReactNativeNavigation: 34b7ba2fa6691876f5c86eb773b51dcbefb8051c
-  ReactNativeSitumPlugin: 596e29f7bf2bde1fe3576cd4ffb1a02a6d12a77f
-  SitumSDK: 2c9cb24e82f089ed268351fe42edbbec0d517f5e
+  ReactNativeSitumPlugin: 95101fba8e902af41eada5890567b7b4d6d54aa1
+  RNCAsyncStorage: cb9a623793918c6699586281f0b51cbc38f046f9
+  SitumSDK: 653f5665fd5e882261148b672b1d3ba676e57aea
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

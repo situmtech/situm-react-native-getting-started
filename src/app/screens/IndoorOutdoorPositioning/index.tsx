@@ -8,33 +8,18 @@ import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
 import ResponseText from "../../components/ResponseText";
+import { getLocationOptions } from "../../data/settings";
 
 let subscriptionId = -1;
 export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
   const [response, setResponse] = useState<String>();
   const [status, setStatus] = useState<String>();
   const [isDirectionEnable, setIsDirectionEnable] = useState<Boolean>(false);
-  const [useBarometer, setUseBarometer] = useState<Boolean>(false);
-  const [realtimeUpdateInterval, setRealtimeUpdateInterval] = useState<string>("REALTIME");
-
-  const locationOptions = {
-    useWifi: true,
-    useBle: true,
-    useForegroundService: true,
-    useGlobalLocation:true,
-    useBarometer: useBarometer,
-    realtimeUpdateInterval: realtimeUpdateInterval,
-    outdoorLocationOptions: {
-      buildingDetector: "WIFI", // options: WIFI, BLE; default: 
-      // minimumOutdoorLocationAccuracy: 10
-      averageSnrThreshold: 40
-    },
-    
-
-  };
+  const [locationOptions, setLocationOptions] = useState<any>()
 
   const toggleSwitch = (check: boolean) => {
     if (check) {
+
       subscriptionId = SitumPlugin.startPositioning(
         (location: any) => {
           setResponse(JSON.stringify(location, null, 3));
@@ -70,34 +55,12 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
     };
   }, [props.componentId]);
 
-  const renderOptions = () => {
-    if(isDirectionEnable) return <></>
+  useEffect(() => {
+    getLocationOptions().then((options) => {
+      setLocationOptions(options);
+    });
+  }, [props.componentId]);
 
-   return( 
-    <>
-     <View style={styles.switchContainer}>
-        <Text>
-          {"useBarometer"}
-        </Text>
-        <Switch onValueChange={(toggle)=>setUseBarometer(toggle)} value={useBarometer} />
-      </View>
-      <View style={styles.rowContainer}>
-        <Text> {"Outdoor Location Building Detector: "} </Text>
-        <Menu  onSelect={value => setRealtimeUpdateInterval(value)}>
-          <MenuTrigger text={realtimeUpdateInterval}/>
-          <MenuOptions>
-          <MenuOption value={"REALTIME"} text='REALTIME' />
-          <MenuOption value={"FAST"} text='FAST' />
-          <MenuOption value={"NORMAL"} text='NORMAL' />
-          <MenuOption value={"SLOW"} text='SLOW' />
-          <MenuOption value={"BATTERY_SAVER"} text='BATTERY_SAVER' />
-          <MenuOption value={"NEVER"} text='NEVER' />
-          </MenuOptions>
-        </Menu>        
-      </View>
-    </>
-   )
-  }
 
   return (
     <ScrollView>
@@ -109,8 +72,6 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
             </Text>
             <Switch onValueChange={toggleSwitch} value={isDirectionEnable} />
           </View>
-
-          {renderOptions()}
 
           <ResponseText label="Status" value={status} />
           <ResponseText label="Location" value={response} />
