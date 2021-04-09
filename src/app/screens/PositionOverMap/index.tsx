@@ -24,7 +24,6 @@ export const PositionOverMap = (props: { componentId: string }) => {
 
 
   const startPositioning = (locationOptions: any) => {
-    if (Platform.OS === "ios") return;
     
     setIsLoading(true);
     subscriptionId = SitumPlugin.startPositioning(
@@ -52,8 +51,6 @@ export const PositionOverMap = (props: { componentId: string }) => {
   };
 
   const stopPositioning = () => {
-    if (Platform.OS === "ios") return;
-
     SitumPlugin.stopPositioning(subscriptionId, (success: any) => {
       console.log(success);
     });
@@ -80,8 +77,6 @@ export const PositionOverMap = (props: { componentId: string }) => {
       <MapView
         style={{ width: "100%", height: "100%" }}
         region={mapRegion}
-        showsUserLocation={Platform.OS === "ios"}
-        showsMyLocationButton={Platform.OS === "ios"}
         provider={PROVIDER_GOOGLE}
       >
         {location != undefined && (
