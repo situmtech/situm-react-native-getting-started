@@ -718,7 +718,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.situm.gettingstarted.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.situm.gettingstarted;
 				PRODUCT_NAME = SitumRNGettingStarted;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
