@@ -712,13 +712,14 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios",
 				);
 				INFOPLIST_FILE = SitumRNGettingStarted/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.situm.gettingstarted;
+				PRODUCT_BUNDLE_IDENTIFIER = com.situm.gettingstarted.1;
 				PRODUCT_NAME = SitumRNGettingStarted;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -769,13 +770,14 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios",
 				);
 				INFOPLIST_FILE = SitumRNGettingStarted/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.situm.gettingstarted;
+				PRODUCT_BUNDLE_IDENTIFIER = com.situm.gettingstarted.1;
 				PRODUCT_NAME = SitumRNGettingStarted;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

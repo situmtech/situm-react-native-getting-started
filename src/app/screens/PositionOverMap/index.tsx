@@ -8,6 +8,11 @@ import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
 import { getLocationOptions } from "../../data/settings";
+import {
+  PERMISSIONS,
+  requestMultiple,
+  RESULTS,
+} from "react-native-permissions";
 // import { ic_direction } from '../../../assets/assets';
 
 let subscriptionId = -1;
@@ -22,9 +27,13 @@ export const PositionOverMap = (props: { componentId: string }) => {
   });
   const [isLoading, setIsLoading] = useState<Boolean>(false);
 
+  const locationPermissions = [
+    PERMISSIONS.IOS.LOCATION_ALWAYS,
+    PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+    PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+  ];
 
   const startPositioning = (locationOptions: any) => {
-    
     setIsLoading(true);
     subscriptionId = SitumPlugin.startPositioning(
       (location) => {
@@ -68,7 +77,14 @@ export const PositionOverMap = (props: { componentId: string }) => {
 
   useEffect(() => {
     getLocationOptions().then((options) => {
-      startPositioning(options);
+      requestMultiple(locationPermissions).then((statuses) => {
+        console.log(JSON.stringify(statuses));
+        for (var permission of locationPermissions) {
+          if (statuses[permission] == RESULTS.GRANTED) {
+            startPositioning(options);
+          }
+        }
+      });
     });
   }, [props.componentId]);
 
@@ -81,7 +97,7 @@ export const PositionOverMap = (props: { componentId: string }) => {
       >
         {location != undefined && (
           <Marker
-            rotation = {location.bearing.degrees}
+            rotation={location.bearing.degrees}
             coordinate={location.coordinate}
             image={require("../../../assets/ic_direction.png")}
           />
@@ -96,4 +112,3 @@ export const PositionOverMap = (props: { componentId: string }) => {
     </View>
   );
 };
-
