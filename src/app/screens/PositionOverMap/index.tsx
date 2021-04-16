@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, Platform } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  Platform,
+  PermissionsAndroid,
+} from "react-native";
 import { Navigation } from "react-native-navigation";
 
 import { NavigationMap } from "../navigation";
@@ -9,6 +14,8 @@ import SitumPlugin from "react-native-situm-plugin";
 import styles from "./styles";
 import { getLocationOptions } from "../../data/settings";
 import {
+  check,
+  checkMultiple,
   PERMISSIONS,
   requestMultiple,
   RESULTS,
@@ -31,6 +38,7 @@ export const PositionOverMap = (props: { componentId: string }) => {
     PERMISSIONS.IOS.LOCATION_ALWAYS,
     PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
     PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+    PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION,
   ];
 
   const startPositioning = (locationOptions: any) => {
@@ -65,27 +73,33 @@ export const PositionOverMap = (props: { componentId: string }) => {
     });
   };
 
+  const startLocationUpdates = () => {
+    getLocationOptions().then((options) => {
+      startPositioning(options);
+    });
+  };
+
+  const requestLocationPermissions = (result) => {
+    requestMultiple(locationPermissions).then((statuses) => {
+      for (var permission of locationPermissions) {
+        if (statuses[permission] == RESULTS.GRANTED) {
+          startLocationUpdates();
+        }
+      }
+    });
+  };
+
   useEffect(() => {
     Navigation.mergeOptions(props.componentId, {
       ...NavigationMap.PositionOverMap.options,
     });
-    SitumPlugin.requestAuthorization();
     return () => {
       stopPositioning();
     };
   }, [props.componentId]);
 
   useEffect(() => {
-    getLocationOptions().then((options) => {
-      requestMultiple(locationPermissions).then((statuses) => {
-        console.log(JSON.stringify(statuses));
-        for (var permission of locationPermissions) {
-          if (statuses[permission] == RESULTS.GRANTED) {
-            startPositioning(options);
-          }
-        }
-      });
-    });
+    requestLocationPermissions();
   }, [props.componentId]);
 
   return (
