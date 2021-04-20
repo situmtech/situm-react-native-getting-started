@@ -11,8 +11,11 @@ const DEFAULT_LOCATION_OPTIONS = {
     interval: 1000,
     useLocationCache: false,
     useBatterySaver: false,
-    ignoreWifiThrottling: false, 
+    useBarometer: false,
+    useDeadReckoning: false,
+    ignoreWifiThrottling: true, 
     realtimeUpdateInterval: "REALTIME",
+    buildingIdentifier: -1,
     outdoorLocationOptions: {
       buildingDetector: "WIFI", 
       updateInterval: 5000,
@@ -21,9 +24,9 @@ const DEFAULT_LOCATION_OPTIONS = {
       useGeofencesinBuildingSelector: false, 
       enableOutdoorPositions: true,
       minimumOutdoorLocationAccuracy: 0,
-      scansBasedDetectorAlwaysOn: true, 
+      scansBasedDetectorAlwaysOn: false, 
       enableOpenSkyDetector: false,
-      averageSnrThreshold: 40,
+      averageSnrThreshold: 28,
     }
   };
 
