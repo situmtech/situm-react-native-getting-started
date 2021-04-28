@@ -10,7 +10,7 @@
     "react-native-navigation": "^6.7.1",
     "react-native-permissions": "^3.0.1",
     "react-native-popup-menu": "^0.15.10",
-    "react-native-situm-plugin": "situmtech/situm-react-native-plugin#pull/40/head"
+    "react-native-situm-plugin": "0.0.11"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

@@ -1,9 +1,7 @@
 import { Platform } from "react-native";
 import { Navigation } from "react-native-navigation";
 import { Home } from "./Home";
-import { IndoorPositioning } from "./IndoorPositioning/index";
 import { IndoorOutdoorPositioning } from "./IndoorOutdoorPositioning/index";
-import { OutdoorPositioning } from "./OutdoorPositioning/index";
 import { BuildingsOverMap } from "./BuildingsOverMap/index";
 import { PositionOverMap } from "./PositionOverMap/index";
 import { PoiOverMap } from "./PoiOverMap/index";
@@ -47,21 +45,6 @@ export const NavigationMap: any = {
       next: "",
     },
   },
-  IndoorPositioning: {
-    name: "IndoorPositioning",
-    component: IndoorPositioning,
-    showBuildings: true,
-    options: {
-      topBar: {
-        title: {
-          text: "Indoor Positioning",
-        },
-      },
-    },
-    passProps: {
-      building: {},
-    },
-  },
   IndoorOutdoorPositioning: {
     name: "IndoorOutdoorPositioning",
     component: IndoorOutdoorPositioning,
@@ -69,17 +52,6 @@ export const NavigationMap: any = {
       topBar: {
         title: {
           text: "Indoor-outdoor Positioning",
-        },
-      },
-    },
-  },
-  OutdoorPositioning: {
-    name: "OutdoorPositioning",
-    component: OutdoorPositioning,
-    options: {
-      topBar: {
-        title: {
-          text: "Outdoor Positioning",
         },
       },
     },
@@ -194,8 +166,6 @@ export function getNavigationList() {
   const navigations = [];
   for (const key in NavigationMap) {
     if (ignore.includes(key)) continue;
-
-    console.log(NavigationMap[key]);
     navigations.push({
       key: key,
       value: NavigationMap[key].options.topBar.title.text,

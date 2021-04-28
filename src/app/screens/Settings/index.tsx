@@ -105,7 +105,6 @@ export const Settings = (props: { componentId: string }) => {
   const onBuildingIdChange = (id: string) => {
     const { outdoorLocationOptions } = locationOptions;
     const integerVal = +id.replace(/[^0-9]/g, "");
-    console.log(integerVal)
     const buildingIdentifier = integerVal == 0 ? -1 : integerVal;
     updateLocationOptions({
       ...locationOptions,
@@ -136,6 +135,7 @@ export const Settings = (props: { componentId: string }) => {
               updateLocationOptions({
                 ...locationOptions,
                 useGlobalLocation: toggle,
+                buildingIdentifier: -1,
               });
             }}
             value={locationOptions.useGlobalLocation}
@@ -374,18 +374,23 @@ export const Settings = (props: { componentId: string }) => {
           />
         </View>
 
-        <View style={styles.switchContainer}>
-          <Text>{"Scan based detector always on:\t"}</Text>
-          <Switch
-            onValueChange={(toggle) => {
+        {Platform.OS == "android" && (
+          <View style={styles.switchContainer}>
+            <Text>{"Scan based detector always on:\t"}</Text>
+            <Switch
+             onValueChange={(toggle) => {
               updateLocationOptions({
                 ...locationOptions,
-                scansBasedDetectorAlwaysOn: toggle,
+                outdoorLocationOptions: {
+                  ...outdoorLocationOptions,
+                  scansBasedDetectorAlwaysOn: toggle,
+                },
               });
             }}
-            value={locationOptions.scansBasedDetectorAlwaysOn}
-          />
-        </View>
+            value={outdoorLocationOptions.scansBasedDetectorAlwaysOn}
+            />
+          </View>
+        )}
 
         <View style={styles.rowContainer}>
           <Text> {"Interval (Seconds): "} </Text>
