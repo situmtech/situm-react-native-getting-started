@@ -9,7 +9,7 @@ const DEFAULT_LOCATION_OPTIONS = {
     useForegroundService: true,
     useGlobalLocation:true,
     interval: 1000,
-    useLocationCache: false,
+    useLocationsCache: false,
     useBatterySaver: false,
     useBarometer: false,
     useDeadReckoning: false,
@@ -17,7 +17,7 @@ const DEFAULT_LOCATION_OPTIONS = {
     realtimeUpdateInterval: "REALTIME",
     buildingIdentifier: -1,
     outdoorLocationOptions: {
-      buildingDetector: "WIFI", 
+      buildingDetector: "BLE", 
       updateInterval: 5000,
       computeInterval: 1000,
       backgroundAccuracy: "MAXIMUM",

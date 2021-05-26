@@ -55,8 +55,9 @@ export const PositionOverMap = (props: { componentId: string }) => {
         });
       },
       (status) => {
-        setIsLoading(false);
-        console.log(status);
+        if (status == "STARTING") {
+          setIsLoading(false);
+        }
       },
       (error) => {
         setIsLoading(false);

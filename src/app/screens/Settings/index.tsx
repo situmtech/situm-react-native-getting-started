@@ -122,6 +122,25 @@ export const Settings = (props: { componentId: string }) => {
     setLocationOptions(locationOptions);
   }, [locationOptions]);
 
+  const getBuildingDetectorOptions = () => {
+    if (Platform.OS == "ios") {
+      return (
+        <MenuOptions>
+          <MenuOption value={"BLE"} text="BLE" />
+          <MenuOption value={"GPS"} text="GPS" />
+        </MenuOptions>
+      );
+    } else {
+      return (
+        <MenuOptions>
+          <MenuOption value={"BLE"} text="BLE" />
+          <MenuOption value={"WIFI"} text="WIFI" />
+          <MenuOption value={"WIFI_AND_BLE"} text="WIFI_AND_BLE" />
+          <MenuOption value={"GPS"} text="GPS" />
+        </MenuOptions>
+      );
+    }
+  };
   const renderPositioningOptions = () => {
     const { outdoorLocationOptions } = locationOptions;
     return (
@@ -173,35 +192,34 @@ export const Settings = (props: { componentId: string }) => {
               }}
             >
               <MenuTrigger text={outdoorLocationOptions.buildingDetector} />
-              <MenuOptions>
-                <MenuOption value={"WIFI"} text="WIFI" />
-                <MenuOption value={"BLE"} text="BLE" />
-                <MenuOption value={"WIFI_AND_BLE"} text="WIFI_AND_BLE" />
-                <MenuOption value={"GPS"} text="GPS" />
-              </MenuOptions>
+              {getBuildingDetectorOptions()}
             </Menu>
           </View>
         )}
 
-        <View style={styles.switchContainer}>
-          <Text>{"Use WIFI:\t"}</Text>
-          <Switch
-            onValueChange={(toggle) => {
-              updateLocationOptions({ ...locationOptions, useWifi: toggle });
-            }}
-            value={locationOptions.useWifi}
-          />
-        </View>
+        {Platform.OS == "android" && (
+          <View style={styles.switchContainer}>
+            <Text>{"Use WIFI:\t"}</Text>
+            <Switch
+              onValueChange={(toggle) => {
+                updateLocationOptions({ ...locationOptions, useWifi: toggle });
+              }}
+              value={locationOptions.useWifi}
+            />
+          </View>
+        )}
 
-        <View style={styles.switchContainer}>
-          <Text>{"Use BLE:\t"}</Text>
-          <Switch
-            onValueChange={(toggle) => {
-              updateLocationOptions({ ...locationOptions, useBle: toggle });
-            }}
-            value={locationOptions.useBle}
-          />
-        </View>
+        {Platform.OS == "android" && (
+          <View style={styles.switchContainer}>
+            <Text>{"Use BLE:\t"}</Text>
+            <Switch
+              onValueChange={(toggle) => {
+                updateLocationOptions({ ...locationOptions, useBle: toggle });
+              }}
+              value={locationOptions.useBle}
+            />
+          </View>
+        )}
 
         <View style={styles.switchContainer}>
           <Text>{"Use Indoor GPS:\t"}</Text>
@@ -378,16 +396,16 @@ export const Settings = (props: { componentId: string }) => {
           <View style={styles.switchContainer}>
             <Text>{"Scan based detector always on:\t"}</Text>
             <Switch
-             onValueChange={(toggle) => {
-              updateLocationOptions({
-                ...locationOptions,
-                outdoorLocationOptions: {
-                  ...outdoorLocationOptions,
-                  scansBasedDetectorAlwaysOn: toggle,
-                },
-              });
-            }}
-            value={outdoorLocationOptions.scansBasedDetectorAlwaysOn}
+              onValueChange={(toggle) => {
+                updateLocationOptions({
+                  ...locationOptions,
+                  outdoorLocationOptions: {
+                    ...outdoorLocationOptions,
+                    scansBasedDetectorAlwaysOn: toggle,
+                  },
+                });
+              }}
+              value={outdoorLocationOptions.scansBasedDetectorAlwaysOn}
             />
           </View>
         )}
