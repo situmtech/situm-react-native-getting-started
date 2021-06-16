@@ -10,4 +10,10 @@ export default StyleSheet.create({
     marginTop: 10,
     alignItems: "center",
   },
+  rowContainer: {
+    flexDirection: "row",
+    paddingLeft: 10,
+    paddingBottom:10,
+    marginTop: 10,
+  },
 });

@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { View, Text, FlatList, TouchableOpacity, Button } from "react-native";
-import { Navigation } from "react-native-navigation";
+import { Navigation, NavigationButtonPressedEvent } from "react-native-navigation";
 
 import { NavigationMap, getNavigationList } from "../navigation";
 
 import styles from "./styles";
 import { BuildingList } from '../BuildingList/index';
+import { Settings } from '../Settings/index';
 
 export const Home = (props: { componentId: string }) => {
 
@@ -27,6 +28,26 @@ export const Home = (props: { componentId: string }) => {
     Navigation.mergeOptions(props.componentId, {
       ...NavigationMap.Home.options,
     });
+  }, [props.componentId]);
+
+  useEffect(() => {
+    const listener = {
+      navigationButtonPressed: (_event: NavigationButtonPressedEvent) => {
+        if (_event.buttonId === 'settings') {
+          Navigation.push(props.componentId, {
+            component: NavigationMap.Settings,
+          });
+        }
+      },
+    };
+    const event= Navigation.events().registerComponentListener(
+      listener,
+      props.componentId,
+    );
+
+    return () => {
+      event.remove();
+    };
   }, [props.componentId]);
 
   return (

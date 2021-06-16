@@ -1,7 +1,6 @@
 PODS:
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.5)
-  - CocoaLibEvent (1.0.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.62.2)
   - FBReactNativeSpec (0.62.2):
@@ -11,50 +10,61 @@ PODS:
     - React-Core (= 0.62.2)
     - React-jsi (= 0.62.2)
     - ReactCommon/turbomodule/core (= 0.62.2)
-  - Flipper (0.37.0):
-    - Flipper-Folly (~> 2.2)
-    - Flipper-RSocket (~> 1.1)
+  - Flipper (0.87.0):
+    - Flipper-Folly (~> 2.5)
+    - Flipper-RSocket (~> 1.3)
   - Flipper-DoubleConversion (1.1.7)
-  - Flipper-Folly (2.3.0):
+  - Flipper-Folly (2.5.3):
     - boost-for-react-native
-    - CocoaLibEvent (~> 1.0)
     - Flipper-DoubleConversion
     - Flipper-Glog
-    - OpenSSL-Universal (= 1.0.2.20)
+    - libevent (~> 2.1.12)
+    - OpenSSL-Universal (= 1.1.180)
   - Flipper-Glog (0.3.6)
   - Flipper-PeerTalk (0.0.4)
-  - Flipper-RSocket (1.1.0):
-    - Flipper-Folly (~> 2.2)
-  - FlipperKit (0.37.0):
-    - FlipperKit/Core (= 0.37.0)
-  - FlipperKit/Core (0.37.0):
-    - Flipper (~> 0.37.0)
+  - Flipper-RSocket (1.3.1):
+    - Flipper-Folly (~> 2.5)
+  - FlipperKit (0.87.0):
+    - FlipperKit/Core (= 0.87.0)
+  - FlipperKit/Core (0.87.0):
+    - Flipper (~> 0.87.0)
     - FlipperKit/CppBridge
     - FlipperKit/FBCxxFollyDynamicConvert
     - FlipperKit/FBDefines
     - FlipperKit/FKPortForwarding
-  - FlipperKit/CppBridge (0.37.0):
-    - Flipper (~> 0.37.0)
-  - FlipperKit/FBCxxFollyDynamicConvert (0.37.0):
-    - Flipper-Folly (~> 2.2)
-  - FlipperKit/FBDefines (0.37.0)
-  - FlipperKit/FKPortForwarding (0.37.0):
+  - FlipperKit/CppBridge (0.87.0):
+    - Flipper (~> 0.87.0)
+  - FlipperKit/FBCxxFollyDynamicConvert (0.87.0):
+    - Flipper-Folly (~> 2.5)
+  - FlipperKit/FBDefines (0.87.0)
+  - FlipperKit/FKPortForwarding (0.87.0):
     - CocoaAsyncSocket (~> 7.6)
     - Flipper-PeerTalk (~> 0.0.4)
-  - FlipperKit/FlipperKitHighlightOverlay (0.37.0)
-  - FlipperKit/FlipperKitLayoutPlugin (0.37.0):
+  - FlipperKit/FlipperKitHighlightOverlay (0.87.0)
+  - FlipperKit/FlipperKitLayoutHelpers (0.87.0):
     - FlipperKit/Core
     - FlipperKit/FlipperKitHighlightOverlay
     - FlipperKit/FlipperKitLayoutTextSearchable
+  - FlipperKit/FlipperKitLayoutIOSDescriptors (0.87.0):
+    - FlipperKit/Core
+    - FlipperKit/FlipperKitHighlightOverlay
+    - FlipperKit/FlipperKitLayoutHelpers
     - YogaKit (~> 1.18)
-  - FlipperKit/FlipperKitLayoutTextSearchable (0.37.0)
-  - FlipperKit/FlipperKitNetworkPlugin (0.37.0):
+  - FlipperKit/FlipperKitLayoutPlugin (0.87.0):
     - FlipperKit/Core
-  - FlipperKit/FlipperKitReactPlugin (0.37.0):
+    - FlipperKit/FlipperKitHighlightOverlay
+    - FlipperKit/FlipperKitLayoutHelpers
+    - FlipperKit/FlipperKitLayoutIOSDescriptors
+    - FlipperKit/FlipperKitLayoutTextSearchable
+    - YogaKit (~> 1.18)
+  - FlipperKit/FlipperKitLayoutTextSearchable (0.87.0)
+  - FlipperKit/FlipperKitNetworkPlugin (0.87.0):
     - FlipperKit/Core
-  - FlipperKit/FlipperKitUserDefaultsPlugin (0.37.0):
+  - FlipperKit/FlipperKitReactPlugin (0.87.0):
     - FlipperKit/Core
-  - FlipperKit/SKIOSNetworkPlugin (0.37.0):
+  - FlipperKit/FlipperKitUserDefaultsPlugin (0.87.0):
+    - FlipperKit/Core
+  - FlipperKit/SKIOSNetworkPlugin (0.87.0):
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - Folly (2018.10.22.00):
@@ -88,9 +98,12 @@ PODS:
   - GoogleMaps/Base (3.2.0)
   - GoogleMaps/Maps (3.2.0):
     - GoogleMaps/Base
-  - OpenSSL-Universal (1.0.2.20):
-    - OpenSSL-Universal/Static (= 1.0.2.20)
-  - OpenSSL-Universal/Static (1.0.2.20)
+  - libevent (2.1.12)
+  - OpenSSL-Universal (1.1.180)
+  - Permission-LocationAlways (3.0.1):
+    - RNPermissions
+  - Permission-LocationWhenInUse (3.0.1):
+    - RNPermissions
   - Protobuf (3.7.0)
   - RCTRequired (0.62.2)
   - RCTTypeSafety (0.62.2):
@@ -324,10 +337,14 @@ PODS:
     - React
     - React-RCTImage
     - React-RCTText
-  - ReactNativeSitumPlugin (0.0.9):
+  - ReactNativeSitumPlugin (0.0.11):
     - React
-    - SitumSDK (= 2.50.3)
-  - SitumSDK (2.50.3):
+    - SitumSDK (= 2.50.4)
+  - RNCAsyncStorage (1.12.1):
+    - React-Core
+  - RNPermissions (3.0.1):
+    - React-Core
+  - SitumSDK (2.50.4):
     - Protobuf (~> 3.7.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -337,27 +354,29 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
-  - Flipper (~> 0.37.0)
+  - Flipper (~> 0.87.0)
   - Flipper-DoubleConversion (= 1.1.7)
-  - Flipper-Folly (~> 2.1)
+  - Flipper-Folly (~> 2.5.3)
   - Flipper-Glog (= 0.3.6)
   - Flipper-PeerTalk (~> 0.0.4)
-  - Flipper-RSocket (~> 1.0)
-  - FlipperKit (~> 0.37.0)
-  - FlipperKit/Core (~> 0.37.0)
-  - FlipperKit/CppBridge (~> 0.37.0)
-  - FlipperKit/FBCxxFollyDynamicConvert (~> 0.37.0)
-  - FlipperKit/FBDefines (~> 0.37.0)
-  - FlipperKit/FKPortForwarding (~> 0.37.0)
-  - FlipperKit/FlipperKitHighlightOverlay (~> 0.37.0)
-  - FlipperKit/FlipperKitLayoutPlugin (~> 0.37.0)
-  - FlipperKit/FlipperKitLayoutTextSearchable (~> 0.37.0)
-  - FlipperKit/FlipperKitNetworkPlugin (~> 0.37.0)
-  - FlipperKit/FlipperKitReactPlugin (~> 0.37.0)
-  - FlipperKit/FlipperKitUserDefaultsPlugin (~> 0.37.0)
-  - FlipperKit/SKIOSNetworkPlugin (~> 0.37.0)
+  - Flipper-RSocket (~> 1.3.1)
+  - FlipperKit (~> 0.87.0)
+  - FlipperKit/Core (~> 0.87.0)
+  - FlipperKit/CppBridge (~> 0.87.0)
+  - FlipperKit/FBCxxFollyDynamicConvert (~> 0.87.0)
+  - FlipperKit/FBDefines (~> 0.87.0)
+  - FlipperKit/FKPortForwarding (~> 0.87.0)
+  - FlipperKit/FlipperKitHighlightOverlay (~> 0.87.0)
+  - FlipperKit/FlipperKitLayoutPlugin (~> 0.87.0)
+  - FlipperKit/FlipperKitLayoutTextSearchable (~> 0.87.0)
+  - FlipperKit/FlipperKitNetworkPlugin (~> 0.87.0)
+  - FlipperKit/FlipperKitReactPlugin (~> 0.87.0)
+  - FlipperKit/FlipperKitUserDefaultsPlugin (~> 0.87.0)
+  - FlipperKit/SKIOSNetworkPlugin (~> 0.87.0)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways`)
+  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -384,13 +403,14 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - ReactNativeNavigation (from `../node_modules/react-native-navigation/ReactNativeNavigation.podspec`)
   - ReactNativeSitumPlugin (from `../node_modules/react-native-situm-plugin/ReactNativeSitumPlugin.podspec`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - boost-for-react-native
     - CocoaAsyncSocket
-    - CocoaLibEvent
     - Flipper
     - Flipper-DoubleConversion
     - Flipper-Folly
@@ -400,6 +420,7 @@ SPEC REPOS:
     - FlipperKit
     - Google-Maps-iOS-Utils
     - GoogleMaps
+    - libevent
     - OpenSSL-Universal
     - Protobuf
     - SitumSDK
@@ -416,6 +437,10 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  Permission-LocationAlways:
+    :path: "../node_modules/react-native-permissions/ios/LocationAlways"
+  Permission-LocationWhenInUse:
+    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -462,28 +487,34 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native-navigation/ReactNativeNavigation.podspec"
   ReactNativeSitumPlugin:
     :path: "../node_modules/react-native-situm-plugin/ReactNativeSitumPlugin.podspec"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: 4aab18c93cd9546e4bfed752b4084585eca8b245
   FBReactNativeSpec: 5465d51ccfeecb7faa12f9ae0024f2044ce4044e
-  Flipper: 1670db365568191bd123a0c905b834e77ba9e3d3
+  Flipper: 1bd2db48dcc31e4b167b9a33ec1df01c2ded4893
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
-  Flipper-Folly: e4493b013c02d9347d5e0cb4d128680239f6c78a
+  Flipper-Folly: 755929a4f851b2fb2c347d533a23f191b008554c
   Flipper-Glog: 1dfd6abf1e922806c52ceb8701a3599a79a200a6
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
-  Flipper-RSocket: 64e7431a55835eb953b0bf984ef3b90ae9fdddd7
-  FlipperKit: afd4259ef9eadeeb2d30250b37d95cb3b6b97a69
+  Flipper-RSocket: 127954abe8b162fcaf68d2134d34dc2bd7076154
+  FlipperKit: 651f50a42eb95c01b3e89a60996dd6aded529eeb
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   GoogleMaps: 5046d7edfe381c1a0b20fdaf293915a375c3122b
-  OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
+  libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
+  Permission-LocationAlways: 7f7f373d086af7a81b2f4f20d65d29266ca2043b
+  Permission-LocationWhenInUse: 3ae82a9feb5da4e94e386dba17c7dd3531af9feb
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   RCTRequired: cec6a34b3ac8a9915c37e7e4ad3aa74726ce4035
   RCTTypeSafety: 93006131180074cffa227a1075802c89a49dd4ce
@@ -507,11 +538,13 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   ReactNativeNavigation: 34b7ba2fa6691876f5c86eb773b51dcbefb8051c
-  ReactNativeSitumPlugin: 5c1a81049c2d8f593d35bb5b463f924d3d036fff
-  SitumSDK: 2c9cb24e82f089ed268351fe42edbbec0d517f5e
+  ReactNativeSitumPlugin: 95101fba8e902af41eada5890567b7b4d6d54aa1
+  RNCAsyncStorage: cb9a623793918c6699586281f0b51cbc38f046f9
+  RNPermissions: eb94f9fdc0a8ecd02fcce0676d56ffb1395d41e1
+  SitumSDK: 653f5665fd5e882261148b672b1d3ba676e57aea
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 9f8690675d8667193f46b56b50c3322ab35fd290
+PODFILE CHECKSUM: d915b4061249f09dd5b2b3a7303874d9a4612f01
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0

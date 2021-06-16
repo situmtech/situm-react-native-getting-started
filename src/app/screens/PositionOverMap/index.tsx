@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, Platform } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  Platform,
+  PermissionsAndroid,
+} from "react-native";
 import { Navigation } from "react-native-navigation";
 
 import { NavigationMap } from "../navigation";
@@ -7,6 +12,14 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import SitumPlugin from "react-native-situm-plugin";
 
 import styles from "./styles";
+import { getLocationOptions } from "../../data/settings";
+import {
+  check,
+  checkMultiple,
+  PERMISSIONS,
+  requestMultiple,
+  RESULTS,
+} from "react-native-permissions";
 // import { ic_direction } from '../../../assets/assets';
 
 let subscriptionId = -1;
@@ -21,15 +34,14 @@ export const PositionOverMap = (props: { componentId: string }) => {
   });
   const [isLoading, setIsLoading] = useState<Boolean>(false);
 
-  const locationOptions = {
-    useWife: true,
-    useBle: true,
-    useForegroundService: true,
-  };
+  const locationPermissions = [
+    PERMISSIONS.IOS.LOCATION_ALWAYS,
+    PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+    PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+    PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION,
+  ];
 
-  const startPositioning = () => {
-    if (Platform.OS === "ios") return;
-
+  const startPositioning = (locationOptions: any) => {
     setIsLoading(true);
     subscriptionId = SitumPlugin.startPositioning(
       (location) => {
@@ -43,8 +55,9 @@ export const PositionOverMap = (props: { componentId: string }) => {
         });
       },
       (status) => {
-        setIsLoading(false);
-        console.log(status);
+        if (status == "STARTING") {
+          setIsLoading(false);
+        }
       },
       (error) => {
         setIsLoading(false);
@@ -56,10 +69,24 @@ export const PositionOverMap = (props: { componentId: string }) => {
   };
 
   const stopPositioning = () => {
-    if (Platform.OS === "ios") return;
-
     SitumPlugin.stopPositioning(subscriptionId, (success: any) => {
       console.log(success);
+    });
+  };
+
+  const startLocationUpdates = () => {
+    getLocationOptions().then((options) => {
+      startPositioning(options);
+    });
+  };
+
+  const requestLocationPermissions = (result) => {
+    requestMultiple(locationPermissions).then((statuses) => {
+      for (var permission of locationPermissions) {
+        if (statuses[permission] == RESULTS.GRANTED) {
+          startLocationUpdates();
+        }
+      }
     });
   };
 
@@ -67,11 +94,13 @@ export const PositionOverMap = (props: { componentId: string }) => {
     Navigation.mergeOptions(props.componentId, {
       ...NavigationMap.PositionOverMap.options,
     });
-    SitumPlugin.requestAuthorization();
-    startPositioning();
     return () => {
       stopPositioning();
     };
+  }, [props.componentId]);
+
+  useEffect(() => {
+    requestLocationPermissions();
   }, [props.componentId]);
 
   return (
@@ -79,13 +108,11 @@ export const PositionOverMap = (props: { componentId: string }) => {
       <MapView
         style={{ width: "100%", height: "100%" }}
         region={mapRegion}
-        showsUserLocation={Platform.OS === "ios"}
-        showsMyLocationButton={Platform.OS === "ios"}
         provider={PROVIDER_GOOGLE}
       >
         {location != undefined && (
           <Marker
-            rotation = {location.bearing.degrees}
+            rotation={location.bearing.degrees}
             coordinate={location.coordinate}
             image={require("../../../assets/ic_direction.png")}
           />
@@ -100,4 +127,3 @@ export const PositionOverMap = (props: { componentId: string }) => {
     </View>
   );
 };
-

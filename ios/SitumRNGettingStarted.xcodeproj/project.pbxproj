@@ -212,6 +212,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				BDE86C4EECD0DF2F9E072D75 /* [CP] Copy Pods Resources */,
+				3AB2C3332C64D6D95231D76E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -234,6 +235,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				0D0503F96104FCB804D9E540 /* [CP] Copy Pods Resources */,
+				D7E67C20CFA979AE6C9CEBFC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -435,6 +437,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		3AB2C3332C64D6D95231D76E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5EAB5CCE41EAC6210B8DDD00 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -517,6 +537,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests/Pods-SitumRNGettingStarted-SitumRNGettingStartedTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7E67C20CFA979AE6C9CEBFC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SitumRNGettingStarted/Pods-SitumRNGettingStarted-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SitumRNGettingStarted/Pods-SitumRNGettingStarted-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -712,13 +750,14 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios",
 				);
 				INFOPLIST_FILE = SitumRNGettingStarted/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.situm.gettingstarted.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.situm.gettingstarted;
 				PRODUCT_NAME = SitumRNGettingStarted;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -769,6 +808,7 @@
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios",
 				);
 				INFOPLIST_FILE = SitumRNGettingStarted/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
