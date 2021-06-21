@@ -305,10 +305,10 @@ export const Settings = (props: { componentId: string }) => {
             onValueChange={(toggle) => {
               updateLocationOptions({
                 ...locationOptions,
-                useLocationCache: toggle,
+                useLocationsCache: toggle,
               });
             }}
-            value={locationOptions.useLocationCache}
+            value={locationOptions.useLocationsCache}
           />
         </View>
 
