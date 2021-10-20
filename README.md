@@ -49,6 +49,8 @@ positioning system in your buildings.
 
 Perfect! Now you are ready to develop your first indoor positioning application.
 
+NOTE: More information on how to use the official React Native plugin and the set of APIs, the functions, parameters and results each function accepts and provides can be found in our [Cordova JSDoc](https://developers.situm.com/sdk_documentation/cordova/jsdoc/latest/situm) which shares interfaces.
+
 ### <a name="configureproject"></a> Step 1: Configure project and install dependencies
 
 First of all, you must install all dependencies required to run the project. You can do that by executing any of the following commands. 
