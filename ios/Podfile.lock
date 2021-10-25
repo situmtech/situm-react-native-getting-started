@@ -77,27 +77,27 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - Google-Maps-iOS-Utils (4.0.0):
-    - Google-Maps-iOS-Utils/Clustering (= 4.0.0)
-    - Google-Maps-iOS-Utils/Geometry (= 4.0.0)
-    - Google-Maps-iOS-Utils/GeometryUtils (= 4.0.0)
-    - Google-Maps-iOS-Utils/Heatmap (= 4.0.0)
-    - Google-Maps-iOS-Utils/QuadTree (= 4.0.0)
+  - Google-Maps-iOS-Utils (2.1.0):
+    - Google-Maps-iOS-Utils/Clustering (= 2.1.0)
+    - Google-Maps-iOS-Utils/Geometry (= 2.1.0)
+    - Google-Maps-iOS-Utils/Heatmap (= 2.1.0)
+    - Google-Maps-iOS-Utils/QuadTree (= 2.1.0)
     - GoogleMaps
-  - Google-Maps-iOS-Utils/Clustering (4.0.0):
+  - Google-Maps-iOS-Utils/Clustering (2.1.0):
     - Google-Maps-iOS-Utils/QuadTree
     - GoogleMaps
-  - Google-Maps-iOS-Utils/Geometry (4.0.0):
+  - Google-Maps-iOS-Utils/Geometry (2.1.0):
     - GoogleMaps
-  - Google-Maps-iOS-Utils/GeometryUtils (4.0.0):
-    - GoogleMaps
-  - Google-Maps-iOS-Utils/Heatmap (4.0.0):
+  - Google-Maps-iOS-Utils/Heatmap (2.1.0):
     - Google-Maps-iOS-Utils/QuadTree
     - GoogleMaps
-  - Google-Maps-iOS-Utils/QuadTree (4.0.0):
+  - Google-Maps-iOS-Utils/QuadTree (2.1.0):
     - GoogleMaps
-  - GoogleMaps (5.1.0):
-    - GoogleMaps/Maps (= 5.1.0)
+  - GoogleMaps (3.2.0):
+    - GoogleMaps/Maps (= 3.2.0)
+  - GoogleMaps/Base (3.2.0)
+  - GoogleMaps/Maps (3.2.0):
+    - GoogleMaps/Base
   - libevent (2.1.12)
   - OpenSSL-Universal (1.1.180)
   - Permission-LocationAlways (3.1.0):
@@ -269,8 +269,8 @@ PODS:
     - React-jsi (= 0.62.2)
   - React-jsinspector (0.62.2)
   - react-native-google-maps (0.26.1):
-    - Google-Maps-iOS-Utils (= 4.0.0)
-    - GoogleMaps (= 5.1.0)
+    - Google-Maps-iOS-Utils (= 2.1.0)
+    - GoogleMaps (= 3.2.0)
     - React
   - react-native-maps (0.26.1):
     - React
@@ -514,12 +514,12 @@ SPEC CHECKSUMS:
   FlipperKit: 651f50a42eb95c01b3e89a60996dd6aded529eeb
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  Google-Maps-iOS-Utils: a06cb5c3a0e5b2a505fed82d936ba1b935f8971f
-  GoogleMaps: 086ae1dab659eaa7339bdb30fc88e2f44e7c597c
+  Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
+  GoogleMaps: 5046d7edfe381c1a0b20fdaf293915a375c3122b
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
-  Permission-LocationAlways: f1e021c3b348946cd7c5760172925b749e5d07a6
-  Permission-LocationWhenInUse: d98db702ec75e93a3ff94bc297d0b66ea04231e1
+  Permission-LocationAlways: f1efbf630c589535eca2e1ea68f5208bc8cf7b4b
+  Permission-LocationWhenInUse: 6b7b983f248d74371238b1ac586eddc2b270a91b
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   RCTRequired: cec6a34b3ac8a9915c37e7e4ad3aa74726ce4035
   RCTTypeSafety: 93006131180074cffa227a1075802c89a49dd4ce
@@ -530,7 +530,7 @@ SPEC CHECKSUMS:
   React-jsi: b6dc94a6a12ff98e8877287a0b7620d365201161
   React-jsiexecutor: 1540d1c01bb493ae3124ed83351b1b6a155db7da
   React-jsinspector: 512e560d0e985d0e8c479a54a4e5c147a9c83493
-  react-native-google-maps: 127ea1601711a5b988a5e30e977046783f2993be
+  react-native-google-maps: 2e2e697dab576abd5809d78cd74e775865b62bf7
   react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
   React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0
@@ -544,8 +544,8 @@ SPEC CHECKSUMS:
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   ReactNativeNavigation: aefc8debafb4a374575adafb44a3352b9d5b618a
   ReactNativeSitumPlugin: 69dfa29c93d7349377bc2b3a42b28a0aba8b222e
-  RNCAsyncStorage: b03032fdbdb725bea0bd9e5ec5a7272865ae7398
-  RNPermissions: 4b54095940aea8c03fa3e6c92d4ac3647b31ed4e
+  RNCAsyncStorage: cb9a623793918c6699586281f0b51cbc38f046f9
+  RNPermissions: b3588a19e12bff03fe21bc46911fd32343666dc0
   SitumSDK: ab5483a14f6cc644ee6500eeb08893fb2a5d94f1
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
