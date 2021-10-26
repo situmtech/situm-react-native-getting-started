@@ -27,7 +27,7 @@ export const PoiOverMap = (props: { componentId: string; building: any }) => {
       (floors: any) => {
         setIsLoading(false);
 
-        if (floors.length > 0) {
+        if (floors.length > 1) {
           setBounds([
             [
               building.bounds.northEast.latitude,
@@ -118,11 +118,7 @@ export const PoiOverMap = (props: { componentId: string; building: any }) => {
             image={mapImage}
             bounds={bounds}
             zIndex={1000}
-            location={[mapRegion.latitude, mapRegion.longitude]}
             bearing={(building.rotation * 180) / Math.PI}
-            anchor={[0.5, 0.5]}
-            width={building.dimensions.width}
-            height={building.dimensions.height}
           />
         )}
 
