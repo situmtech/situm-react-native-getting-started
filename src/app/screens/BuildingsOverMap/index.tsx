@@ -22,15 +22,15 @@ export const BuildingsOverMap = (props: {
     longitudeDelta: 0.02,
   });
 
-  const getFloorsFromBuilding = () => {
+  const getInfoFromBuilding = () => {
     setIsLoading(true);
-    setStep("fetchFloorsFromBuilding");
-    SitumPlugin.fetchFloorsFromBuilding(
+    setStep("fetchInfoFromBuilding");
+    SitumPlugin.fetchBuildingInfo(
       building,
-      (floors: any) => {
+      (buildingInfo: any) => {
         setIsLoading(false);
 
-        if (floors.length > 1) {
+        if (buildingInfo.floors.length > 0) {
           setBounds([
             [
               building.bounds.northEast.latitude,
@@ -41,9 +41,9 @@ export const BuildingsOverMap = (props: {
               building.bounds.northEast.longitude,
             ],
           ]);
-          setMapImage(floors[1].mapUrl);
+          setMapImage(buildingInfo.floors[0].mapUrl);
         } else {
-          console.log("No floors found!");
+          console.log("No info found!");
         }
       },
       (error: string) => {
@@ -70,7 +70,7 @@ export const BuildingsOverMap = (props: {
   };
 
   useEffect(() => {
-    getFloorsFromBuilding();
+    getInfoFromBuilding();
   }, [props.componentId]);
   return (
     <View style={styles.container}>

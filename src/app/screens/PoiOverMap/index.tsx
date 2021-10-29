@@ -20,14 +20,14 @@ export const PoiOverMap = (props: { componentId: string; building: any }) => {
 
   let poiIconsArray = [];
 
-  const getFloorsFromBuilding = () => {
+  const getInfoFromBuilding = () => {
     setIsLoading(true);
-    SitumPlugin.fetchFloorsFromBuilding(
+    SitumPlugin.fetchBuildingInfo(
       building,
-      (floors: any) => {
+      (buildingInfo: any) => {
         setIsLoading(false);
 
-        if (floors.length > 1) {
+        if (buildingInfo.floors.length > 0) {
           setBounds([
             [
               building.bounds.northEast.latitude,
@@ -38,8 +38,9 @@ export const PoiOverMap = (props: { componentId: string; building: any }) => {
               building.bounds.northEast.longitude,
             ],
           ]);
-          setMapImage(floors[0].mapUrl);
-          getPOIsFromBuilding();
+          setMapImage(buildingInfo.floors[0].mapUrl);
+          // getPOIsFromBuilding();
+          // process POIs from buildingInfo.pois
         } else {
           console.log("No floors found!");
         }
@@ -81,7 +82,7 @@ export const PoiOverMap = (props: { componentId: string; building: any }) => {
   };
 
   useEffect(() => {
-    getFloorsFromBuilding();
+    getInfoFromBuilding();
   }, [props.componentId]);
 
   /*
