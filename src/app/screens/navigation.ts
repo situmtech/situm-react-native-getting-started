@@ -12,6 +12,7 @@ import { BuildingList } from "./BuildingList/index";
 import { Settings } from "./Settings/index";
 import { Component } from 'react';
 import { BuildingsOverlap } from "./BuildingsOverlap/index";
+import { PoiFilterOnZoom } from "./PoiFilterOnZoom/index";
 
 export const NavigationMap: any = {
   Home: {
@@ -162,6 +163,21 @@ export const NavigationMap: any = {
       topBar: {
         title: {
           text: "Shows overlapping buildings",
+        },
+      },
+    },
+    passProps: {
+      building: {},
+    },
+  },
+  PoiFilterOnZoom: {
+    name: "PoiFilterOnZoom",
+    component: PoiFilterOnZoom,
+    showBuildings: true,
+    options: {
+      topBar: {
+        title: {
+          text: "Filters POIs based on zoom",
         },
       },
     },

@@ -19,7 +19,7 @@ Situm React Native Plugin Sample app
 7. [Building events](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/EventsOfBuilding/index.tsx): Get the events of a building.
 8. [Point inside geofence](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/PointInsideGeofence/index.tsx): Draw geofences and calculate if a point is inside them.
 9. [Overlapping Buildings](https://github.com/situmtech/situm-react-native-getting-started/blob/feature/building_overlap/src/app/screens/BuildingsOverlap/index.tsx): Based on special custom-fields, shows 2 overlapping buildings by: 1) selecting one as basemap, 2) selecting another as secondary.
-
+10. [Display POIs based on zoom](https://github.com/situmtech/situm-react-native-getting-started/blob/feature/building_overlap/src/app/screens/PoiFilterOnZoom/index.tsx): Displays different POIs based on the zoom level of the camera's view, using custom-field properties.
 
 ### Introduction <a name="introduction"></a>
 
