@@ -8,6 +8,16 @@ import { Dimensions } from 'react-native'
 
 import styles from "./styles";
 
+// In this example, we will learn: 1) how to show a building's floorplan on top of the floorplan of another building, 2) how to read custom-fields, 3) how to dynamically modify the max zoom level based on what's showing on the screen.
+// This scenario is common when you have a huge area to cover (e.g. a big university campus) which does not require a high level of detail, except in one/few areas (e.g. specific buildings/faculties).
+// We will call primary to the "basemap" building, and secondary to the building that sits on top. We assume that you have configured your account so that: 
+//   1 - A primary building exists, marked with a custom-field {z_index: 0}
+//   2 - A secondary building exists, marked with a custom-field {z_index: 1}. Since Situm Dashboard does not allow overlapping buildings, you may create this building
+//       anywhere and simply specify a new center for the building with 2 more custom-fields {lat: DESIRED_LATITUDE, lng: DESIRED_LONGITUDE}. See the example's code to discover how to 
+//       use this information to "move" the secondary building's center/bounds 
+// In this scenario, it is desirable to limit the zoom level when the user is seing the primary building (so that it does not show blur), 
+// and allow to increase it when seing the secondary building (which will have a higher resolution per square-meter). This example shows how to do this.
+
 
 export const BuildingsOverlap = (props: {
   componentId: string;
@@ -19,16 +29,16 @@ export const BuildingsOverlap = (props: {
   const [secondaryBuildingInfo, setSecondaryBuildingInfo] = useState<any>({})
   const [allowedZoom, setAllowedZoom] = useState<number>(16);
 
+  //Special custom-fields. See above for an explanation
   const Z_INDEX_CUSTOM_FIELD_KEY = "z_index"
   const Z_INDEX_SECONDARY = 1
   const Z_INDEX_PRIMARY = 0
   const LATITUDE_CUSTOM_FIELD_KEY = "lat"
   const LONGITUDE_CUSTOM_FIELD_KEY = "lng"
 
-  const MIN_ZOOM = 17
-  const MAX_ZOOM = 20
-
-  const MIN_SCREEN_RATIO_SECBUILDING = 15
+  
+  const MIN_ZOOM = 17 // Limits the zoom when the user is seing the basemap (primary building)
+  const MAX_ZOOM = 20 // Limits the zoom when the user is seing the secondary/building
 
 
   //Retrives the information of the buildings in the account, and 
@@ -108,7 +118,7 @@ export const BuildingsOverlap = (props: {
     );
   };
 
-  
+
   const regionToBounds = (region) =>{
 
     const bounds = {
@@ -161,7 +171,7 @@ export const BuildingsOverlap = (props: {
       const screenRatio = (wScreen * hScreen) / (wBuilding * hBuilding)
  
       
-      if ((withinBounds && screenRatio < MIN_SCREEN_RATIO_SECBUILDING)) {
+      if (withinBounds) {
         setAllowedZoom(MAX_ZOOM)
       }
       else {
