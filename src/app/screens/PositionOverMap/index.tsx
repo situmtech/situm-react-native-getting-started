@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, Platform } from "react-native";
+import { View, ActivityIndicator, Platform, PermissionsAndroid } from "react-native";
 import { Navigation } from "react-native-navigation";
 
 import { NavigationMap } from "../navigation";
@@ -27,6 +27,23 @@ export const PositionOverMap = (props: { componentId: string }) => {
     useForegroundService: true,
   };
 
+
+  const requestLocationPermissions = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        startPositioning();
+        console.log("ACCESS_FINE_LOCATION granted");
+      } else {
+        console.log("ACCESS_FINE_LOCATION denied");
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+
   const startPositioning = () => {
     if (Platform.OS === "ios") return;
 
@@ -35,6 +52,7 @@ export const PositionOverMap = (props: { componentId: string }) => {
       (location) => {
         setIsLoading(false);
         setLocation(location);
+        console.log(location)
         setMapRegion({
           latitude: location.coordinate.latitude,
           longitude: location.coordinate.longitude,
@@ -63,12 +81,16 @@ export const PositionOverMap = (props: { componentId: string }) => {
     });
   };
 
+  const onMapReady=() =>{
+    requestLocationPermissions() 
+   
+  }
+
   useEffect(() => {
     Navigation.mergeOptions(props.componentId, {
       ...NavigationMap.PositionOverMap.options,
     });
-    SitumPlugin.requestAuthorization();
-    startPositioning();
+
     return () => {
       stopPositioning();
     };
@@ -82,6 +104,8 @@ export const PositionOverMap = (props: { componentId: string }) => {
         showsUserLocation={Platform.OS === "ios"}
         showsMyLocationButton={Platform.OS === "ios"}
         provider={PROVIDER_GOOGLE}
+        onMapReady={onMapReady}
+        
       >
         {location != undefined && (
           <Marker
