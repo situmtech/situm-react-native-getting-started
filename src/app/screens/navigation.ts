@@ -11,6 +11,9 @@ import { PointInsideGeofence } from "./PointInsideGeofence/index";
 import { BuildingList } from "./BuildingList/index";
 import { Settings } from "./Settings/index";
 import { Component } from 'react';
+import { BuildingsOverlap } from "./BuildingsOverlap/index";
+import { PoiFilterOnZoom } from "./PoiFilterOnZoom/index";
+import { TiledBuilding } from "./TiledBuilding/index";
 
 export const NavigationMap: any = {
   Home: {
@@ -146,6 +149,51 @@ export const NavigationMap: any = {
       topBar: {
         title: {
           text: "Show if point is inside a geofence",
+        },
+      },
+    },
+    passProps: {
+      building: {},
+    },
+  },
+  BuildingsOverlap: {
+    name: "BuildingsOverlap",
+    component: BuildingsOverlap,
+    showBuildings: false,
+    options: {
+      topBar: {
+        title: {
+          text: "Shows overlapping buildings",
+        },
+      },
+    },
+    passProps: {
+      building: {},
+    },
+  },
+  PoiFilterOnZoom: {
+    name: "PoiFilterOnZoom",
+    component: PoiFilterOnZoom,
+    showBuildings: true,
+    options: {
+      topBar: {
+        title: {
+          text: "Filters POIs based on zoom",
+        },
+      },
+    },
+    passProps: {
+      building: {},
+    },
+  },
+  TiledBuilding: {
+    name: "TiledBuilding",
+    component: TiledBuilding,
+    showBuildings: true,
+    options: {
+      topBar: {
+        title: {
+          text: "TiledBuilding",
         },
       },
     },
