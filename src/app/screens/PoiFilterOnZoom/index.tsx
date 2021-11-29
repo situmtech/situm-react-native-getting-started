@@ -19,6 +19,7 @@ export const PoiFilterOnZoom = (props: { componentId: string; building: any }) =
   const [buildingInfo, setBuildingInfo] = useState<any>();
   const [poisToShow, setPoisToShow] = useState<any>();
   const [isLoading, setIsLoading] = useState<Boolean>(false);
+  const [bounds, setBounds] = useState<any>();
    
    const [mapRegion] = useState<any>({
     latitude: building.center.latitude,
@@ -33,9 +34,27 @@ export const PoiFilterOnZoom = (props: { componentId: string; building: any }) =
     SitumPlugin.fetchBuildingInfo(
       building,
       (buildingInfo: any) => {
+        console.log(buildingInfo)
+
+        if (buildingInfo.floors.length > 0) {
+          setBounds([
+            [
+              building.bounds.northEast.latitude,
+              building.bounds.southWest.longitude,
+            ],
+            [
+              building.bounds.southWest.latitude,
+              building.bounds.northEast.longitude,
+            ],
+          ]);
+        } else {
+          console.log("No floors found!");
+        }
+
         setIsLoading(false);
 
-        setBuildingInfo(buildingInfo)    
+        setBuildingInfo(buildingInfo)
+         
 
         //Sets the POIs in a different state variable which will be modified on every zoom level change.
         //This is how we will update the POIs that will be displayed 
@@ -52,16 +71,22 @@ export const PoiFilterOnZoom = (props: { componentId: string; building: any }) =
   
   const handleRegionChange = (region: any) => {
   
+    console.log("handle On Region change")
+    
     //Filter out every POIs that has a custom-field "min_zoom_level" and its value is below the current zoom level
-    if (buildingInfo!=undefined && buildingInfo.indoorPOIs!=undefined){
+    if (buildingInfo!=undefined && buildingInfo.indoorPois!=undefined){
       const { height, width } = Dimensions.get('window')
       const zoom = Math.log2(360 * ((width / 256) / region.longitudeDelta))
       
-      const poisToShow = buildingInfo.indoorPOIs.filter( (p: any)=>{
+      const poisToShow = buildingInfo.indoorPois.filter( (p: any)=>{
        return (p.customFields.hasOwnProperty(ZOOMLEVEL_CUSTOM_FIELD)==false) || (p.customFields.hasOwnProperty(ZOOMLEVEL_CUSTOM_FIELD) && parseFloat(p.customFields.min_zoom_level)<zoom)
       })
+
+      console.log(zoom, poisToShow)
       
       setPoisToShow(poisToShow)
+    } else {
+      console.log("Building Info or indoor pois not defined")
     }
   }      
 
@@ -84,25 +109,22 @@ export const PoiFilterOnZoom = (props: { componentId: string; building: any }) =
           <Overlay
             image={buildingInfo.floors[0].mapUrl}
             zIndex={1000}
+            bounds={bounds}
             bearing={(building.rotation * 180) / Math.PI}
             location={[building.center.latitude, building.center.longitude]}
-            width={building.dimensions.width}
-            height={building.dimensions.height}
-            anchor={[0.5, 0.5]}
           />
         )}
 
-        {poisToShow!=undefined &&
+        {poisToShow!=undefined && 
           poisToShow.map((poi: any) => (
             <Marker
               key={poi.identifier}
+              zIndex={1001}
               coordinate={poi.coordinate}
               title={poi.poiName}
+              image={{ uri: "https://dashboard.situm.es/uploads/poicategory/148/8ac8e04f-a6a0-4da5-a08d-02ec33ffdcfb.png" }}
             >
-              <Image
-                source={{ uri: "https://dashboard.situm.com" + poi.category.icon_unselected }}
-                style={{ width: 40, height: 40 }}
-              />
+              
             </Marker>
           ))}
       </MapView>
