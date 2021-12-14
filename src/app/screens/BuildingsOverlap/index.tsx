@@ -28,6 +28,9 @@ export const BuildingsOverlap = (props: {
   const [primaryBuildingInfo, setPrimaryBuildingInfo] = useState<any>({});
   const [secondaryBuildingInfo, setSecondaryBuildingInfo] = useState<any>({})
   const [allowedZoom, setAllowedZoom] = useState<number>(16);
+  const [primaryBounds, setPrimaryBounds] = useState<any>();
+  const [secondaryBounds, setSecondaryBounds] = useState<any>();
+
 
   //Special custom-fields. See above for an explanation
   const Z_INDEX_CUSTOM_FIELD_KEY = "z_index"
@@ -94,10 +97,30 @@ export const BuildingsOverlap = (props: {
                   buildingInfo.building.bounds.southEast.longitude += diffCenterLng
                   buildingInfo.building.bounds.southWest.longitude += diffCenterLng
 
+                  setSecondaryBounds([
+                    [
+                      buildingInfo.building.bounds.northEast.latitude,
+                      buildingInfo.building.bounds.southWest.longitude,
+                    ],
+                    [
+                      buildingInfo.building.bounds.southWest.latitude,
+                      buildingInfo.building.bounds.northEast.longitude,
+                    ],
+                  ]);
 
                   setSecondaryBuildingInfo(buildingInfo)
                 }
                 else {
+                  setPrimaryBounds([
+                    [
+                      buildingInfo.building.bounds.northEast.latitude,
+                      buildingInfo.building.bounds.southWest.longitude,
+                    ],
+                    [
+                      buildingInfo.building.bounds.southWest.latitude,
+                      buildingInfo.building.bounds.northEast.longitude,
+                    ],
+                  ]);
 
                   setPrimaryBuildingInfo(buildingInfo)
 
@@ -215,12 +238,14 @@ export const BuildingsOverlap = (props: {
                 <Overlay
                   image={primaryBuildingInfo.floors[0].mapUrl}
                   zIndex={1}
-                  location={[primaryBuildingInfo.building.center.latitude, primaryBuildingInfo.building.center.longitude]}
+                  // location={[primaryBuildingInfo.building.center.latitude, primaryBuildingInfo.building.center.longitude]}
                   bearing={primaryBuildingInfo.building.rotation * 180 / Math.PI}
                   anchor={[0.5, 0.5]}
-                  width={primaryBuildingInfo.building.dimensions.width}
-                  height={primaryBuildingInfo.building.dimensions.height}
+                  bounds={primaryBounds}
+                  // width={primaryBuildingInfo.building.dimensions.width}
+                  // height={primaryBuildingInfo.building.dimensions.height}
                 />
+                
               )}
 
 
@@ -236,8 +261,9 @@ export const BuildingsOverlap = (props: {
                   location={[secondaryBuildingInfo.building.center.latitude, secondaryBuildingInfo.building.center.longitude]}
                   bearing={secondaryBuildingInfo.building.rotation * 180 / Math.PI}
                   anchor={[0.5, 0.5]}
-                  width={secondaryBuildingInfo.building.dimensions.width}
-                  height={secondaryBuildingInfo.building.dimensions.height}
+                  bounds={secondaryBounds}
+                  //width={secondaryBuildingInfo.building.dimensions.width}
+                  //height={secondaryBuildingInfo.building.dimensions.height}
                 />
               )}
 

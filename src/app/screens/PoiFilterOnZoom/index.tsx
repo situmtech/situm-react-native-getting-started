@@ -128,10 +128,7 @@ export const PoiFilterOnZoom = (props: { componentId: string; building: any }) =
               coordinate={poi.coordinate}
               title={poi.poiName}
               >
-              <Image
-                source={{ uri: "https://dashboard.situm.es/uploads/poicategory/148/8ac8e04f-a6a0-4da5-a08d-02ec33ffdcfb.png" }}
-                style={{ width: 40, height: 40 }}
-              />
+              
             </Marker>
           ))}
       </MapView>
