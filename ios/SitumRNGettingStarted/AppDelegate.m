@@ -12,7 +12,6 @@
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
-@import GoogleMaps;
 
 
 static void InitializeFlipper(UIApplication *application) {
@@ -26,6 +25,8 @@ static void InitializeFlipper(UIApplication *application) {
   [client start];
 }
 #endif
+
+@import GoogleMaps;
 
 @implementation AppDelegate
 

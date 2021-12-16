@@ -863,6 +863,13 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@react-native-community/async-storage@^1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.12.1.tgz#25f821b4f6b13abe005ad67e47c6f1cee9f27b24"
+  integrity sha512-70WGaH3PKYASi4BThuEEKMkyAgE9k7VytBqmgPRx3MzJx9/MkspwqJGmn3QLCgHLIFUgF1pit2mWICbRJ3T3lg==
+  dependencies:
+    deep-assign "^3.0.0"
+
 "@react-native-community/cli-debugger-ui@^4.9.0":
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-4.9.0.tgz#4177764ba69243c97aa26829d59d9501acb2bd71"
@@ -2081,6 +2088,13 @@ decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
   integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+
+deep-assign@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/deep-assign/-/deep-assign-3.0.0.tgz#c8e4c4d401cba25550a2f0f486a2e75bc5f219a2"
+  integrity sha512-YX2i9XjJ7h5q/aQ/IM9PEwEnDqETAIYbggmdDB3HLTlSgo1CxPsj6pvhPG68rq6SVE0+p+6Ywsm5fTYNrYtBWw==
+  dependencies:
+    is-obj "^1.0.0"
 
 deep-is@~0.1.3:
   version "0.1.3"
@@ -3327,6 +3341,11 @@ is-number@^3.0.0:
   integrity sha1-JP1iAaR4LPUFYcgQJ2r8fRLXEZU=
   dependencies:
     kind-of "^3.0.2"
+
+is-obj@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/is-obj/-/is-obj-1.0.1.tgz#3e4729ac1f5fde025cd7d83a896dab9f4f67db0f"
+  integrity sha1-PkcprB9f3gJc19g6iW2rn09n2w8=
 
 is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   version "2.0.4"
@@ -5086,14 +5105,14 @@ react-lifecycles-compat@2.0.0:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-2.0.0.tgz#71d9c4cde47114c4102454f76da055c2bc48c948"
   integrity sha512-txfpPCQYiazVdcbMRhatqWKcAxJweUu2wDXvts5/7Wyp6+Y9cHojqXHsLPEckzutfHlxZhG8Oiundbmp8Fd6eQ==
 
-react-native-maps@ArnoldoJr/react-native-maps#add-overlay-rotation-support:
+react-native-maps@react-native-maps/react-native-maps#pull/3214/head:
   version "0.26.1"
-  resolved "https://codeload.github.com/ArnoldoJr/react-native-maps/tar.gz/1d6d3d76f2acb261ab90fa93376d0966e59b41e3"
+  resolved "https://codeload.github.com/react-native-maps/react-native-maps/tar.gz/1d6d3d76f2acb261ab90fa93376d0966e59b41e3"
 
-react-native-navigation@^6.6.0:
-  version "6.6.2"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-6.6.2.tgz#0cc36e72a30372cc9abb0ad286e2f5dd088b2b98"
-  integrity sha512-5o8D29Ocip62A2slj7b7vTDcYn/LN3AuzUmi1Ev30vT2uanRYzx9hVJbookOC93LNlnpzVM/sCvf15OoNtRdsQ==
+react-native-navigation@^6.7.1:
+  version "6.12.2"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-6.12.2.tgz#1389534e868fe4774a1e567b232d59496d8c4c6f"
+  integrity sha512-MwUDHebTeaAoBBkRYkLfjAB9Hx5UfbykXTlll8uLWD9oTc0fO7MZtOOal2WIwbZoBeniJvXjgQmiA4grsH6mzw==
   dependencies:
     hoist-non-react-statics "3.x.x"
     lodash "4.17.x"
@@ -5101,8 +5120,20 @@ react-native-navigation@^6.6.0:
     react-lifecycles-compat "2.0.0"
     tslib "1.9.3"
 
-"react-native-situm-plugin@file:../situm-react-native-plugin":
-  version "0.0.5"
+react-native-permissions@^3.0.1:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.1.0.tgz#4cff584e0cc567aefe7c10b0d4f74f00950a68dd"
+  integrity sha512-Y/kAU8cUTNhX5CLxfAG96ItEjjmwvyqnVBie38Gj8HoomXQcKM+ToFmq/rPt+DOziCq7YFKinn9AIlnLBiV3AQ==
+
+react-native-popup-menu@^0.15.10:
+  version "0.15.11"
+  resolved "https://registry.yarnpkg.com/react-native-popup-menu/-/react-native-popup-menu-0.15.11.tgz#df96b1a909ecbba84487821061ce6e29e7c7bb20"
+  integrity sha512-f5q2GoDN99bkA24wHiwasaErcdQEgyqYZ8IYuZPOrZNFr66E4rg6f4LElSVBA3EZJTSq5OddVeaOcU340bSTEg==
+
+react-native-situm-plugin@0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/react-native-situm-plugin/-/react-native-situm-plugin-0.0.12.tgz#bcf9357959fb2d6426b96c64cb9480fa63d483d5"
+  integrity sha512-Nl/KfaDx4vgu9W5k+Jv5GuwCnt8sXDorA6QpIiz/KoErnVmNSYbbfZGeQIE27XDmvXEtjOJum1MDA/UwCwTXJQ==
 
 react-native@0.62.2:
   version "0.62.2"
@@ -5156,14 +5187,13 @@ react-test-renderer@16.11.0:
     react-is "^16.8.6"
     scheduler "^0.17.0"
 
-react@16.11.0:
-  version "16.11.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.11.0.tgz#d294545fe62299ccee83363599bf904e4a07fdbb"
-  integrity sha512-M5Y8yITaLmU0ynd0r1Yvfq98Rmll6q8AxaEe88c8e7LxO8fZ2cNgmFt0aGAS9wzf1Ao32NKXtCl+/tVVtkxq6g==
+react@17.0.2:
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
+  integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.2"
 
 read-pkg-up@^4.0.0:
   version "4.0.0"

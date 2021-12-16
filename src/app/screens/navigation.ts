@@ -1,9 +1,7 @@
 import { Platform } from "react-native";
 import { Navigation } from "react-native-navigation";
 import { Home } from "./Home";
-import { IndoorPositioning } from "./IndoorPositioning/index";
 import { IndoorOutdoorPositioning } from "./IndoorOutdoorPositioning/index";
-import { OutdoorPositioning } from "./OutdoorPositioning/index";
 import { BuildingsOverMap } from "./BuildingsOverMap/index";
 import { PositionOverMap } from "./PositionOverMap/index";
 import { PoiOverMap } from "./PoiOverMap/index";
@@ -12,6 +10,10 @@ import { EventsOfBuilding } from "./EventsOfBuilding/index";
 import { PointInsideGeofence } from "./PointInsideGeofence/index";
 import { BuildingList } from "./BuildingList/index";
 import { Settings } from "./Settings/index";
+import { Component } from 'react';
+import { BuildingsOverlap } from "./BuildingsOverlap/index";
+import { PoiFilterOnZoom } from "./PoiFilterOnZoom/index";
+import { TiledBuilding } from "./TiledBuilding/index";
 
 export const NavigationMap: any = {
   Home: {
@@ -22,6 +24,13 @@ export const NavigationMap: any = {
         title: {
           text: "Home",
         },
+        rightButtons: [
+          {
+            id: "settings",
+            text: "Settings", 
+            allCaps: false
+          }
+        ]
       },
     },
   },
@@ -39,21 +48,6 @@ export const NavigationMap: any = {
       next: "",
     },
   },
-  IndoorPositioning: {
-    name: "IndoorPositioning",
-    component: IndoorPositioning,
-    showBuildings: true,
-    options: {
-      topBar: {
-        title: {
-          text: "Indoor Positioning",
-        },
-      },
-    },
-    passProps: {
-      building: {},
-    },
-  },
   IndoorOutdoorPositioning: {
     name: "IndoorOutdoorPositioning",
     component: IndoorOutdoorPositioning,
@@ -61,17 +55,6 @@ export const NavigationMap: any = {
       topBar: {
         title: {
           text: "Indoor-outdoor Positioning",
-        },
-      },
-    },
-  },
-  OutdoorPositioning: {
-    name: "OutdoorPositioning",
-    component: OutdoorPositioning,
-    options: {
-      topBar: {
-        title: {
-          text: "Outdoor Positioning",
         },
       },
     },
@@ -172,6 +155,51 @@ export const NavigationMap: any = {
     passProps: {
       building: {},
     },
+  },
+  BuildingsOverlap: {
+    name: "BuildingsOverlap",
+    component: BuildingsOverlap,
+    showBuildings: false,
+    options: {
+      topBar: {
+        title: {
+          text: "Shows overlapping buildings",
+        },
+      },
+    },
+    passProps: {
+      building: {},
+    },
+  },
+  PoiFilterOnZoom: {
+    name: "PoiFilterOnZoom",
+    component: PoiFilterOnZoom,
+    showBuildings: true,
+    options: {
+      topBar: {
+        title: {
+          text: "Filters POIs based on zoom",
+        },
+      },
+    },
+    passProps: {
+      building: {},
+    },
+  },
+  TiledBuilding: {
+    name: "TiledBuilding",
+    component: TiledBuilding,
+    showBuildings: true,
+    options: {
+      topBar: {
+        title: {
+          text: "TiledBuilding",
+        },
+      },
+    },
+    passProps: {
+      building: {},
+    },
   }
 };
 
@@ -182,12 +210,10 @@ export function registerScreens() {
 }
 
 export function getNavigationList() {
-  const ignore = [NavigationMap.Home.name, NavigationMap.BuildingList.name];
+  const ignore = [NavigationMap.Home.name, NavigationMap.BuildingList.name, NavigationMap.Settings.name];
   const navigations = [];
   for (const key in NavigationMap) {
     if (ignore.includes(key)) continue;
-
-    console.log(NavigationMap[key]);
     navigations.push({
       key: key,
       value: NavigationMap[key].options.topBar.title.text,

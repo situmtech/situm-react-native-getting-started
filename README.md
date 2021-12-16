@@ -18,7 +18,9 @@ Situm React Native Plugin Sample app
 6. [Draw route](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/PoiOverMap/index.tsx): Draw a route between to points over the map
 7. [Building events](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/EventsOfBuilding/index.tsx): Get the events of a building.
 8. [Point inside geofence](https://github.com/situmtech/situm-react-native-getting-started/blob/master/src/app/screens/PointInsideGeofence/index.tsx): Draw geofences and calculate if a point is inside them.
-
+9. [Overlapping Buildings](https://github.com/situmtech/situm-react-native-getting-started/blob/feature/building_overlap/src/app/screens/BuildingsOverlap/index.tsx): Based on special custom-fields, shows 2 overlapping buildings by: 1) selecting one as basemap, 2) selecting another as secondary.
+10. [Display POIs based on zoom](https://github.com/situmtech/situm-react-native-getting-started/blob/feature/building_overlap/src/app/screens/PoiFilterOnZoom/index.tsx): Displays different POIs based on the zoom level of the camera's view, using custom-field properties.
+11. [Display tiled floorplans](https://github.com/situmtech/situm-react-native-getting-started/blob/feature/building_overlap/src/app/screens/TiledBuilding/index.tsx): Displays tiled floorplans downloaded from an URL.
 
 ### Introduction <a name="introduction"></a>
 
@@ -48,6 +50,8 @@ Android application. With this application you will be able to configure and tes
 positioning system in your buildings.
 
 Perfect! Now you are ready to develop your first indoor positioning application.
+
+NOTE: More information on how to use the official React Native plugin and the set of APIs, the functions, parameters and results each function accepts and provides can be found in our [Cordova JSDoc](https://developers.situm.com/sdk_documentation/cordova/jsdoc/latest/situm) which shares interfaces.
 
 ### <a name="configureproject"></a> Step 1: Configure project and install dependencies
 

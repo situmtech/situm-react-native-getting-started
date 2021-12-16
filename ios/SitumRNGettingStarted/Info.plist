@@ -39,8 +39,12 @@
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Bluetooth is required to find out where you are</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location permission is required for Situm SDK </string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location permission is required for Situm SDK </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Location permission is required for Situm SDK </string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

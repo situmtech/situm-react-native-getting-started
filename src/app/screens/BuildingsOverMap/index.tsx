@@ -18,19 +18,19 @@ export const BuildingsOverMap = (props: {
   const [mapRegion, setMapRegion] = useState<any>({
     latitude: building.center.latitude,
     longitude: building.center.longitude,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
+    latitudeDelta: 0.02,
+    longitudeDelta: 0.02,
   });
 
-  const getFloorsFromBuilding = () => {
+  const getInfoFromBuilding = () => {
     setIsLoading(true);
-    setStep("fetchFloorsFromBuilding");
-    SitumPlugin.fetchFloorsFromBuilding(
+    setStep("fetchInfoFromBuilding");
+    SitumPlugin.fetchBuildingInfo(
       building,
-      (floors: any) => {
+      (buildingInfo: any) => {
         setIsLoading(false);
 
-        if (floors.length > 0) {
+        if (buildingInfo.floors.length > 0) {
           setBounds([
             [
               building.bounds.northEast.latitude,
@@ -41,9 +41,9 @@ export const BuildingsOverMap = (props: {
               building.bounds.northEast.longitude,
             ],
           ]);
-          setMapImage(floors[0].mapUrl);
+          setMapImage(buildingInfo.floors[0].mapUrl);
         } else {
-          console.log("No floors found!");
+          console.log("No info found!");
         }
       },
       (error: string) => {
@@ -70,7 +70,7 @@ export const BuildingsOverMap = (props: {
   };
 
   useEffect(() => {
-    getFloorsFromBuilding();
+    getInfoFromBuilding();
   }, [props.componentId]);
   return (
     <View style={styles.container}>
@@ -85,11 +85,6 @@ export const BuildingsOverMap = (props: {
             bounds={bounds}
             zIndex={1000}
             bearing={building.rotationDegrees}
-            location={[mapRegion.latitude,mapRegion.longitude]}
-            bearing={building.rotation * 180 / Math.PI}
-            anchor={[0.5,0.5]}
-            width={building.dimensions.width}
-            height={building.dimensions.height}
           />
         )}
       </MapView>
