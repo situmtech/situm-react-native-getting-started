@@ -5135,10 +5135,10 @@ react-native-situm-plugin@0.0.12:
   resolved "https://registry.yarnpkg.com/react-native-situm-plugin/-/react-native-situm-plugin-0.0.12.tgz#bcf9357959fb2d6426b96c64cb9480fa63d483d5"
   integrity sha512-Nl/KfaDx4vgu9W5k+Jv5GuwCnt8sXDorA6QpIiz/KoErnVmNSYbbfZGeQIE27XDmvXEtjOJum1MDA/UwCwTXJQ==
 
-react-native@0.62.2:
-  version "0.62.2"
-  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.62.2.tgz#d831e11a3178705449142df19a70ac2ca16bad10"
-  integrity sha512-gADZZ3jcm2WFTjh8CCBCbl5wRSbdxqZGd+8UpNwLQFgrkp/uHorwAhLNqcd4+fHmADgPBltNL0uR1Vhv47zcOw==
+react-native@0.62.3:
+  version "0.62.3"
+  resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.62.3.tgz#9a2e96af3dedd0723c8657831eec4ed3c30f3299"
+  integrity sha512-b2/hDHDlO5Of2Zn1K5ZgvzOoUrvMEvlYU4miS9rcEBp5jK/9cRQn81HZ7NBmf4gzigGl8CxbSx1l10GUj1k8XQ==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^4.5.1"
