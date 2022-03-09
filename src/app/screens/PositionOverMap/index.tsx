@@ -64,8 +64,8 @@ export const PositionOverMap = (props: { componentId: string }) => {
         console.log(error);
         stopPositioning();
       },
-      locationOptions
-    );
+      locationOptions.useRemoteConfiguration === false ? locationOptions : null
+      );
   };
 
   const stopPositioning = () => {

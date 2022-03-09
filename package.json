@@ -5,12 +5,12 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
     "react": "17.0.2",
-    "react-native": "0.62.2",
-    "react-native-maps": "react-native-maps/react-native-maps#pull/3214/head",
-    "react-native-navigation": "^6.7.1",
+    "react-native": "0.66.0",
+    "react-native-maps": "0.27.1",
+    "react-native-navigation": "7.26.0",
     "react-native-permissions": "^3.0.1",
     "react-native-popup-menu": "^0.15.10",
-    "react-native-situm-plugin": "0.0.12"
+    "react-native-situm-plugin": "git+https://github.com/situmtech/situm-react-native-plugin.git#feature/update_sdks"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

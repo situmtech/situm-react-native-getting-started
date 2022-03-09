@@ -28,6 +28,9 @@ static void InitializeFlipper(UIApplication *application) {
 
 @import GoogleMaps;
 
+@interface AppDelegate () <RCTBridgeDelegate>
+@end
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -42,7 +45,8 @@ static void InitializeFlipper(UIApplication *application) {
 #endif
 
    NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
-    [ReactNativeNavigation bootstrap:jsCodeLocation launchOptions:launchOptions];
+  RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
+  [ReactNativeNavigation bootstrapWithBridge:bridge];
   
   return YES;
 }
@@ -101,6 +105,9 @@ static void InitializeFlipper(UIApplication *application) {
     }
 }
 
+- (NSArray<id<RCTBridgeModule>> *)extraModulesForBridge:(RCTBridge *)bridge {
+  return [ReactNativeNavigation extraModulesForBridge:bridge];
+}
 
 @end
 
