@@ -177,6 +177,10 @@ Note: In this project, you will find `res/values/situm_conf.xml`, there you can 
 ### Support Information <a name="support-info"></a>
 For any questions or bug report, please send an email to support@situm.es   
 
+## Submitting Contributions
+
+You will need to sign a Contributor License Agreement (CLA) before making a submission. 
+[Learn more here.](https://situm.com/contributions/)
 
 
 
