@@ -20,6 +20,9 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
   const toggleSwitch = (check: boolean) => {
     if (check) {
 
+      console.log("remote usage: " + JSON.stringify(locationOptions));
+      console.log("remote usage: " + SitumPlugin.setUseRemoteConfig(locationOptions.useRemoteConfiguration === true ? "true" : "false", (res: any) => {console.log("success while configuring remote configuration" + res)}));
+
       subscriptionId = SitumPlugin.startPositioning(
         (location: any) => {
           setResponse(JSON.stringify(location, null, 3));
@@ -31,7 +34,7 @@ export const IndoorOutdoorPositioning = (props: { componentId: string }) => {
           setStatus(error);
           stopPositioning();
         },
-        locationOptions
+        locationOptions.useRemoteConfiguration === false ? locationOptions : null
       );
     } else {
       stopPositioning();

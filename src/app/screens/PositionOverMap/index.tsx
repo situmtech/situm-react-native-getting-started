@@ -43,6 +43,10 @@ export const PositionOverMap = (props: { componentId: string }) => {
 
   const startPositioning = (locationOptions: any) => {
     setIsLoading(true);
+
+    console.log("remote usage" + JSON.stringify(locationOptions));
+    console.log("remote usage" + SitumPlugin.setUseRemoteConfig(locationOptions.useRemoteConfiguration === true ? "true" : "false", (res: any) => {console.log("success while configuring remote configuration" + res)}));
+
     subscriptionId = SitumPlugin.startPositioning(
       (location) => {
         setIsLoading(false);
@@ -64,8 +68,8 @@ export const PositionOverMap = (props: { componentId: string }) => {
         console.log(error);
         stopPositioning();
       },
-      locationOptions
-    );
+      locationOptions.useRemoteConfiguration === false ? locationOptions : null
+      );
   };
 
   const stopPositioning = () => {
