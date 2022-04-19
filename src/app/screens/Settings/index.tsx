@@ -148,6 +148,19 @@ export const Settings = (props: { componentId: string }) => {
         <Text style={{ color: "gray", margin: 15 }}>Positioning</Text>
 
         <View style={styles.switchContainer}>
+          <Text>{"Remote Configuration:\t"}</Text>
+          <Switch
+            onValueChange={(toggle) => {
+              updateLocationOptions({
+                ...locationOptions,
+                useRemoteConfiguration: toggle,
+              });
+            }}
+            value={locationOptions.useRemoteConfiguration}
+          />
+        </View>
+
+        <View style={styles.switchContainer}>
           <Text>{"Global Location:\t"}</Text>
           <Switch
             onValueChange={(toggle) => {

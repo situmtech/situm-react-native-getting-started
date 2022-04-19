@@ -27,7 +27,8 @@ const DEFAULT_LOCATION_OPTIONS = {
       scansBasedDetectorAlwaysOn: false, 
       enableOpenSkyDetector: false,
       averageSnrThreshold: 28,
-    }
+    },
+    useRemoteConfiguration: true
   };
 
   export const getDefaultLocationOptions = () => {
