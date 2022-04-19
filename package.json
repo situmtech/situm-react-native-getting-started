@@ -10,7 +10,7 @@
     "react-native-navigation": "7.26.0",
     "react-native-permissions": "^3.0.1",
     "react-native-popup-menu": "^0.15.10",
-    "react-native-situm-plugin": "git+https://github.com/situmtech/situm-react-native-plugin.git#feature/update_sdks"
+    "react-native-situm-plugin": "0.0.13"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

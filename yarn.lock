@@ -5624,9 +5624,10 @@ react-native-popup-menu@^0.15.10:
   resolved "https://registry.yarnpkg.com/react-native-popup-menu/-/react-native-popup-menu-0.15.11.tgz#df96b1a909ecbba84487821061ce6e29e7c7bb20"
   integrity sha512-f5q2GoDN99bkA24wHiwasaErcdQEgyqYZ8IYuZPOrZNFr66E4rg6f4LElSVBA3EZJTSq5OddVeaOcU340bSTEg==
 
-"react-native-situm-plugin@git+https://github.com/situmtech/situm-react-native-plugin.git#feature/update_sdks":
-  version "0.0.12"
-  resolved "git+https://github.com/situmtech/situm-react-native-plugin.git#bb66025a61073f90abafe00031a706d345bcc7a4"
+react-native-situm-plugin@0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/react-native-situm-plugin/-/react-native-situm-plugin-0.0.13.tgz#1e2f6f68a6ce80b99168d2793af1dd736807e62f"
+  integrity sha512-nzX+zDYZmZZFbg/81ZBurcxPoAJpEeJuhHndAWdzCjgr8XsjaWRsXee3P2Yi+G+jMP9ff4E7xCwjFhw22oN5sA==
 
 react-native@0.66.0:
   version "0.66.0"

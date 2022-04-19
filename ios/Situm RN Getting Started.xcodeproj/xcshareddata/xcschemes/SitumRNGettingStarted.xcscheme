@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "SitumRNGettingStarted.app"
-               BlueprintName = "SitumRNGettingStarted"
+               BuildableName = "Situm RN Getting Started.app"
+               BlueprintName = "Situm RN Getting Started"
                ReferencedContainer = "container:SitumRNGettingStarted.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -55,8 +55,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SitumRNGettingStarted.app"
-            BlueprintName = "SitumRNGettingStarted"
+            BuildableName = "Situm RN Getting Started.app"
+            BlueprintName = "Situm RN Getting Started"
             ReferencedContainer = "container:SitumRNGettingStarted.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -72,8 +72,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SitumRNGettingStarted.app"
-            BlueprintName = "SitumRNGettingStarted"
+            BuildableName = "Situm RN Getting Started.app"
+            BlueprintName = "Situm RN Getting Started"
             ReferencedContainer = "container:SitumRNGettingStarted.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
