@@ -1,6 +1,10 @@
 Situm React Native Plugin Sample app
 =======================
-  
+
+> [!IMPORTANT]  
+> This guide refers to the old version of the Wayfinding module, which is **no longer maintained**. We strongly recommend adopting [MapView](https://developers.situm.com/sdk_documentation/react-native/typedoc/functions/mapview), the new visual component available at [@situm/react-native](https://github.com/situmtech/react-native). The plugin repository already contains a sample app that you can use as an alternative to this repository.
+To stay up to date, checkout the [React Native SDK Changelog](https://situm.com/docs/react-native-sdk-changelog/) and visit the [migration guide](https://situm.com/docs/react-native-wayfinding-migration-guide/) to ease the transition to the new library.
+
 # Table of contents
 
 #### Setup
